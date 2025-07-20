@@ -514,13 +514,32 @@ body {
   gap: 50px;
   padding: 40px 60px;
   margin: 0 auto;
-  max-width: 2000px; /* ⬇ 더 작게 제한 (4칸 기준) */
   justify-content: center; /* ➕ 가운데 정렬 */
   background-color: #e8e8e8;
 
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* 350 → 280 */
 
+
+  width: 100%;
+  max-width: 100vw;     /* ✅ viewport를 넘지 않게 */
+  overflow-x: hidden;   /* ✅ 스크롤 방지 */
+  box-sizing: border-box;
 }
+
+@media screen and (max-width: 600px) {
+  #postGridContainer {
+    grid-template-columns: 1fr;
+    padding: 20px;
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
+  .post-grid {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
 
 
 .folder-tab-with-title {
@@ -599,6 +618,10 @@ body {
   position: relative;
   z-index: 1;
   transform: none;
+
+  max-width: 100%;
+  box-sizing: border-box;
+  margin: 0 auto;
 
 }
 
