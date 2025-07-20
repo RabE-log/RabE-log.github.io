@@ -42,7 +42,7 @@ body {
 #hero-title{
   width: 100%;
   height: auto;
-  font-size: 48px;
+  font-size: 35px;
   margin-bottom: 20px;
   background: #fff;
   padding: 10px;
@@ -281,12 +281,15 @@ body {
   align-items: center;
   position: relative;
   overflow: hidden;
+  padding: 0 20px; /* 좌우 여백 추가 */
+  
 }
 
 .swiper {
   width: 100%;
   height: 100%;
   padding: 30px 0;
+  overflow: visible;
 }
 
 .swiper-slide {
@@ -326,6 +329,14 @@ body {
   padding: 20px;
   overflow: hidden;
   cursor: pointer;
+
+  height: auto;
+  min-height: 260px;
+  max-height: clamp(300px, 60vh, 500px); /* 화면 높이의 60%로 제한 */
+
+  
+
+  
 }
 
 .card:hover {
@@ -340,10 +351,18 @@ body {
   transform: translateY(0);
 
   height: auto;
-  margin-top: 15px;
+  margin-top: auto;
 
   object-fit: cover;
   display: block;
+
+  max-height: auto;
+}
+
+@media screen and (max-width: 768px) {
+  .card img {
+    max-height: 100px;
+  }
 }
 
 .card:hover {
@@ -353,16 +372,21 @@ body {
 .card h3{
   text-align: center;
 
-  font-size: 20px;
-  font-weight: 500;
   color: var(--font-color);
   transition: color 0.3s ease;
+
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  font-weight: 500;
 }
 
 .card p{
-  font-size: 14px;
   font-weight: 400;
   color: var(--font-color-sub);
+
+  font-size: clamp(0.85rem, 2vw, 0.8rem);
+  line-height: 1.6;
+
+  margin-bottom: -20px; /* ✅ 간격 줄이기 */
 }
 
 .card-divider {
@@ -372,11 +396,14 @@ body {
 }
 
 .card-meta {
-  font-size: 14px;
   color: #555;
-  margin-top: auto;
-  padding-top: 10px;
   text-align: left;
+  padding-bottom: 0px;
+
+  font-size: clamp(0.75rem, 1.5vw, 0.7rem);
+
+  padding-top: 1px;
+  margin-top: 0; /* ✅ auto 제거 */
 }
 
 .card .folder-author {
@@ -484,13 +511,15 @@ body {
 
 #postGridContainer {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); /* 🔄 auto-fit → auto-fill */
   gap: 50px;
   padding: 40px 60px;
   margin: 0 auto;
   max-width: 2000px; /* ⬇ 더 작게 제한 (4칸 기준) */
   justify-content: center; /* ➕ 가운데 정렬 */
   background-color: #e8e8e8;
+
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* 350 → 280 */
+
 }
 
 
@@ -570,6 +599,7 @@ body {
   position: relative;
   z-index: 1;
   transform: none;
+
 }
 
 .folder-card {
@@ -594,7 +624,7 @@ body {
 
 .folder-image img {
   width: 100%;             /* 부모 기준 */
-  height: 140px;           /* ← 고정 높이 */
+  height: 145px;           /* ← 고정 높이 */
   object-fit: cover;
   border: 1.5px solid #000;
   border-radius: 4px;
@@ -659,10 +689,10 @@ body {
 .folder-description {
   font-size: 16px;
   color: #333;
-  margin: 0 auto;
   max-width: 95%;      /* 🔹 가로 최대 폭 제한 */
   line-height: 1.5;
   word-break: break-word;
+  margin-bottom: 0px;
 }
 
 
@@ -670,6 +700,7 @@ body {
   border: none;
   border-top: 1px solid #999;
   margin: 4px 0;
+
 }
 
 .folder-meta {
@@ -678,12 +709,13 @@ body {
   display: flex;
   justify-content: flex-start;
   gap: 8px;
-  margin-top: 4px;
+  margin-top: 1px;
   flex-shrink: 0;
   flex-wrap: wrap;
 
   max-width: 80%;       /* 🔹 폭 제한 (ex. 80% of parent) */
   margin-left: 2.5%;
+
 }
 
 
@@ -802,6 +834,11 @@ body {
   .folder-body {
     padding: 10px;
   }
+
+  .post-grid, .card {
+    max-height: 65vh;
+    overflow-y: auto;
+  }
 }
 
 
@@ -838,7 +875,7 @@ body {
   font-family: 'Comic Neue', cursive;
   outline: none;
   margin-left: 12px;
-  z-index: 9999;
+  z-index: 999;
 }
 
 #sortSelect:hover {

@@ -118,7 +118,7 @@ function loadNextGridBatch() {
     const buttonDiv = document.createElement("div");
     buttonDiv.className = "folder-buttons";
     buttonDiv.innerHTML = `
-      <a href="/mechanik-note/note.html?label=${data.labelIndex}" class="folder-btn">Journal</a>
+      <a href="/personal-journal/note.html?label=${data.labelIndex}" class="folder-btn">Journal</a>
 
 
     `;
@@ -227,7 +227,7 @@ document.getElementById("discoverBtn").addEventListener("click", () => {
   }
 
   // ✅ 여기 이 위치에 이 코드 삽입!
-  window.location.href = `/mechanik-note/note.html?label=${labelIndexToUse}`;
+  window.location.href = `/personal-journal/note.html?label=${labelIndexToUse}`;
 
 
 });
@@ -334,7 +334,7 @@ function filterGridCards(keyword) {
     const buttonDiv = document.createElement("div");
     buttonDiv.className = "folder-buttons";
     buttonDiv.innerHTML = `
-      <a href="/mechanik-note/note.html?label=${data.labelIndex}" class="folder-btn">Journal</a>
+      <a href="/personal-journal/note.html?label=${data.labelIndex}" class="folder-btn">Journal</a>
     `;
 
 
