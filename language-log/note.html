@@ -217,7 +217,7 @@
     const authorColors = ['#aae2fa', '#c6b8f9', '#b2f0b4', '#fae09b', '#f9a9aa'];
 
     if (label) {
-      fetch(`/mechanik-note/Label/label${label}/label${label}.html`)
+      fetch(`/language-log/Label/label${label}/label${label}.html`)
         .then(res => res.text())
         .then(html => {
           const parser = new DOMParser();
@@ -226,7 +226,7 @@
           doc.querySelectorAll("img").forEach(img => {
             const src = img.getAttribute("src");
             if (src && !src.startsWith("http") && !src.startsWith("/")) {
-              img.src = `/mechanik-note/Label/label${label}/${src}`;
+              img.src = `/language-log/Label/label${label}/${src}`;
             }
           });
 

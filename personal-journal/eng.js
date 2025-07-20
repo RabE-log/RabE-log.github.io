@@ -121,6 +121,7 @@ function loadNextGridBatch() {
       <a href="/personal-journal/note.html?label=${data.labelIndex}" class="folder-btn">Journal</a>
 
 
+      <a href="${data.githubLink}" target="_blank" class="folder-btn">GitHub</a>
     `;
 
 
@@ -143,13 +144,24 @@ async function loadCards() {
       const tempDiv = document.createElement("div");
       tempDiv.innerHTML = html;
 
+      
+      
+
       const title = tempDiv.querySelector("h3")?.textContent || "";
       const desc = tempDiv.querySelector("p")?.textContent || "";
       const imgThumb = tempDiv.querySelector("img.card-thumbnail")?.getAttribute("src") || "";
       const imgBg = tempDiv.querySelector("img.background-image")?.getAttribute("src") || "";
+
+
       const date = tempDiv.querySelector(".post-date")?.textContent || "";
       const author = tempDiv.querySelector(".post-author")?.textContent || "";
+      
+      tempDiv.querySelector(".post-date")?.remove();
+      tempDiv.querySelector(".post-author")?.remove();
+
       const githubLink = tempDiv.querySelector(".post-github")?.getAttribute("href") || "#";
+
+      
 
       // <h3> 아래에 <hr> 삽입
       const h3 = tempDiv.querySelector("h3");
@@ -335,6 +347,8 @@ function filterGridCards(keyword) {
     buttonDiv.className = "folder-buttons";
     buttonDiv.innerHTML = `
       <a href="/personal-journal/note.html?label=${data.labelIndex}" class="folder-btn">Journal</a>
+
+      <a href="${data.githubLink}" target="_blank" class="folder-btn">GitHub</a>
     `;
 
 

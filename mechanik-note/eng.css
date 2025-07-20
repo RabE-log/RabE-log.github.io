@@ -387,6 +387,7 @@ body {
   line-height: 1.6;
 
   margin-bottom: -20px; /* ✅ 간격 줄이기 */
+  margin: 1px;
 }
 
 .card-divider {
@@ -736,6 +737,7 @@ body {
   line-height: 1.5;
   word-break: break-word;
   margin-bottom: 0px;
+  margin: 5px;
 }
 
 

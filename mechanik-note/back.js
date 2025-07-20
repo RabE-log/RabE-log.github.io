@@ -1,5 +1,5 @@
 const particleSize = 6;
-const maxParticles = 75;
+const maxParticles = 25;
 const threshold = 120;
 const particles = [];
 const lines = [];

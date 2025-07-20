@@ -1,5 +1,5 @@
 const particleSize = 6;
-const maxParticles = 75;
+const maxParticles = 25;
 const threshold = 120;
 const particles = [];
 const lines = [];
@@ -10,7 +10,7 @@ let height = window.innerHeight;
 const particleContainer = document.getElementById("particle-background");
 
 // 색상 팔레트
-const colorPalette = ['#fe6033', '#999999', '#666666', '#000000'];
+const colorPalette = ['#8b2816', '#999999', '#A23A28', '#000000'];
 
 function randomColor() {
   return colorPalette[Math.floor(Math.random() * colorPalette.length)];
