@@ -1,0 +1,680 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Liebherr</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(50, 48, 44, 1);
+}
+.highlight-gray {
+	color: rgba(115, 114, 110, 1);
+	fill: rgba(115, 114, 110, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(205, 60, 58, 1);
+	fill: rgba(205, 60, 58, 1);
+}
+.highlight-default_background {
+	color: rgba(50, 48, 44, 1);
+}
+.highlight-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.highlight-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(115, 114, 110, 1);
+	fill: rgba(115, 114, 110, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(205, 60, 58, 1);
+	fill: rgba(205, 60, 58, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.block-color-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-default { background-color: rgba(84, 72, 49, 0.08); }
+.select-value-color-gray { background-color: rgba(84, 72, 49, 0.15); }
+.select-value-color-brown { background-color: rgba(210, 162, 141, 0.35); }
+.select-value-color-orange { background-color: rgba(224, 124, 57, 0.27); }
+.select-value-color-yellow { background-color: rgba(236, 191, 66, 0.39); }
+.select-value-color-green { background-color: rgba(123, 183, 129, 0.27); }
+.select-value-color-blue { background-color: rgba(93, 165, 206, 0.27); }
+.select-value-color-purple { background-color: rgba(168, 129, 197, 0.27); }
+.select-value-color-pink { background-color: rgba(225, 136, 179, 0.27); }
+.select-value-color-red { background-color: rgba(244, 171, 159, 0.4); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="2307b014-4f12-80ff-a836-cb8ac7aa73c5" class="page sans"><header><h1 class="page-title">Liebherr</h1><p class="page-description"></p></header><div class="page-body"><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">🗓️ <strong>Mechatroniker Ausbildung – 연차별 주요 활동 요약</strong></summary><div class="indented"><h3 id="2307b014-4f12-8001-9af6-e2240e770823" class="">✅ <strong>1학년 (1. Lehrjahr)</strong></h3><ul id="2307b014-4f12-80da-9a13-f48265e2bb98" class="bulleted-list"><li style="list-style-type:disc"><strong>기초 이론 및 안전 교육</strong><ul id="2307b014-4f12-80cf-a8ad-c37a6ee256c1" class="bulleted-list"><li style="list-style-type:circle">직업 교육, 노동법, 산업안전, 화재안전, 응급처치 등</li></ul></li></ul><ul id="2307b014-4f12-806a-b60d-f76dc78c879c" class="bulleted-list"><li style="list-style-type:disc"><strong>기초 기술 훈련</strong><ul id="2307b014-4f12-80f0-a315-dac36d3d2068" class="bulleted-list"><li style="list-style-type:circle">금속 가공 (절삭, 드릴, 톱질, 연마 등)</li></ul><ul id="2307b014-4f12-80a6-8d3a-e76a1aedc22d" class="bulleted-list"><li style="list-style-type:circle">수동 및 기계 가공법 실습</li></ul><ul id="2307b014-4f12-807d-afe6-ddfd78b4a34f" class="bulleted-list"><li style="list-style-type:circle">전기 이론, 배선, 기본 회로 구성</li></ul></li></ul><ul id="2307b014-4f12-807e-af58-e06614e61f0e" class="bulleted-list"><li style="list-style-type:disc"><strong>디지털 학습 도입</strong><ul id="2307b014-4f12-803f-8ebf-f5e9446df35b" class="bulleted-list"><li style="list-style-type:circle">노트북 지급</li></ul></li></ul><ul id="2307b014-4f12-80d4-96f0-e75e210594de" class="bulleted-list"><li style="list-style-type:disc"><strong>현장 실습 시작</strong><ul id="2307b014-4f12-80a8-9f6a-e7153863012f" class="bulleted-list"><li style="list-style-type:circle">조립실(Montagehalle), 시험대(Prüfstand)에서 실습 시작</li></ul></li></ul><hr id="2307b014-4f12-80d9-a237-fa8e55b1fb75"/><h3 id="2307b014-4f12-80ed-a5a4-e61308857eea" class="">✅ <strong>2학년 (2. Lehrjahr)</strong></h3><ul id="2307b014-4f12-80c8-b870-c4de0fde40c7" class="bulleted-list"><li style="list-style-type:disc"><strong>전기 및 기계 기술 심화</strong><ul id="2307b014-4f12-80bc-8b2d-f62c7261d5b1" class="bulleted-list"><li style="list-style-type:circle">회로 해석, 제어기술(Pneumatik/Hydraulik), 센서와 액추에이터 사용</li></ul><ul id="2307b014-4f12-802a-959c-f0c8d99b7c84" class="bulleted-list"><li style="list-style-type:circle">기계 조립 및 유지보수 과정 실습</li></ul></li></ul><ul id="2307b014-4f12-8081-a27f-c8d1f1599058" class="bulleted-list"><li style="list-style-type:disc"><strong>소프트웨어 기초</strong><ul id="2307b014-4f12-8075-9e72-c8345dfd4156" class="bulleted-list"><li style="list-style-type:circle">하드웨어 설정, 네트워크 구성, 소프트웨어 설치 및 테스트</li></ul></li></ul><ul id="2307b014-4f12-80a5-a992-d369220a7a13" class="bulleted-list"><li style="list-style-type:disc"><strong>품질 관리 개념 도입</strong><ul id="2307b014-4f12-80d5-8361-ede91cdd9f87" class="bulleted-list"><li style="list-style-type:circle">측정기 사용법, 공차 측정, 품질 기준 이해</li></ul></li></ul><ul id="2307b014-4f12-80ed-8548-c08fae6178df" class="bulleted-list"><li style="list-style-type:disc"><strong>이동 실습</strong><ul id="2307b014-4f12-8072-81d5-f3c9ab984349" class="bulleted-list"><li style="list-style-type:circle">다른 부서 또는 장비 현장으로 이동해 실습 (정비/검사 등)</li></ul></li></ul><hr id="2307b014-4f12-80c7-9cd8-c7fe7485e518"/><h3 id="2307b014-4f12-8055-934a-d14f7bb5556c" class="">✅ <strong>3학년 (3. Lehrjahr)</strong></h3><ul id="2307b014-4f12-806f-9ce5-ff6b6f6b240a" class="bulleted-list"><li style="list-style-type:disc"><strong>시스템 통합 및 유지보수</strong><ul id="2307b014-4f12-8042-b6bb-ca525aba0d38" class="bulleted-list"><li style="list-style-type:circle">전기/기계/소프트웨어 통합 조작 및 테스트</li></ul><ul id="2307b014-4f12-808e-8ee8-f82988db6b35" class="bulleted-list"><li style="list-style-type:circle">오류 진단, 수리, 시스템 최적화</li></ul></li></ul><ul id="2307b014-4f12-805b-a68e-d566fc2d8306" class="bulleted-list"><li style="list-style-type:disc"><strong>프로젝트 중심 실습</strong><ul id="2307b014-4f12-8053-861d-c7b8e97bbc48" class="bulleted-list"><li style="list-style-type:circle">시험대(Prüfstand)에서 실제 시스템 작동</li></ul><ul id="2307b014-4f12-801f-8e01-c22ba6e3d4fc" class="bulleted-list"><li style="list-style-type:circle">유럽 내 외부 현장(Montageeinsatz) 파견 실습 포함</li></ul></li></ul><ul id="2307b014-4f12-805c-a70a-f66f6919947b" class="bulleted-list"><li style="list-style-type:disc"><strong>전문 장비 자격증 취득</strong><ul id="2307b014-4f12-803e-8450-d8480c8b7cb6" class="bulleted-list"><li style="list-style-type:circle">크레인 조작, 고소작업대, 지게차 등</li></ul></li></ul><ul id="2307b014-4f12-80ae-ae30-f2921f5008d1" class="bulleted-list"><li style="list-style-type:disc"><strong>기업용 iPhone 지급</strong></li></ul><hr id="2307b014-4f12-80e4-98e7-d3f80c5215ed"/><h3 id="2307b014-4f12-8050-8d95-e7e8ce5f80da" class="">✅ <strong>4학년 (4. Lehrjahr)</strong></h3><ul id="2307b014-4f12-8000-8cbb-dd8478890287" class="bulleted-list"><li style="list-style-type:disc"><strong>전문적 기술 완성 단계</strong><ul id="2307b014-4f12-8085-bfa1-e8d76af5a9f8" class="bulleted-list"><li style="list-style-type:circle">PLC 프로그램 구성 및 제어</li></ul><ul id="2307b014-4f12-80ce-87ad-d1114414032d" class="bulleted-list"><li style="list-style-type:circle">복합 시스템 유지보수 및 최적화</li></ul><ul id="2307b014-4f12-8074-80bd-d88237b81699" class="bulleted-list"><li style="list-style-type:circle">센서/액추에이터/컨트롤러 전체 연동 관리</li></ul></li></ul><ul id="2307b014-4f12-80df-a153-ca3695d6e1a9" class="bulleted-list"><li style="list-style-type:disc"><strong>최종 프로젝트 및 시험 준비</strong><ul id="2307b014-4f12-80d7-a1b7-c22612922c3c" class="bulleted-list"><li style="list-style-type:circle">실무 기반 최종 실습 및 시험 대비</li></ul><ul id="2307b014-4f12-8054-8e76-e066572c7f75" class="bulleted-list"><li style="list-style-type:circle">Prüfstand에서 집중 실습</li></ul></li></ul><ul id="2307b014-4f12-80f3-93af-d95175786408" class="bulleted-list"><li style="list-style-type:disc"><strong>국제 실습 또는 외부 프로젝트 수행 가능</strong></li></ul><hr id="2307b014-4f12-80af-9696-e9816f246970"/><h2 id="2307b014-4f12-80a5-a354-fda655e6ab3c" class="">🧾 기타 연중/정기 활동</h2><ul id="2307b014-4f12-801c-bd65-f67f8cf26769" class="bulleted-list"><li style="list-style-type:disc"><strong>매 학기별 산업안전 및 화재안전 교육 의무</strong></li></ul><ul id="2307b014-4f12-8051-88f6-c2428f06352d" class="bulleted-list"><li style="list-style-type:disc"><strong>매년 고소작업 훈련, 크레인, 지게차 등 자격과정 진행</strong></li></ul><ul id="2307b014-4f12-8091-8997-de41fa6b7d62" class="bulleted-list"><li style="list-style-type:disc"><strong>필수 이론교육: 아카데미 교육 (전기/기계/소프트웨어 분야)</strong></li></ul><ul id="2307b014-4f12-8006-9070-eae883b89809" class="bulleted-list"><li style="list-style-type:disc"><strong>실무 병행 학습: 시험대(Prüfstand), 조립 홀(Montagehalle)</strong></li></ul></div></details><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">🕒 <strong>Mechatroniker Ausbildung 중 주요 시간 및 일정 포인트</strong></summary><div class="indented"><h3 id="2307b014-4f12-8083-aaf8-fa5ad04f2669" class="">📅 <strong>시작일</strong></h3><ul id="2307b014-4f12-80c7-9f99-ce454280c8cd" class="bulleted-list"><li style="list-style-type:disc"><strong>2025년 9월 1일</strong>: 직업훈련 시작일<p id="2307b014-4f12-80e3-812b-ed0c54dd6b24" class="">→ 이 날짜는 <em>Erklärung zum Beschäftigungsverhältnis</em> 및 계약서에 명확히 명시되어 있음</p></li></ul><hr id="2307b014-4f12-8028-80a7-f6594a518cc3"/><h3 id="2307b014-4f12-8090-84df-ffe76e111af6" class="">🔄 <strong>계약 및 제도 관련</strong></h3><ul id="2307b014-4f12-807f-8377-cb17ac716ebf" class="bulleted-list"><li style="list-style-type:disc"><strong>Probezeit (수습기간)</strong>: 보통 4개월<p id="2307b014-4f12-8095-ab1f-d5547f386a87" class="">→ 수습기간 중 1/3 이상 결석 시 수습 자동 연장됨</p></li></ul><ul id="2307b014-4f12-8039-892e-e869a0c3ac97" class="bulleted-list"><li style="list-style-type:disc"><strong>시험 합격 시 조기 종료 가능</strong><p id="2307b014-4f12-80ad-b46a-ff8bc3dab98b" class="">→ Abschlussprüfung(최종시험) 통과 시 계약 즉시 종료됨 (예: 42개월 도달 전 합격 시)</p></li></ul><ul id="2307b014-4f12-80d1-b773-e4f836427933" class="bulleted-list"><li style="list-style-type:disc"><strong>불합격 시 연장 가능</strong><p id="2307b014-4f12-80ac-a2cc-ec5499811c59" class="">→ 자발적 요청 시 <em>최대 1년까지</em> 계약 연장 가능</p></li></ul><hr id="2307b014-4f12-803a-a761-e8b217a2de16"/><h3 id="2307b014-4f12-80bb-87d1-e897cd0f1390" class="">🧪 <strong>시험 및 자격 관련 시점</strong></h3><ul id="2307b014-4f12-804c-87e8-eed3e5b1bcc3" class="bulleted-list"><li style="list-style-type:disc"><strong>첫 해 말</strong>:<ul id="2307b014-4f12-80c6-9bc7-ef6361b753ac" class="bulleted-list"><li style="list-style-type:circle"><em>ärztliche Nachuntersuchung</em> (18세 미만자는 1년 내 건강 재검 필요)</li></ul><ul id="2307b014-4f12-8068-88d9-d8c1f355fedb" class="bulleted-list"><li style="list-style-type:circle">기본 안전 자격 (예: Ersthelfer, Brandschutzhelfer) 취득</li></ul></li></ul><ul id="2307b014-4f12-80b0-adf6-d6e3264cba03" class="bulleted-list"><li style="list-style-type:disc"><strong>3학년(약 2027년 후반)</strong><ul id="2307b014-4f12-809d-ba5f-e9ab83cad27a" class="bulleted-list"><li style="list-style-type:circle">기업용 iPhone 지급</li></ul><ul id="2307b014-4f12-80bd-a250-ccf20af3f00f" class="bulleted-list"><li style="list-style-type:circle">국제 현장 실습 (유럽 내 타 지점) 시행</li></ul></li></ul><ul id="2307b014-4f12-80e7-ba8c-ff54dfeb9149" class="bulleted-list"><li style="list-style-type:disc"><strong>마지막 6개월</strong>:<ul id="2307b014-4f12-803c-9f6e-ddbed288a6a8" class="bulleted-list"><li style="list-style-type:circle">Abschlussprüfung (최종시험) 준비 및 실제 시험</li></ul><ul id="2307b014-4f12-80f8-a384-c7b610fa75eb" class="bulleted-list"><li style="list-style-type:circle">시험 전 <em>1주일</em>은 수업 및 업무 면제 보장됨</li></ul></li></ul><hr id="2307b014-4f12-808c-8fff-fe2f2a39fcf5"/><h3 id="2307b014-4f12-80b9-aa62-d07cb1de9d7b" class="">🛠️ <strong>중요 실습 및 훈련 일정 (발췌)</strong></h3><table id="2307b014-4f12-8009-90b0-e4a4fbf0e259" class="simple-table"><thead class="simple-table-header"><tr id="2307b014-4f12-805f-98cb-fddf1b67593b"><th id="xcwg" class="simple-table-header-color simple-table-header">시점</th><th id="tqBV" class="simple-table-header-color simple-table-header">내용</th></tr></thead><tbody><tr id="2307b014-4f12-80b4-a46b-cdf6fe529c22"><td id="xcwg" class="">1학년 1주차</td><td id="tqBV" class="">입문 캠프 (Kennenlern-Camp)</td></tr><tr id="2307b014-4f12-800d-8a67-e5d63819625b"><td id="xcwg" class="">매 학기</td><td id="tqBV" class="">정기 산업안전 및 화재안전 교육</td></tr><tr id="2307b014-4f12-80cc-907d-ed6f33cb9dc6"><td id="xcwg" class="">연 1회</td><td id="tqBV" class="">고소작업대, 지게차, 크레인, Hochvoltsicherheit 등 자격 훈련</td></tr><tr id="2307b014-4f12-80fb-9dbb-cf3c9441fb83"><td id="xcwg" class="">2학년 중</td><td id="tqBV" class="">E-Technik 아카데미 집중 교육</td></tr><tr id="2307b014-4f12-8063-88d9-f13c93c48cbf"><td id="xcwg" class="">3학년~4학년</td><td id="tqBV" class="">Prüfstand 집중 실습 / 해외 현장 파견 실습</td></tr><tr id="2307b014-4f12-8058-b4cc-db7c17e99ca0"><td id="xcwg" class="">마지막 6개월</td><td id="tqBV" class="">실전 중심 시험 준비 + 최종 시험 시행</td></tr></tbody></table></div></details><hr id="2307b014-4f12-8048-adb7-d3d36e466a83"/><h2 id="2307b014-4f12-8049-9170-e71a8b28e455" class="">📌 문서 개요</h2><ul id="2307b014-4f12-803b-9d8c-f997be44ba02" class="bulleted-list"><li style="list-style-type:disc"><strong>목적</strong>: 외국인 근로자(제3국 출신)의 고용을 증명하여 독일 비자 및 취업 허가 절차를 진행하기 위함</li></ul><ul id="2307b014-4f12-806c-9131-c00ed14ad522" class="bulleted-list"><li style="list-style-type:disc"><strong>제출처</strong>: 독일 대사관, 외국인청(Ausländerbehörde), 연방노동청(Bundesagentur für Arbeit)</li></ul><ul id="2307b014-4f12-8034-9dbf-c881a8116442" class="bulleted-list"><li style="list-style-type:disc"><strong>형식</strong>: <em>Erklärung zum Beschäftigungsverhältnis</em> 및 <em>Ausbildungsplan (훈련 계획)</em> 포함</li></ul><hr id="2307b014-4f12-80b5-9939-dae3f467adbd"/><h2 id="2307b014-4f12-80db-8dbb-d30dae668532" class="">👤 개인 정보 (Arbeitnehmer)</h2><table id="2307b014-4f12-80f5-9b49-de8f5bd75da5" class="simple-table"><thead class="simple-table-header"><tr id="2307b014-4f12-808f-9bd7-c6bf148b6c05"><th id="c[OK" class="simple-table-header-color simple-table-header">항목</th><th id="onA=" class="simple-table-header-color simple-table-header">내용</th></tr></thead><tbody><tr id="2307b014-4f12-8007-b005-f0b31ac2eda0"><td id="c[OK" class="">이름</td><td id="onA=" class="">Dogeon Kim</td></tr><tr id="2307b014-4f12-8090-a060-d53a32ab233d"><td id="c[OK" class="">생년월일</td><td id="onA=" class="">08.11.2006</td></tr><tr id="2307b014-4f12-80a4-a6c6-d9f4854cb7fd"><td id="c[OK" class="">성별</td><td id="onA=" class="">남성</td></tr><tr id="2307b014-4f12-80f7-8513-c838ef0917ee"><td id="c[OK" class="">국적</td><td id="onA=" class="">대한민국</td></tr><tr id="2307b014-4f12-8048-b5f9-ec416795719a"><td id="c[OK" class="">현 거주지</td><td id="onA=" class="">대한민국 (2006년부터)</td></tr></tbody></table><hr id="2307b014-4f12-80d8-902f-d62a793cdb10"/><h2 id="2307b014-4f12-806e-bfaf-fb8345f8f9ca" class="">🏢 고용주 정보 (Arbeitgeber)</h2><table id="2307b014-4f12-80a6-b593-ea14ca62729c" class="simple-table"><thead class="simple-table-header"><tr id="2307b014-4f12-80c7-abbd-f9cd7a4c58f7"><th id="&gt;R;j" class="simple-table-header-color simple-table-header">항목</th><th id=";c[T" class="simple-table-header-color simple-table-header">내용</th></tr></thead><tbody><tr id="2307b014-4f12-8074-9ac8-dd2873a2b818"><td id="&gt;R;j" class="">회사명</td><td id=";c[T" class="">Liebherr Rostock GmbH</td></tr><tr id="2307b014-4f12-8028-9cda-cb02fb2c00f0"><td id="&gt;R;j" class="">주소</td><td id=";c[T" class="">Liebherrstraße 18147 Rostock, Germany</td></tr><tr id="2307b014-4f12-806f-99a7-c9891162f754"><td id="&gt;R;j" class="">담당자</td><td id=";c[T" class="">Manfred Wanitschke</td></tr><tr id="2307b014-4f12-800a-b355-c8a48a74d95f"><td id="&gt;R;j" class="">전화번호</td><td id=";c[T" class="">+49 381 6006 3550</td></tr><tr id="2307b014-4f12-8050-a532-e20d02723475"><td id="&gt;R;j" class="">이메일</td><td id=";c[T" class=""><a href="mailto:manfred.wanitschke@liebherr.com">manfred.wanitschke@liebherr.com</a></td></tr><tr id="2307b014-4f12-80d6-bd07-d84870e6f3d9"><td id="&gt;R;j" class="">사업자 번호</td><td id=";c[T" class="">01325349</td></tr></tbody></table><hr id="2307b014-4f12-80f9-bf09-f65746df978a"/><h2 id="2307b014-4f12-80c6-84aa-db68dd0687e4" class="">📄 고용 조건 (Beschäftigung)</h2><table id="2307b014-4f12-8046-9125-d81cfe9d0efb" class="simple-table"><thead class="simple-table-header"><tr id="2307b014-4f12-8028-a7f0-e447c9347cba"><th id="rmn~" class="simple-table-header-color simple-table-header">항목</th><th id="[MF;" class="simple-table-header-color simple-table-header">내용</th></tr></thead><tbody><tr id="2307b014-4f12-802d-981d-df3128c2a4e6"><td id="rmn~" class="">시작일</td><td id="[MF;" class="">01.09.2025</td></tr><tr id="2307b014-4f12-8099-83ee-f1aefbbbec2f"><td id="rmn~" class="">고용 형태</td><td id="[MF;" class="">Mechatroniker 직업훈련 (Ausbildung), 42개월</td></tr><tr id="2307b014-4f12-8058-8759-d48a3ed9f410"><td id="rmn~" class="">훈련 후 고용</td><td id="[MF;" class="">정규직 전환 가능 (tariflich unbefristete Übernahme)</td></tr><tr id="2307b014-4f12-80d5-a0e3-d6c7a7247b65"><td id="rmn~" class="">근무시간</td><td id="[MF;" class="">주 38시간, 전일제</td></tr><tr id="2307b014-4f12-8089-863b-ed8e8717c984"><td id="rmn~" class="">급여</td><td id="[MF;" class="">€1,332/월 (브루토)</td></tr><tr id="2307b014-4f12-8092-b274-d031dccdb067"><td id="rmn~" class="">휴가</td><td id="[MF;" class="">연 30일</td></tr><tr id="2307b014-4f12-80d1-bca9-da194257b0bf"><td id="rmn~" class="">사회보험</td><td id="[MF;" class="">독일 사회보험 의무 대상자</td></tr><tr id="2307b014-4f12-80df-8e93-cf77d6d09bb3"><td id="rmn~" class="">근무지</td><td id="[MF;" class="">Rostock 본사</td></tr></tbody></table><hr id="2307b014-4f12-8032-9e42-dd8589b4e2c9"/><h2 id="2307b014-4f12-8026-bb9a-f728d7258a21" class="">🎓 자격 및 학력</h2><table id="2307b014-4f12-8057-89fb-c141d2810513" class="simple-table"><thead class="simple-table-header"><tr id="2307b014-4f12-8000-b4a6-dc56dbc569c5"><th id="UKPS" class="simple-table-header-color simple-table-header">항목</th><th id="\xau" class="simple-table-header-color simple-table-header">내용</th></tr></thead><tbody><tr id="2307b014-4f12-80c9-9218-ff500056a1aa"><td id="UKPS" class="">최종학력</td><td id="\xau" class="">한국 고등학교 12학년 (Fachoberschule) 졸업</td></tr><tr id="2307b014-4f12-804b-b513-c83a4ed56f1c"><td id="UKPS" class="">별도 자격</td><td id="\xau" class="">정규 대학 졸업 없음, 학력 인정 불필요 (Ausbildung용)</td></tr><tr id="2307b014-4f12-8096-bde9-ef6d52ee31c6"><td id="UKPS" class="">필요 자격증</td><td id="\xau" class="">없음 (해당 직종은 자격 필수 아님)</td></tr></tbody></table><hr id="2307b014-4f12-8045-8ea6-ee616b127aa0"/><h2 id="2307b014-4f12-8034-86f4-f47651d24159" class="">🧑‍🏭 Ausbildung 훈련 내용 요약</h2><p id="2307b014-4f12-803c-a18c-d6dbcca38237" class="">훈련 기간: <strong>총 3.5년 (42개월)</strong></p><p id="2307b014-4f12-80b7-adb6-d2f87f005cc8" class="">훈련 장소: <strong>아카데미, 조립실(Montagehalle), 시험대(Prüfstand), 유럽 외부 현장 등</strong></p><h3 id="2307b014-4f12-8025-9e6f-db8c49436d00" class="">주요 훈련 항목</h3><ul id="2307b014-4f12-80db-ab34-f1063fab0d40" class="bulleted-list"><li style="list-style-type:disc">직업 및 노동법 이해</li></ul><ul id="2307b014-4f12-80a7-a358-c35ffe6560df" class="bulleted-list"><li style="list-style-type:disc">회사 조직 및 산업 구조 이해</li></ul><ul id="2307b014-4f12-80c5-8b49-dbab4b872a39" class="bulleted-list"><li style="list-style-type:disc">산업 안전, 응급처치, 화재안전</li></ul><ul id="2307b014-4f12-805c-b901-fce4ddd99c11" class="bulleted-list"><li style="list-style-type:disc">환경 보호, 자원 효율성</li></ul><ul id="2307b014-4f12-80e7-86bb-f858771d229d" class="bulleted-list"><li style="list-style-type:disc">디지털 기술 및 데이터 보호</li></ul><ul id="2307b014-4f12-8051-a728-e174eb0effaf" class="bulleted-list"><li style="list-style-type:disc">전기회로 해석 및 배선</li></ul><ul id="2307b014-4f12-8033-8739-f30f72b6df2c" class="bulleted-list"><li style="list-style-type:disc">센서 및 액추에이터 작동</li></ul><ul id="2307b014-4f12-80fa-a96a-dc58718dcb6a" class="bulleted-list"><li style="list-style-type:disc">기계 가공, 조립 및 유지보수</li></ul><ul id="2307b014-4f12-804e-805c-dee7253899c4" class="bulleted-list"><li style="list-style-type:disc">PLC/로직 제어 시스템 사용</li></ul><ul id="2307b014-4f12-8038-8be5-f7dd296e3a4c" class="bulleted-list"><li style="list-style-type:disc">품질 관리 및 오류 분석</li></ul><ul id="2307b014-4f12-80ee-a900-fed34cd99dc9" class="bulleted-list"><li style="list-style-type:disc">국제 현장 실습 포함</li></ul><h3 id="2307b014-4f12-80ae-a9a2-d3ab4a510cb3" class="">실습 및 자격 과정</h3><ul id="2307b014-4f12-80ba-a2bd-da65a5ef43f7" class="bulleted-list"><li style="list-style-type:disc">Ersthelfer (응급처치)</li></ul><ul id="2307b014-4f12-8055-afed-d5e50378e0d4" class="bulleted-list"><li style="list-style-type:disc">Brandschutzhelfer (화재 대피 훈련)</li></ul><ul id="2307b014-4f12-8025-aa66-d98d00885dec" class="bulleted-list"><li style="list-style-type:disc">Kranführerschein (크레인 자격)</li></ul><ul id="2307b014-4f12-80db-a57c-e5d539b12a91" class="bulleted-list"><li style="list-style-type:disc">Hubarbeitsbühne (고소작업대 자격)</li></ul><ul id="2307b014-4f12-807e-9177-e63003ef3fcf" class="bulleted-list"><li style="list-style-type:disc">Hydraulik &amp; Pneumatik 훈련</li></ul><ul id="2307b014-4f12-801a-8531-c6868aa32d18" class="bulleted-list"><li style="list-style-type:disc">Prüfstand 실제 작업</li></ul><ul id="2307b014-4f12-806d-8cc1-ddff1c3243b5" class="bulleted-list"><li style="list-style-type:disc">실시간 장비 운용 및 유지보수</li></ul><hr id="2307b014-4f12-8027-b6b1-eef0f7cdcdea"/><h2 id="2307b014-4f12-80d1-a2a9-e7bb5eaf82bf" class="">📋 계약 관련 조항 (Vertragliche Punkte)</h2><h3 id="2307b014-4f12-80b5-9c2c-c87f261760ab" class="">교육 기간 및 종료 조건</h3><ul id="2307b014-4f12-80cb-903d-d466fde88d9d" class="bulleted-list"><li style="list-style-type:disc"><strong>기간</strong>: 3.5년 (42개월)</li></ul><ul id="2307b014-4f12-80f2-9d06-f8774146e152" class="bulleted-list"><li style="list-style-type:disc"><strong>조기 종료 가능</strong>: 시험 합격 시</li></ul><ul id="2307b014-4f12-8089-9206-f2b339399e49" class="bulleted-list"><li style="list-style-type:disc"><strong>연장 가능</strong>: 시험 탈락 시, 최대 1년 연장 가능</li></ul><h3 id="2307b014-4f12-8002-99df-c3343db8ff27" class="">고용주 의무사항</h3><ul id="2307b014-4f12-8070-9313-c9daffdf2efe" class="bulleted-list"><li style="list-style-type:disc">교육 계획 이행</li></ul><ul id="2307b014-4f12-8017-b43f-f1e4f86d4320" class="bulleted-list"><li style="list-style-type:disc">교육 자료 제공 (무상)</li></ul><ul id="2307b014-4f12-808a-9bac-dd746b060203" class="bulleted-list"><li style="list-style-type:disc">외부 훈련 및 시험 시간 보장</li></ul><ul id="2307b014-4f12-8026-bda2-cae9133c30e8" class="bulleted-list"><li style="list-style-type:disc">의무 건강검진 확인</li></ul><h3 id="2307b014-4f12-80a8-93aa-e941ac2830f2" class="">피교육자 의무사항</h3><ul id="2307b014-4f12-80ff-af6f-cebf262e34a5" class="bulleted-list"><li style="list-style-type:disc">성실한 참여 및 학습</li></ul><ul id="2307b014-4f12-8065-8f6d-f4e98f0bf152" class="bulleted-list"><li style="list-style-type:disc">직무 명령 이행</li></ul><ul id="2307b014-4f12-8025-a09c-cf44e07638a7" class="bulleted-list"><li style="list-style-type:disc">병결 시 보고 의무</li></ul><ul id="2307b014-4f12-8050-8ea5-fad7446c606f" class="bulleted-list"><li style="list-style-type:disc">산업기밀 유지</li></ul><hr id="2307b014-4f12-80cc-a438-c955a1283359"/><h2 id="2307b014-4f12-8052-994a-eb90f69c2e1e" class="">⚖️ 법적 주의 사항</h2><ul id="2307b014-4f12-8010-82cb-f3ba01cb2552" class="bulleted-list"><li style="list-style-type:disc">체류 허가와 노동 허가는 반드시 <strong>해당 관청의 승인을 동반</strong>해야 함</li></ul><ul id="2307b014-4f12-80d2-9005-d234112f8e68" class="bulleted-list"><li style="list-style-type:disc">거짓 정보 기재 시 법적 처벌 (벌금 또는 징역)</li></ul><ul id="2307b014-4f12-80af-846a-e3df0991069a" class="bulleted-list"><li style="list-style-type:disc">취업 종료 시 4주 이내 통지 의무</li></ul><hr id="2307b014-4f12-802a-a6fd-f24921635e59"/><h2 id="2307b014-4f12-80f6-bcd4-de768b23f767" class="">✅ 요약</h2><p id="2307b014-4f12-805d-b88e-dcc2b97c52c2" class=""><strong>Dogeon Kim</strong> 씨는 독일 <em>Liebherr-MCCtec Rostock GmbH</em>에서 <strong>Mechatroniker Ausbildung</strong>을 2025년 9월부터 시작하며, 해당 문서는 이를 위한 <strong>비자 및 고용 증명 문서</strong>로, 체계적인 교육 계획과 고용 조건이 명확히 명시되어 있습니다.</p><p id="2307b014-4f12-8082-b4b4-ff90796c20e1" class="">직업 훈련 이후에는 <strong>정규직 전환 가능성</strong>도 열려 있으며, 독일에서의 경력 형성 및 체류 안정성에도 긍정적인 조건을 갖춘 계획입니다.</p><figure id="2337b014-4f12-80f7-96c0-eb65951f727e" class="image"><a href="liebherr.jpg"><img style="width:599px" src="liebherr.jpg"/></a></figure></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

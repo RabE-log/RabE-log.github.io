@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>Note Viewer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Noto Sans KR', sans-serif;
+      background-color: #ffffff;
+    }
+
+    #particle-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      overflow: hidden;
+    }
+
+    .particle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+    }
+
+    .line {
+      position: absolute;
+      height: 2px;
+      transform-origin: 0 50%;
+      pointer-events: none;
+    }
+
+    #noteContent {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 30px;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    }
+
+    #noteContent img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 1.5rem auto;
+    }
+
+    #commentSection {
+      max-width: 900px;
+      margin: 60px auto;
+      padding: 30px;
+      background-color: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    #commentSection h3 {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .comment-form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 30px;
+    }
+
+    .comment-form input[type="text"],
+    .comment-form textarea {
+      font-size: 0.95rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      background: white;
+      color: #333;
+    }
+
+    .comment-form input[type="text"] {
+      width: 200px;
+      padding: 8px 12px;
+    }
+
+    .comment-form textarea {
+      width: 75%;
+      max-width: 100%;
+      padding: 10px 14px;
+      resize: vertical;
+    }
+
+    #submitComment {
+      width: fit-content;
+      background-color: #3b82f6;
+      color: white;
+      font-weight: bold;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    #submitComment:hover {
+      background-color: #2563eb;
+    }
+
+    #commentList {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    #commentList li {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 16px 20px;
+      border-radius: 12px;
+      background-color: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(6px);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .comment-author {
+      display: flex;
+      align-items: center;
+      font-weight: bold;
+      font-size: 0.95rem;
+      min-width: 80px;
+    }
+
+    .comment-text {
+      flex: 1;
+      font-size: 0.95rem;
+      color: #333;
+      word-break: break-word;
+    }
+
+    .comment-meta {
+      font-size: 0.8rem;
+      color: #888;
+      margin-top: 4px;
+    }
+
+    .delete-btn {
+      cursor: pointer;
+      font-size: 1.1rem;
+      color: #888;
+      border: none;
+      background: none;
+    }
+
+    .delete-btn:hover {
+      color: #e11d48;
+    }
+
+    @import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
+
+    #backButton {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        z-index: 1000;
+
+        font-family: 'Noto Sans KR', sans-serif;
+        font-size: 16px;
+        color: #000;
+
+        background-color: white;
+        border: 3px solid black;
+        border-radius: 10px;
+
+        padding: 8px 16px;
+        cursor: pointer;
+
+        box-shadow: 4px 4px 0 black; /* 오른쪽 아래 그림자 */
+        transition: all 0.1s ease-in-out;
+    }
+
+    #backButton:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 5px 5px 0 black;
+    }
+
+
+  </style>
+</head>
+<body>
+  <div id="particle-background"></div>
+  <button id="backButton">←</button>
+
+  <div id="noteContent">노트를 불러오는 중...</div>
+  <section id="commentSection">
+    <h3>💬 댓글 작성</h3>
+    <div class="comment-form">
+      <input type="text" id="userName" placeholder="이름을 입력하세요" />
+      <textarea id="commentInput" rows="4" placeholder="댓글을 입력하세요..."></textarea>
+      <button id="submitComment">댓글 등록</button>
+    </div>
+    <ul id="commentList"></ul>
+  </section>
+
+  <script src="back.js"></script>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const label = params.get("label");
+    const authorColors = ['#aae2fa', '#c6b8f9', '#b2f0b4', '#fae09b', '#f9a9aa'];
+
+    if (label) {
+      fetch(`/mechanik-note/Label/label${label}/label${label}.html`)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(html, "text/html");
+
+          doc.querySelectorAll("img").forEach(img => {
+            const src = img.getAttribute("src");
+            if (src && !src.startsWith("http") && !src.startsWith("/")) {
+              img.src = `/mechanik-note/Label/label${label}/${src}`;
+            }
+          });
+
+          document.getElementById("noteContent").innerHTML = doc.body.innerHTML;
+        })
+        .catch(err => {
+          document.getElementById("noteContent").innerHTML = "<p>노트를 불러올 수 없습니다.</p>";
+          console.error(err);
+        });
+    } else {
+      document.getElementById("noteContent").innerHTML = "<p>label 파라미터가 필요합니다.</p>";
+    }
+
+    const userNameInput = document.getElementById("userName");
+    const commentInput = document.getElementById("commentInput");
+    const commentList = document.getElementById("commentList");
+    const submitBtn = document.getElementById("submitComment");
+    const commentKey = `comments_label_${label}`;
+
+    function timeAgo(timestamp) {
+      const now = Date.now();
+      const diff = now - timestamp;
+      const seconds = Math.floor(diff / 1000);
+      if (seconds < 60) return `${seconds} seconds ago`;
+      const minutes = Math.floor(seconds / 60);
+      if (minutes < 60) return `${minutes} minutes ago`;
+      const hours = Math.floor(minutes / 60);
+      if (hours < 24) return `${hours} hours ago`;
+      const days = Math.floor(hours / 24);
+      if (days < 365) return `${days} days ago`;
+      const years = Math.floor(days / 365);
+      return `${years} years ago`;
+    }
+
+    function loadComments() {
+      const comments = JSON.parse(localStorage.getItem(commentKey) || "[]");
+      commentList.innerHTML = "";
+      comments.forEach(({ name, text, time, color }, index) => {
+        const li = document.createElement("li");
+        li.innerHTML = `
+          <span class="comment-author" style="color: ${color || '#000'}">${name}</span>
+          <div class="comment-text">
+            ${text}
+            <div class="comment-meta">${time ? timeAgo(time) : ""}</div>
+          </div>
+          <button class="delete-btn" data-index="${index}" title="삭제">🗑️</button>
+        `;
+        commentList.appendChild(li);
+      });
+
+      document.querySelectorAll(".delete-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const index = parseInt(btn.dataset.index);
+          const comments = JSON.parse(localStorage.getItem(commentKey) || "[]");
+          comments.splice(index, 1);
+          localStorage.setItem(commentKey, JSON.stringify(comments));
+          loadComments();
+        });
+      });
+    }
+
+    submitBtn.addEventListener("click", () => {
+      const name = userNameInput.value.trim();
+      const text = commentInput.value.trim();
+      if (!name || !text) return alert("이름과 댓글을 모두 입력해주세요.");
+
+      const color = authorColors[Math.floor(Math.random() * authorColors.length)];
+      const comments = JSON.parse(localStorage.getItem(commentKey) || "[]");
+      comments.push({ name, text, time: Date.now(), color });
+      localStorage.setItem(commentKey, JSON.stringify(comments));
+      userNameInput.value = "";
+      commentInput.value = "";
+      loadComments();
+    });
+
+    window.addEventListener("DOMContentLoaded", loadComments);
+
+    document.getElementById("backButton").addEventListener("click", () => {
+      history.back();
+    });
+  </script>
+</body>
+</html>

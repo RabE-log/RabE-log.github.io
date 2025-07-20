@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Personal Journal</title>
+
+  <!-- Swiper CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="eng.css" />
+</head>
+<body>
+  <div id="particle-background"></div>
+
+  <div id="header-placeholder"></div>
+
+<script>
+  fetch("header.html")
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById("header-placeholder").innerHTML = html;
+
+      const style = document.createElement("link");
+      style.rel = "stylesheet";
+      style.href = "header.css";
+      document.head.appendChild(style);
+
+      const script = document.createElement("script");
+      script.src = "header.js";
+      script.onload = () => {
+        // header.js가 로드된 뒤 initHeader 실행
+        initHeader();
+      };
+      document.body.appendChild(script);
+    })
+    .catch(err => console.error("헤더 로딩 실패:", err));
+</script>
+
+
+
+
+
+
+
+  <section class="hero">
+    <div class="hero-left" id="hero-left">
+      <h2>Personal Journal</h2>
+      <h1 id="hero-title">Week. Record. Daily.</h1>
+      <p id="hero-desc">Simple records. Quiet reflections.</p>
+      <button id="discoverBtn"><span class="combo_text">view Journal</span></button>
+    </div>
+
+    <div class="hero-right">
+      <div class="swiper mySwiper">
+        <div class="swiper-wrapper" id="cardContainer"></div>
+      </div>
+      <div class="swiper-post-number" id="postNumber">01</div>
+      <div class="swiper-controls">
+        <div class="arrow-buttons">
+          <div class="swiper-button-prev">◀</div>
+          <div class="swiper-button-next">▶</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+  
+  <hr class="section-divider">
+
+  <section class="post-grid-wrapper">
+    <div class="grid-title-bar">
+      <h2 class="grid-title">all Personal Journal</h2>
+      <select id="sortSelect">
+        <option value="latest">Latest</option>
+        <option value="oldest">Oldest</option>
+      </select>
+    </div>
+
+    <div id="postGridContainer"><!-- JS로 .post-grid 카드 삽입 --></div>
+
+    <div class="load-more-container">
+      <button id="loadMoreBtn">more Journal</button>
+    </div>
+  </section>
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="back.js"></script>
+  <script src="eng.js"></script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+
+  <header>
+    <div class="header-container">
+      <!-- 로고 -->
+      <div class="logo">
+        <a href="/index.html">
+          RabE
+          <img src="logo.png" alt="LOGO" class="logo-img" />
+        </a>
+      </div>
+
+      <!-- 검색창 -->
+      <div class="search-box">
+        <div class="search-input-wrapper">
+          <input type="text" placeholder="search Note..." />
+          <button type="submit" class="search-button">🔍</button>
+        </div>
+      </div>
+
+      <!-- 페이지 선택 버튼 -->
+      <div class="controls">
+        <div class="page-select-wrapper">
+          <button class="grid-button" id="gridToggleBtn" aria-label="페이지 선택">
+            <div class="grid-icon">
+              <span></span><span></span><span></span>
+              <span></span><span></span><span></span>
+              <span></span><span></span><span></span>
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 페이지 선택 메뉴 (헤더 외부에 위치) -->
+  <div class="radio-container" id="pageGrid">
+    <div class="radio-labels">
+      <input type="radio" name="page" id="page-1" data-page="1" data-url="https://dogeon-kim.github.io" checked /> <label for="page-1">RabE</label>
+      <input type="radio" name="page" id="page-2" data-page="2" data-url="/personal-journal/personal-journal.html" /> <label for="page-2">Personal Journal</label>
+      <input type="radio" name="page" id="page-3" data-page="3" data-url="/mechanik-note/mechanik-note.html" /> <label for="page-3">Mechanik Note</label>
+      <input type="radio" name="page" id="page-4" data-page="4" data-url="/language-log/language-log.html" /> <label for="page-4">Language Log</label>
+      <input type="radio" name="page" id="page-5" data-page="5" data-url="/side-project.html/side-project.html" /> <label for="page-5">Side Project</label>
+    </div>
+    
+  </div>
+
