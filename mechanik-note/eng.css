@@ -528,17 +528,34 @@ body {
 
 @media screen and (max-width: 600px) {
   #postGridContainer {
+    display: grid;
     grid-template-columns: 1fr;
     padding: 20px;
+    overflow: visible !important;     /* ✅ */
+    width: 100%;
     max-width: 100vw;
-    overflow-x: hidden;
   }
 
   .post-grid {
+    overflow: visible !important;     /* ✅ */
     width: 100%;
+    max-width: 100vw;
+    box-sizing: border-box;
+  }
+
+  .folder-card,
+  .folder-front,
+  .folder-back {
+    max-width: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+
+  .folder-tab-with-title {
     max-width: 100%;
   }
 }
+
 
 
 
