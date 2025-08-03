@@ -1,0 +1,702 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Deutschland Hafenstadt 2</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(50, 48, 44, 1);
+}
+.highlight-gray {
+	color: rgba(115, 114, 110, 1);
+	fill: rgba(115, 114, 110, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(205, 60, 58, 1);
+	fill: rgba(205, 60, 58, 1);
+}
+.highlight-default_background {
+	color: rgba(50, 48, 44, 1);
+}
+.highlight-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.highlight-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(115, 114, 110, 1);
+	fill: rgba(115, 114, 110, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(205, 60, 58, 1);
+	fill: rgba(205, 60, 58, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.block-color-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-default { background-color: rgba(84, 72, 49, 0.08); }
+.select-value-color-gray { background-color: rgba(84, 72, 49, 0.15); }
+.select-value-color-brown { background-color: rgba(210, 162, 141, 0.35); }
+.select-value-color-orange { background-color: rgba(224, 124, 57, 0.27); }
+.select-value-color-yellow { background-color: rgba(236, 191, 66, 0.39); }
+.select-value-color-green { background-color: rgba(123, 183, 129, 0.27); }
+.select-value-color-blue { background-color: rgba(93, 165, 206, 0.27); }
+.select-value-color-purple { background-color: rgba(168, 129, 197, 0.27); }
+.select-value-color-pink { background-color: rgba(225, 136, 179, 0.27); }
+.select-value-color-red { background-color: rgba(244, 171, 159, 0.4); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="2447b014-4f12-80a9-bebd-d3473ea2fd56" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/solid_blue.png" style="object-position:center 40%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">🇩🇪</span></div><h1 class="page-title">Deutschland Hafenstadt 2</h1><p class="page-description"></p></header><div class="page-body"><p id="2447b014-4f12-8063-9a03-fa7a1329d81d" class="">독일 북부 여행 2일차에 대해 풀어보겠다.<br/>오전에 간단히 Hamburg에서 조금 걷다가 Bremen으로 넘어가기로 했다.<br/></p><p id="2447b014-4f12-8056-b2bd-f7b1c27be91c" class="">Bremen으로 가기로 한 이유는 간단하다. 주변에 조금 큰 도시이면서 ‘Bremen’ 딱 듣기만 해도 어릴적 동화에서 봤던 ‘브레멘 음악대’가 생각이 나서 한 번 쯤은 가보면 좋을 것 같아서 가기로 했다.</p><p id="2447b014-4f12-806b-89e5-ed886671f5b8" class="">
+</p><div id="2447b014-4f12-80ca-8b5b-f9b831429e4f" class="column-list"><div id="2447b014-4f12-8032-9a25-de3eb34ca879" style="width:50%" class="column"><figure id="2447b014-4f12-8007-be60-fa2ef2f92341" class="image"><a href="20250730_194500(0).jpg"><img style="width:3000px" src="20250730_194500(0).jpg"/></a></figure></div><div id="2447b014-4f12-8082-b31b-f844bb688ebf" style="width:50%" class="column"><figure id="2447b014-4f12-809d-83a9-dcef9f1b4412" class="image"><a href="20250730_191710.jpg"><img style="width:3000px" src="20250730_191710.jpg"/></a></figure></div></div><p id="2447b014-4f12-80bf-bbb3-daf48359987a" class="">전날에 도시 외곽에 Nettelnburg에서 잠을 잤다. 대충 도시 중심에서 전철로 40분 정도 거리로 다시 아침에 Hamburg Hauptbahnhof로 이동했다.</p><p id="2447b014-4f12-806b-91f3-f32c7eb59c36" class="">아참에 Bremen으로 이동하는 기차 시간이 좀 남아서 잠시 앞에 공원에 갔다.</p><p id="2447b014-4f12-8057-8f63-e18a6f39f7ed" class="">
+</p><div id="2447b014-4f12-803f-92b0-d346aa39f95e" class="column-list"><div id="2447b014-4f12-8090-b9b1-ffb493e41412" style="width:50%" class="column"><figure id="2447b014-4f12-8037-a129-f0010df575f6" class="image"><a href="20250730_144232(1).jpg"><img style="width:3000px" src="20250730_144232(1).jpg"/></a></figure></div><div id="2447b014-4f12-8064-a3c9-f99119a20150" style="width:50%" class="column"><figure id="2447b014-4f12-80b6-b869-fd0441e6105d" class="image"><a href="20250730_151303.jpg"><img style="width:3000px" src="20250730_151303.jpg"/></a></figure></div></div><p id="2447b014-4f12-8029-a21c-c2f01645ac93" class="">사실 공원 벤치에 앉아서 어디 갈까 고민 좀 해볼까 해서 갔는데 공원이 엄~청 넓고 나무, 호수, 개울, 잔디가 아주 조화롭게 배치되어 뭔가 모를 편아함이 느껴졌다.<br/>벤치도 일반적이 공원 벤치가 아니라 1인석으로 약간 눕는 벤치로 되어 있어서 앉아서 편안하게 잠시 힐링을 했다.<br/></p><p id="2447b014-4f12-80e2-a8ae-c8d1ba26f3be" class="">도시 중심지에서 이렇게 평롸로운 공간이 있으니 매우 부러웠다. 뭔가 내가 사는 공간이나 지역에도 하나 쯤 마련이 되어 있으면 좋을 것 같았다…</p><p id="2447b014-4f12-8066-9dd3-fa3ed42a41b2" class="">
+</p><figure id="2447b014-4f12-803e-877b-f2309661a9db" class="image"><a href="20250730_164136.jpg"><img style="width:336px" src="20250730_164136.jpg"/></a></figure><p id="2447b014-4f12-80fd-b463-cfb3f5494236" class="">찾아보다 보니 어제 Hansestadt에 초콜릿 뮤지엄이 있길레 방문하게 되었다.<br/>어제 건물에 한 번 들어가고 싶었는데 그 건물 안에 있기에 꼭 들어가 보고 싶었다. 확실히 외관과는 다르게 내부는 신식으로 아주 깔끔하게 되어 있었다. 독일은 아무리 봐도 무조건 휜색 톤으로 인테리어를 맞춰야 하는 고질병이 있는 것 같다…<br/></p><p id="2447b014-4f12-805c-982c-db1c45545a5c" class="">내부에 초콜릿을 구매할 수 있는 기념품 샵과 뮤지엄을 투어할 수 있는 공간으로 나뉘어 있었다.<br/>원래 투어할 생각으로 왔기에 티켓을 끊고 들어가 봤다,<br/></p><p id="2447b014-4f12-8000-9b34-cc2fca1d8ef5" class="">
+</p><div id="2447b014-4f12-80cf-b0f3-d02b27b0f0fe" class="column-list"><div id="2447b014-4f12-8046-ab05-e95705040810" style="width:50%" class="column"><figure id="2447b014-4f12-805d-9789-eaea4f505cb3" class="image"><a href="%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2025-08-03_23-52-27.png"><img style="width:331.984375px" src="%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2025-08-03_23-52-27.png"/></a></figure></div><div id="2447b014-4f12-800d-9b98-fbeda101b88b" style="width:50%" class="column"><figure id="2447b014-4f12-801f-849d-da7d5c9f1903" class="image"><a href="d25a9491-ae18-4a94-9cd6-cc1e54b72739.png"><img style="width:288px" src="d25a9491-ae18-4a94-9cd6-cc1e54b72739.png"/></a></figure></div></div><p id="2447b014-4f12-80c2-b55d-c907e32759dd" class="">투어나 관라람 보다는 수업 같은 느낌으로 진행이 되었고 전부 어린이가 있는 가족 단위로 왔었다.<br/>거기서 나혼자만 아무생각 없이 들어온 성인 이었다.. ^^;;<br/></p><p id="2447b014-4f12-80b6-aa3b-d4b52124eb22" class="">
+</p><div id="2447b014-4f12-80bc-a4ac-f259ef3d7688" class="column-list"><div id="2447b014-4f12-8072-94d8-efa767308249" style="width:37.5%" class="column"><figure id="2447b014-4f12-8063-a44e-fb0d19bd9867" class="image"><a href="20250731_092118.jpg"><img style="width:3000px" src="20250731_092118.jpg"/></a></figure></div><div id="2447b014-4f12-8033-9a40-efa93e32c5be" style="width:62.5%" class="column"><figure id="2447b014-4f12-8010-a29a-e1838bb9dbcf" class="image"><a href="%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2025-08-03_23-54-04.png"><img style="width:384px" src="%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2025-08-03_23-54-04.png"/></a></figure></div></div><p id="2447b014-4f12-801f-821a-e05590c87d1d" class="">자녀가 없으면 안들어 오는 것을 추천한다. 초콜릿이 만들어지는 과정과 초콜릿 만들고 과정마다 맛도 보고 했는데 어린이들과 같이 하려니 뭐랄까 방방에 잘 못 들어온 느낌이랄까..? 앞에 기념품 샾에서 수제 초콜릿만 먹어도 충분할 것 같다. ㅎㅎ<br/>초콜릿은 휼륭하다! 🍫<br/></p><p id="2447b014-4f12-8011-8797-ca764f634a35" class="">
+</p><figure id="2447b014-4f12-8007-9348-ea2996525f40" class="image"><a href="20250731_105131.jpg"><img style="width:288px" src="20250731_105131.jpg"/></a></figure><p id="2447b014-4f12-80e0-90aa-f19d4a711f8c" class="">슬슬 걸어서 다시 역으로 왔다.<br/>사람은 많은데 다들 내가 Bremen 타는 기차는 거의 안 타서 혼자 전세를 낸 듯이 앉았다.<br/></p><p id="2447b014-4f12-8034-97a2-f1abedd5c002" class="">
+</p><div id="2447b014-4f12-80a7-998b-cc63c95c6a1e" class="column-list"><div id="2447b014-4f12-8027-8ffa-e8a8de8d0952" style="width:50%" class="column"><figure id="2447b014-4f12-80d7-acd8-e232a65c1a97" class="image"><a href="%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2025-08-03_23-56-29.png"><img style="width:331.984375px" src="%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2025-08-03_23-56-29.png"/></a></figure></div><div id="2447b014-4f12-80a1-80ab-f6befc0d3c39" style="width:50%" class="column"><figure id="2447b014-4f12-80bc-bb11-c5c0a9e36685" class="image"><a href="20250731_110517.jpg"><img style="width:288px" src="20250731_110517.jpg"/></a></figure></div></div><p id="2447b014-4f12-80e9-8607-fff29b1e3c3d" class="">독일 기차 중에 D-Ticket으로 탈 수 있는 기차는 보통 RE인데 2층으로 되어있다. 대충 우리나라 무궁화호가 2층으로 되어 있다고 생각하면 편하다.<br/>나는 보통 시야가 넓은 게 좋아서 2층에 앉는다. 테이블도 있고 앞 뒤 공간도 넓어서 꽤나 쾌적하고 편하게 갈 수 있었다.<br/></p><p id="2447b014-4f12-800e-a23c-cfd405d4ed1b" class="">
+</p><hr id="2447b014-4f12-8097-9d76-de17ae1ccb4f"/><p id="2447b014-4f12-800c-b632-f569c00d0b38" class="">
+</p><figure id="2447b014-4f12-8002-8ba0-d8e54da7240f" class="image"><a href="20250731_124317.jpg"><img style="width:336px" src="20250731_124317.jpg"/></a></figure><p id="2447b014-4f12-80d2-9354-d33fa43b1101" class="">Bremen에 내리자 마자 바로 큰 길이 나왔다. <br/>여긴 도시 전철의 높이가 엄청 높다. 그냥 보자마자 타거나 내릴 때 머리 박을 걱정은 없을 것 같았다.<br/></p><p id="2447b014-4f12-8034-a596-cae4b1e7ae42" class="">그래도 대중교통을 타기는 또 귀찮아서 중심지 까지 걸어갔다. 보통 구글 지도를 보고 간다고 생각하겠지만 나는 구글 지도를 보고 가도 항상 길을 잘 못 들어서 혼자 다닐 때는 끄고 그냥 걸어간다. ㅎㅎ<br/>나는 상상 이상으로 길치다.. 몸으로 때우는 편…<br/><br/></p><figure id="2447b014-4f12-804a-b8ea-f5b67c3ca1d4" class="image"><a href="%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2025-08-03_23-58-32.png"><img style="width:336px" src="%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2025-08-03_23-58-32.png"/></a></figure><p id="2447b014-4f12-805e-913f-f85176900002" class="">대충 걸어가다 보니 사람들도 꽤 있고 나팔을 불고 있는 동상을 보니 광장으로 가는 길 입구 같아서 아무 생각 없이 계속 걸어 갔다.</p><p id="2447b014-4f12-802d-bbc2-efa6e9271c1e" class="">
+</p><figure id="2447b014-4f12-80d5-af03-cd065950bad3" class="image"><a href="20250731_125452.jpg"><img style="width:336px" src="20250731_125452.jpg"/></a></figure><p id="2447b014-4f12-806f-a886-e25c4ab5fab3" class="">롤란트 동상이 보이니 맞게 왔다. 신성 로마 제국의 황제인 Charlemagne의 성기가이자 Roncevaux 전투의 영웅인 롤란트를 형상화 동상이라고 한다. 투박한게 다른 동상 보다는 귀업게 생겼다.</p><p id="2447b014-4f12-800c-9ebb-e2c1df826a68" class="">
+</p><figure id="2447b014-4f12-808a-8c78-d3aedd4d78a9" class="image"><a href="20250731_125554.jpg"><img style="width:4000px" src="20250731_125554.jpg"/></a></figure><p id="2447b014-4f12-80eb-b483-ec4bda5f3882" class="">날씨가 안 좋아서 그냥 그렇게 보일 수 있지만 엄청 큰 광장이 바로 옆에 나온다, 시청사가 있는 광장으로 제2차 세계대전 때 소방대의 노력으로 피해를 거의 입지 않아서 옛날 건물의 웅장함과 장식을 많이 볼 수 있었다.</p><div id="2447b014-4f12-8001-808c-e54b771431c0" class="column-list"><div id="2447b014-4f12-80e5-9753-dc110ec4bccc" style="width:50%" class="column"><figure id="2447b014-4f12-80c7-96e3-d4a2404ddbdb" class="image"><a href="20250731_125933.jpg"><img style="width:3000px" src="20250731_125933.jpg"/></a></figure></div><div id="2447b014-4f12-8057-8417-d352dea7e43b" style="width:50%" class="column"><figure id="2447b014-4f12-808a-8c3a-cf69a22b106b" class="image"><a href="%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2025-08-04_00-00-55.png"><img style="width:331.984375px" src="%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2025-08-04_00-00-55.png"/></a></figure></div></div><p id="2447b014-4f12-8093-b89f-ed3767f7cdbc" class="">건물 사이 골목으로 들어가면 뵈트허 거리로 들어갈 수 있다. 브레멘의 랜드마크인 거리로 관광객이 전부 여기 몰려 있었다.<br/>건물 사이로 상가가 이루어져 있고 그릇이나 골동품을 판매하고 있었다. 안으로 쭉 들어가면 종이 여러개 달려있는 건물이 나오는데 2시 정각에 가니 종들이 움직이면서 연주를 들을 수 있었다.<br/></p><p id="2447b014-4f12-80f0-9ca2-de9d1fb3624b" class="">
+</p><figure id="2447b014-4f12-8040-9b21-f2634309d1be" class="image"><a href="20250731_130351.jpg"><img style="width:336px" src="20250731_130351.jpg"/></a></figure><p id="2447b014-4f12-8099-b882-d1eca9340d92" class="">골목에서 나오니 저 끝에 성 같이 보이는 건물이 나왔다, 구글 지도 켜기 귀찮아서 저 건물을 중심에 두고 움직이기로 했다, 나중에 찾아보니 클럽 같은 술집이어서 굳이 방문하지는 않았다.</p><p id="2447b014-4f12-8033-89b3-e90683a19c13" class="">나와서 보니 오늘 한 끼도 제대로 먹지 않아서 점심 먹으로 이동했다. 광장 중심은 너무 물가가 관광지에 맞춰져서 Bremen 사람이들이 거주하는 곳 까지 가서 먹기로 결정했다,</p><p id="2447b014-4f12-80da-8f90-fb49ed5bc7d2" class="">
+</p><div id="2447b014-4f12-80a1-bea7-fc04bd7f432a" class="column-list"><div id="2447b014-4f12-8089-829a-efe6d3bf8dde" style="width:50%" class="column"><figure id="2447b014-4f12-8057-ae32-ef93e5f2df77" class="image"><a href="20250731_133450.jpg"><img style="width:3000px" src="20250731_133450.jpg"/></a></figure></div><div id="2447b014-4f12-8010-840b-f7575b1b4575" style="width:50%" class="column"><figure id="2447b014-4f12-80aa-91ea-f76d8199a5a1" class="image"><a href="%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2025-08-04_00-02-42.png"><img style="width:331.984375px" src="%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2025-08-04_00-02-42.png"/></a></figure></div></div><p id="2447b014-4f12-8084-9de6-c0736d250acf" class="">대충 지나가는 사람들 옷을 보고 집 앞에 나온다고 대충 입고 나온 사람이구나 싶은 사람을 따라 관광지를 벗어나 베저강을 넘어가 구 중심지로 이동했다,</p><p id="2447b014-4f12-80fa-bd34-e7f29883eb0b" class="">와서 보니 독일에 할렘가가 있으면 여기이지 않을까 라는 생각을 하게 되었다. 진짜 벽에 낙서도 많고 버스 정류장도 다 사라져 있고 다른 인종 보다는 흑인들이 더 많았다. 굳이 여행을 와서 여기는 안 와도 될 것 같다. ㅎㅎ<br/>삭막한 분위기로 꽤 무서웠다.<br/></p><p id="2447b014-4f12-801b-a68a-d618f0085880" class="">되너 박스를 먹었는데 양은 이때까지 먹은 것중에 가장 저렴하고 양은 많아서 만족했다.</p><p id="2447b014-4f12-80a0-9e33-cf9cbf191efa" class="">
+</p><figure id="2447b014-4f12-80d8-8ab7-d872ef0f6b19" class="image"><a href="20250731_134512.jpg"><img style="width:4000px" src="20250731_134512.jpg"/></a></figure><p id="2447b014-4f12-80c0-b3e1-d7362926bd9f" class="">먹으면서 골목을 빠져 나오니 베저강이 나오고 산책로가 쭉 펼쳐졌다. 분명 어까 중심으로 정한 건물이 내가 가는 길 앞에 있었는데 이제는 뒤에 있다. 다시 산책로를 따라 돌아갔다.</p><p id="2447b014-4f12-8077-a367-d6e58f6394f4" class="">
+</p><div id="2447b014-4f12-80d7-8dea-d081865a85d5" class="column-list"><div id="2447b014-4f12-8007-905d-d4eea9dd708c" style="width:50%" class="column"><figure id="2447b014-4f12-809d-8122-e918b92c5308" class="image"><a href="20250731_152914.jpg"><img style="width:3000px" src="20250731_152914.jpg"/></a></figure></div><div id="2447b014-4f12-800a-b0b5-dcbf5a8e1e41" style="width:50%" class="column"><figure id="2447b014-4f12-80b5-acee-d1b8b67dbf33" class="image"><a href="20250731_135733.jpg"><img style="width:3000px" src="20250731_135733.jpg"/></a></figure></div></div><p id="2447b014-4f12-809c-ba2c-eb17c47adaf5" class="">중심으로 정한 건물을 지나 항구 가까이 가니 전 날 함부르크에서 본 갈색 벽돌 외벽의 아름다운 건물이 나왔다.</p><p id="2447b014-4f12-801b-809e-cf92e0935ca2" class="">
+</p><figure id="2447b014-4f12-802f-9ad6-deffab178937" class="image"><a href="20250731_141058.jpg"><img style="width:528px" src="20250731_141058.jpg"/></a></figure><p id="2447b014-4f12-801f-9442-c847d8023cd4" class="">이번에는 무작정 저 건물 안에 들어가고 싶어서 다리를 건너 바로 건물 사이로 가봤다.</p><p id="2447b014-4f12-80af-b917-f189f9a16a51" class="">
+</p><figure id="2447b014-4f12-801f-9c4b-f0e4e5d681cc" class="image"><a href="20250731_152624.jpg"><img style="width:384px" src="20250731_152624.jpg"/></a></figure><p id="2447b014-4f12-80ec-a041-c3c4c4a77a7c" class="">여기 건들의 대부분은 함부르크와 다르게 거주 공간으로 사용이 되고 있었고 항국 가까이 거의 건물이 끝나는 지점에 2채 정도만 바와 뮤지엄이 있어다.</p><p id="2447b014-4f12-80e9-88a7-d1a0e0b7128e" class="">아무 생각없이 뮤지엄에 들어가 봤는데 상상 이상으로 크고 너무 큰 영감(?)을 받아서 나도 모르게 2시간을 이었는데 찍은 사진도 너무 많고 할 이야기도 많아서 다음 저널에서 다루어 보겠다.</p><div id="2447b014-4f12-8007-aa58-d75f42a27498" class="column-list"><div id="2447b014-4f12-8067-87f2-e92ed13e631b" style="width:50%" class="column"><p id="2447b014-4f12-8077-81fd-d02166149e69" class="">
+</p><figure id="2447b014-4f12-8085-95e4-d5ab16391c25" class="image"><a href="20250731_155509.jpg"><img style="width:3000px" src="20250731_155509.jpg"/></a></figure></div><div id="2447b014-4f12-80a1-8b39-dfde8b3b4436" style="width:50%" class="column"><p id="2447b014-4f12-80de-9cda-e168efd87f1f" class="">
+</p><figure id="2447b014-4f12-80c3-9173-d3464345d754" class="image"><a href="20250731_162044.jpg"><img style="width:3000px" src="20250731_162044.jpg"/></a></figure></div></div><p id="2447b014-4f12-8095-8e83-e37c41c04d2b" class="">사진에 내 모습이 보이지는 않아서 모르겠지만 가방이 15kg이 넘는 큰 가방을 들고 다녀서 내 어깨가 수명을 다함을 느겼다. 일단 숙소에 가서 간단하게 나둘 짐만 나두고 저녁 먹으로 이동하기로 했다.</p><p id="2447b014-4f12-80e4-9fa3-f938fd9ee132" class="">이번에는 숙소를 호스텔로 공유 숙소를 잡았다. 독일인 들과 자연스럽게 이야기도 하고 싶고 친구도 만들고 싶어서 예약을 하게 되었다.</p><p id="2447b014-4f12-8072-a862-cd60ea7e0380" class="">뭐 로망이었다만 망했다. ㅎ<br/>인도 사람들만 와서 힘들었다. 로망은 없으니 다들 편안한 곳으로 가라…<br/></p><p id="2447b014-4f12-8099-8775-eea1b75bae7c" class="">숙소는 상상과 다르게 깨끗하고 편안했다!</p><p id="2447b014-4f12-805f-a700-cd9bc03da5c6" class="">
+</p><p id="2447b014-4f12-80d7-8b15-d070c9505cc1" class="">
+</p><p id="2447b014-4f12-804b-b04c-c372ff62c2bf" class="">
+</p><p id="2447b014-4f12-80e1-936a-c1142c547e85" class="">3일차와 뮤지엄에 대해 각각 따로 저널을 올리겠다, 그럼 이만…</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
