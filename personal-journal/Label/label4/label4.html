@@ -1,0 +1,691 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Bremen 3일차 여행</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(50, 48, 44, 1);
+}
+.highlight-gray {
+	color: rgba(115, 114, 110, 1);
+	fill: rgba(115, 114, 110, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(205, 60, 58, 1);
+	fill: rgba(205, 60, 58, 1);
+}
+.highlight-default_background {
+	color: rgba(50, 48, 44, 1);
+}
+.highlight-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.highlight-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(115, 114, 110, 1);
+	fill: rgba(115, 114, 110, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(205, 60, 58, 1);
+	fill: rgba(205, 60, 58, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.block-color-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-default { background-color: rgba(84, 72, 49, 0.08); }
+.select-value-color-gray { background-color: rgba(84, 72, 49, 0.15); }
+.select-value-color-brown { background-color: rgba(210, 162, 141, 0.35); }
+.select-value-color-orange { background-color: rgba(224, 124, 57, 0.27); }
+.select-value-color-yellow { background-color: rgba(236, 191, 66, 0.39); }
+.select-value-color-green { background-color: rgba(123, 183, 129, 0.27); }
+.select-value-color-blue { background-color: rgba(93, 165, 206, 0.27); }
+.select-value-color-purple { background-color: rgba(168, 129, 197, 0.27); }
+.select-value-color-pink { background-color: rgba(225, 136, 179, 0.27); }
+.select-value-color-red { background-color: rgba(244, 171, 159, 0.4); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="24e7b014-4f12-8080-8aff-c1d4ba2d49e5" class="page sans"><header><h1 class="page-title">Bremen 3일차 여행</h1><p class="page-description"></p></header><div class="page-body"><p id="24e7b014-4f12-80da-840c-dd4a010023d8" class="">집에 돌아가는 날이다. 계획은 간단했다. 그냥 여행하면서 놓친 장소 등을 둘러보며서 다시 집으로 돌아가기로 했다. </p><p id="24e7b014-4f12-809e-9167-c26469ae1b99" class="">아침 10시에 거리에 나오니 확실히 어제보다는 거리에 사람이 많았다. 생각해보니 어제 음악대 동상을 보지 못해서 Bremen에서는 그거 보고 살살 중앙역 쪽으로 가기로 했다. </p><p id="24e7b014-4f12-80d4-b688-c8fe82579309" class="">
+</p><figure id="24e7b014-4f12-801c-8558-df646edca30d" class="image"><a href="20250731_170140.jpg"><img style="width:288px" src="20250731_170140.jpg"/></a></figure><p id="24e7b014-4f12-80e1-899d-c31d35d2d905" class="">지도에 광장 주변으로 위치가 표시가 되어서 살살 걸어가 보기로 했다. 숙소에서 광장까지 Straßenß-Bahn으로 두 정거장 정도고 사람도 많고 해서 한산한 거리를 걸어가 보기로 했다. 걸어가면 어제 보지 못했던 것도 보이고 가게와 골목 하나하나 볼 수도 있고 한국과 꽤나 다른 느낌을 주기에 걸어가는 것도 나쁘지 않은 것 같다.</p><p id="24e7b014-4f12-8035-bec0-e1107823b5bc" class="">
+</p><figure id="24e7b014-4f12-8077-bd30-d86a49404692" class="image"><a href="20250801_103208.jpg"><img style="width:288px" src="20250801_103208.jpg"/></a></figure><p id="24e7b014-4f12-8058-b4d6-e395e84a2d69" class="">그냥 가장 유명한 동상이다. 동화책에서 본 듯한 실루엣을 그대로 하고 있다. 이 동상을 찾으면서 왜 어제 보지 못하고 그냥 지나쳤나 곰곰이 생각을 하면서 찾았는데 찾으면 그냥 바로 그 사실을 알 수 있다. 여기 위치가 딱 중심지로 성당과 시청이 있고 다른 복합 건물이 많은데 어마 무시한 크기들 주위에 내 키에 1.3배 정도 되는 크기로 건물 사이에 위치해 있으니 당연히 안 보일 수밖에 없다…</p><p id="24e7b014-4f12-8051-a3d9-c398e605619d" class="">저 동상에 하단의 당나귀 다리를 만지면 뭔.. 소원이 이루어 진다나..? 그런 미신이 있는데 얼마나 만졌으면 닳은 건지 아니면 하도 만져서 다른 곳 변색이 될 동안 저기만 색을 유지한 건지 금색으로 남아있다. 근데 주둥이는 색이 왜 저래..?</p><p id="24e7b014-4f12-808b-a86f-e535260d5ecd" class="">
+</p><figure id="24e7b014-4f12-801a-bc2f-e43a65c9d354" class="image"><a href="20250731_164835.jpg"><img style="width:336px" src="20250731_164835.jpg"/></a></figure><p id="24e7b014-4f12-805d-b5fb-c3768ef40342" class="">보통의 동상은 이 정도 크기에 대충 내 키에 4배는 확실히 넘을 것 같이 생겼다. 그러니 음악대 동상 찾기 난이도가 헬 이었지… </p><p id="24e7b014-4f12-80f0-aabe-e992807b3a4b" class="">
+</p><figure id="24e7b014-4f12-80c1-b0b8-fdd581fa5342" class="image"><a href="20250801_101607.jpg"><img style="width:336px" src="20250801_101607.jpg"/></a></figure><p id="24e7b014-4f12-8058-a42d-e282d99e4900" class="">옆으로 가니 장터가 열려있어서 가서 구경도 하고 간단히 아침을 해결하기로 했다. ㅎㅎ</p><p id="24e7b014-4f12-8093-8da7-c7dcc1cd9136" class="">
+</p><div id="24e7b014-4f12-80d5-9b31-f441eabd54d3" class="column-list"><div id="24e7b014-4f12-8090-9502-dee560adaaeb" style="width:50%" class="column"><figure id="24e7b014-4f12-8051-bf5e-fee086f83ec4" class="image"><a href="20250801_103752.jpg"><img style="width:3000px" src="20250801_103752.jpg"/></a></figure></div><div id="24e7b014-4f12-80aa-96e5-c7e94b2cb7eb" style="width:50%" class="column"><figure id="24e7b014-4f12-8037-8774-fb99e0ade808" class="image"><a href="20250801_102219.jpg"><img style="width:3000px" src="20250801_102219.jpg"/></a></figure></div></div><p id="24e7b014-4f12-80ae-b41d-db18d0a12095" class="">한국 장터와 다르게 마트를 그대로 옮겨와 야외에 펼친 듯한 느낌이 강하다. 간단하게 반찬가게(?) 같은 곳에 가서 치즈와 고기 튀김 사서 아침으로 먹었다. 하나에 2.5유로로 가성비로 아침을 간단히 끝냈다. <br/>짜서 물은 필수였다 ㅎ</p><p id="24e7b014-4f12-80ed-abb8-d9db443bde32" class="">
+</p><div id="24e7b014-4f12-80ea-bd7b-ce0c79c71561" class="column-list"><div id="24e7b014-4f12-8090-ac9a-ca9dbd5919a2" style="width:50%" class="column"><figure id="24e7b014-4f12-8025-9d53-f76decbce273" class="image"><a href="20250801_104618.jpg"><img style="width:336px" src="20250801_104618.jpg"/></a></figure></div><div id="24e7b014-4f12-804c-9d4a-f413fa647cac" style="width:50%" class="column"><figure id="24e7b014-4f12-803a-b457-e681b0ddd7e2" class="image"><a href="%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2025-08-13_22-20-56.png"><img style="width:331.984375px" src="%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2025-08-13_22-20-56.png"/></a></figure></div></div><p id="24e7b014-4f12-80b2-8e8f-c391c0ed58aa" class="">독일 북쪽 지역에서의 인사는 “Moin”이다. 어디 가서 “Hallo”나 “Guten -” 대신 모인 한마디로 인사하면 편하다. 남쪽에서 인사를 “Servus”로 했었는데 북쪽에서 사용하면 서울에서 사투리 사용하는 촌놈을 쳐다보는 듯한 시선으로 쳐다보니 주의하시길..</p><p id="24e7b014-4f12-808e-9424-e2794221bacd" class="">가는 길에 비가 와서 잠시 피하면서 사진을 찍었다. 어릴 때 만화를 보면 피를 피하기 위해서 나무 밑에 들어가는 것을 전혀 이해하지를 못했는데 여기 독일 와서 제대로 느끼고 있다. 나뭇잎들이 촘촘하기 겹쳐서 비를 피하기에 정말 최고다. 여행 3일 동안 매일 비 오는 중이다…</p><p id="24e7b014-4f12-8033-a0f0-f83602f6eb33" class="">
+</p><div id="24e7b014-4f12-80a3-9c8a-c8d946940131" class="column-list"><div id="24e7b014-4f12-8032-b5f1-d34275694ce1" style="width:50%" class="column"><figure id="24e7b014-4f12-805c-a67a-f207bbcd2201" class="image"><a href="20250801_105412.jpg"><img style="width:3000px" src="20250801_105412.jpg"/></a></figure></div><div id="24e7b014-4f12-8059-a0ed-ea067a3a8c69" style="width:50%" class="column"><figure id="24e7b014-4f12-806b-bd99-d814f8abbde0" class="image"><a href="20250801_111932.jpg"><img style="width:3000px" src="20250801_111932.jpg"/></a></figure></div></div><p id="24e7b014-4f12-808d-a4b2-e98d48fac98f" class="">역으로 가는 길에 숲으로 이루어진 공원이 있어서 잠시 걷다가 가기로 했다. 풍차도 있고 꽤나 한적해서 괜찮았다. 요즘 독일 내에서 시위도 많아지고 해서 경찰들이 항상 무서운 표정을 유지한 모습만 봤는데 여기 공원에서 다들 웃으면서 있는 걸 보고 왠지 모를 내적 안심(?)을 느끼면서 잠시 걷고 다시 이동했다.</p><p id="24e7b014-4f12-8098-ba47-f5bccc40e9aa" class="">
+</p><figure id="24e7b014-4f12-8097-85fe-cc1498adfb38" class="image"><a href="Screenshot_20250801_124313_DB_Navigator.jpg"><img style="width:240px" src="Screenshot_20250801_124313_DB_Navigator.jpg"/></a></figure><p id="24e7b014-4f12-8069-a74c-fe272aaf041c" class="">돌아가는 길에는 말도 많고 탈도 많았다. 하늘에 구멍이 뚫린 것 같이 비가 쏟아져서 바로 연착~ 한자리에서 1시간 있었다~!!! 안내방송이 나올 때마다 사람들은 땅을 보고 이마를 짚었다. ㅋㅋㅋ</p><p id="24e7b014-4f12-8079-90be-eb7baf22ca6a" class="">
+</p><div id="24e7b014-4f12-8008-991a-e1dd5ad3aff7" class="column-list"><div id="24e7b014-4f12-80c2-beff-c7456f3eeb44" style="width:56.25%" class="column"><figure id="24e7b014-4f12-802a-9d12-ebc8350d0263" class="image"><a href="%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2025-08-13_22-38-27.png"><img style="width:336px" src="%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2025-08-13_22-38-27.png"/></a></figure></div><div id="24e7b014-4f12-8080-a80e-f2f6e6af314c" style="width:43.75000000000001%" class="column"><figure id="24e7b014-4f12-80e6-83ac-e81df9c2829e" class="image"><a href="%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2025-08-13_22-37-42.png"><img style="width:336px" src="%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2025-08-13_22-37-42.png"/></a></figure></div></div><p id="24e7b014-4f12-8023-9c83-daf5755fcf88" class="">Hamburg에 내려서 2시간이 비어서 잠시 생각하다가 예전에 독일어 수업을 하다가 교수님께서 Hamburg에 부산다리가 있다고 말씀한 게 기억이 나서 달려갔다. 도착하니 비가 그치는 매직~ 근데 바로 여우비 내려서 바로 달려서 아시아 마트로 피신했다. 아시아 마트는 어디를 가나 천국이다. ㅎㅎ 우리 동네는 구멍가게 만 해서 큰 도시 온 김에 꼭 들려야 한다. ^^</p><p id="24e7b014-4f12-805d-bb4d-c8a140f0cba0" class="">
+</p><p id="24e7b014-4f12-8096-98dd-e3e02e2f1499" class="">
+</p><p id="24e7b014-4f12-8096-9745-c28d00530042" class="">잠시 보고 집으로 갔다. 앞으로 주기적으로 올리겠습니다!</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
