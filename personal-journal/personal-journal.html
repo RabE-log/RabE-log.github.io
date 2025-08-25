@@ -1,96 +1,391 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Personal Journal</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Personal Journal</title>
+<style>
+  :root{
+    --bg:#f4f4f4;
+    --border:1px solid rgba(0,0,0,.08);
+    --shadow:0 10px 32px rgba(0,0,0,.12);
+    --text:#1f1f1f;
+    --accent:#2563eb;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{margin:0;background:var(--bg);font-family:system-ui,Roboto,Pretendard,Noto Sans KR,sans-serif;overflow:hidden;color:var(--text)}
 
-  <!-- Swiper CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-  <link rel="stylesheet" href="eng.css" />
+  /* ===== Particle Background ===== */
+  #particle-background{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+  #particle-background *, .particle, .line{pointer-events:none}
+  .particle{position:absolute;width:6px;height:6px;border-radius:50%;will-change:transform,left,top;filter:drop-shadow(0 1px 2px rgba(0,0,0,.15))}
+  .line{position:absolute;height:1.5px;transform-origin:0 0;will-change:transform,width,left,top,opacity,background;opacity:.8}
+
+  /* ===== Stage / Cards ===== */
+  .stage{position:relative;z-index:1;width:100vw;height:100vh;padding:40px;touch-action:pan-y pinch-zoom;}
+  .hud{position:fixed;left:16px;bottom:16px;color:#666;font-size:12px;background:#fff;border:var(--border);border-radius:999px;padding:8px 12px;box-shadow:var(--shadow);opacity:.9;z-index:5;display:flex;gap:8px;align-items:center}
+  .hud button{appearance:none;border:var(--border);background:#111;color:#fff;border-radius:999px;padding:6px 10px;font-size:11px;cursor:pointer}
+  .hud .count{color:#333}
+
+  .card{position:absolute;will-change:transform;background:transparent;border:none;box-shadow:none;overflow:visible}
+  .card-inner{background:#fff;border:var(--border);border-radius:14px;box-shadow:var(--shadow);overflow:hidden;transition:transform .2s ease, filter .2s ease}
+  .card:hover .card-inner{transform:scale(1.03);filter:saturate(1.05);cursor:pointer}
+
+  .thumb{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover}
+  .meta{padding:10px 12px 14px}
+  .title{font-size:12px;font-weight:700;letter-spacing:.08em;color:#222;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:color .2s ease}
+  .subtitle{margin-top:2px;font-size:11px;color:#8a8a8a;letter-spacing:.06em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .byline-compact{margin-top:4px;font-size:9px;line-height:1.15;color:#909090;letter-spacing:.005em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .author-name{color:#909090;transition:color .2s ease}
+  .card:hover .title{color:var(--accent)}
+  .card:hover .author-name{color:var(--accent)}
+  @media (max-width:480px){.byline-compact{font-size:8px}}
+
+  .dots{position:absolute;left:12px;bottom:12px;display:grid;grid-template-columns:repeat(3,8px);gap:6px;opacity:.9;filter:drop-shadow(0 1px 1px rgba(0,0,0,.2))}
+  .dots i{width:8px;height:8px;border-radius:50%;background:#e0e0e0;animation:pulse 1.6s ease-in-out infinite}
+  .dots i:nth-child(2){animation-delay:.12s}
+  .dots i:nth-child(3){animation-delay:.24s}
+  .dots i:nth-child(4){animation-delay:.36s}
+  .dots i:nth-child(5){animation-delay:.48s}
+  @keyframes pulse{0%,100%{transform:scale(.7);opacity:.65}50%{transform:scale(1);opacity:1}}
+
+  /* ===== Overlay (white, wide) ===== */
+  .overlay{position:fixed;inset:0;display:none;place-items:center;z-index:20}
+  .overlay.open{display:grid}
+  .overlay .bg{position:absolute;inset:0;background:#ffffff;opacity:.92;cursor:zoom-out}
+  .overlay .scrim{position:absolute;inset:0;background:transparent;pointer-events:none}
+  .overlay .panel{
+    position:relative;
+    width:min(1400px, calc(100vw - 96px));
+    max-height:92vh;
+    background:#ffffff;color:#1f2937;
+    border:1px solid rgba(0,0,0,.08);
+    border-radius:20px;
+    box-shadow:0 40px 100px rgba(0,0,0,.20);
+    overflow:auto;
+    transform:scale(.985);
+    animation:pop .25s ease forwards;
+  }
+  @keyframes pop{to{transform:scale(1)}}
+  .overlay header{display:flex;justify-content:flex-end;align-items:center;padding:12px 14px;border-bottom:1px solid rgba(0,0,0,.06)}
+  .close{border:1px solid rgba(0,0,0,.08);background:#f3f4f6;color:#111;border-radius:10px;padding:6px 10px;font-size:18px;cursor:pointer}
+  .close:hover{background:#e5e7eb}
+
+  .overlay .content{padding:18px}
+  .overlay .content-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:28px;align-items:center;min-height:clamp(420px, 70vh, 820px)}
+  .overlay .left{display:flex;flex-direction:column;gap:14px;justify-content:center;align-items:center;text-align:center}
+  .overlay .left h1{margin:0;font-size:34px;line-height:1.2;color:#111}
+  .overlay .left .byline{font-size:13px;color:#4b5563}
+  .overlay .left p{color:#374151;line-height:1.65;margin:0}
+  .overlay .actions{display:flex;gap:10px;margin-top:6px;justify-content:center;flex-wrap:wrap}
+  .overlay .btn{appearance:none;border:var(--border);background:#111;color:#fff;border-radius:10px;padding:10px 14px;font-size:12px;text-decoration:none}
+  .overlay .btn.secondary{background:#fff;color:#111}
+  .overlay .preview{grid-column:2;background:#f6f7f9 center/cover no-repeat;border-radius:14px;min-height:390px;aspect-ratio:4/3;box-shadow:inset 0 0 0 1px rgba(0,0,0,.06)}
+  @media (max-width:900px){.overlay .content-grid{grid-template-columns:1fr}.overlay .preview{grid-column:auto;order:-1;min-height:260px}}
+
+  /* ===== Mini Head (Bottom-Right) ===== */
+  #miniHead{
+    position:fixed; right:16px; bottom:16px; z-index:10;
+    background:#fff; border:3px solid #000; border-radius:12px; box-shadow:6px 6px 0 #000;
+    padding:8px 10px; display:flex; align-items:center; gap:10px;
+    transition:opacity .2s ease, transform .2s ease;
+  }
+  #miniHead:hover{transform:translateY(-2px)}
+  #miniHead .logo a{display:flex;align-items:center;text-decoration:none;color:#000;font-weight:800;font-size:18px;line-height:1}
+  #miniHead .logo-img{max-height:24px;width:auto;margin-left:6px;object-fit:contain}
+
+  /* grid button (from your header, compact) */
+  .grid-button{background:#fff;color:#fff;border:3px solid #000;border-radius:6px;padding:6px;cursor:pointer;box-shadow:3px 3px 0 #000;transition:transform .2s ease}
+  .grid-button:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 #000}
+  .grid-icon{display:grid;grid-template-columns:repeat(3,6px);grid-template-rows:repeat(3,6px);gap:4px}
+  .grid-icon span{width:6px;height:6px;background:#000;display:block;border-radius:2px}
+
+  /* radio menu (page grid) */
+  .radio-container{
+    position:fixed; display:none;
+    background:#fff; padding:10px 12px; border-radius:8px; border:3px solid #000; box-shadow:4px 4px 0 #000; z-index:15;
+    gap:6px;
+  }
+  .radio-labels{display:flex;flex-direction:column;gap:6px}
+  .radio-labels input{display:none}
+  .radio-container label{
+    cursor:pointer; background:#fff; border:2px solid #000; border-radius:6px; color:#333; font-weight:700;
+    padding:8px 12px; box-shadow:2px 2px 0 #000; transition:transform .15s ease, background .15s ease, color .15s ease;
+  }
+  .radio-container input:checked + label{background:#005830;color:#fff;transform:scale(1.03)}
+</style>
 </head>
 <body>
-  <div id="particle-background"></div>
+  <!-- Background -->
+  <div id="particle-background" aria-hidden="true"></div>
 
-  <div id="header-placeholder"></div>
+  <!-- Mini Head (우측 하단, 검색 제거) -->
+  <div id="miniHead" role="navigation" aria-label="Quick Pages">
+    <div class="logo">
+      <a href="/index.html"><img src="logo_green.png" alt="" class="logo-img"/></a>
+    </div>
+    <button class="grid-button" id="gridToggleBtn" aria-label="페이지 선택">
+      <div class="grid-icon">
+        <span></span><span></span><span></span>
+        <span></span><span></span><span></span>
+        <span></span><span></span><span></span>
+      </div>
+    </button>
+  </div>
+
+  <!-- 페이지 선택 메뉴 -->
+  <div class="radio-container" id="pageGrid" role="menu" aria-label="Page selector">
+    <div class="radio-labels">
+      <input type="radio" name="page" id="page-1" data-page="1" data-url="https://RabE-log.github.io" checked />
+      <label for="page-1">RabE</label>
+      <input type="radio" name="page" id="page-2" data-page="2" data-url="/personal-journal/personal-journal.html" />
+      <label for="page-2">Personal Journal</label>
+      <input type="radio" name="page" id="page-3" data-page="3" data-url="/mechanik-note/mechanik-note.html" />
+      <label for="page-3">Mechanik Note</label>
+      <input type="radio" name="page" id="page-4" data-page="4" data-url="/language-log/language-log.html" />
+      <label for="page-4">Language Log</label>
+      <input type="radio" name="page" id="page-5" data-page="5" data-url="/side-project/side-project.html" />
+      <label for="page-5">Side Project</label>
+    </div>
+  </div>
+
+  <!-- Cards stage -->
+  <div id="stage" class="stage" aria-live="polite"></div>
+  <div class="hud"><span class="count" id="hudCount">Journal: 0</span><button id="btnRefresh">refresh</button></div>
+
+  <!-- Overlay -->
+  <div id="overlay" class="overlay" aria-hidden="true">
+    <div class="bg"></div><div class="scrim"></div>
+    <div class="panel" role="dialog" aria-modal="true" aria-labelledby="ovTitle">
+      <header><button class="close" id="ovClose" aria-label="Close">×</button></header>
+      <div class="content content-grid">
+        <div class="left">
+          <h1 id="ovTitle"></h1>
+          <div class="byline" id="ovByline"></div>
+          <p id="ovDesc"></p>
+          <div class="actions">
+            <a id="ovOpen" class="btn" target="_self">read Journal</a>
+            <a id="ovLabel" class="btn secondary" target="_self" style="display:none">레이블 보기</a>
+          </div>
+        </div>
+        <div class="preview" id="ovPreview"></div>
+      </div>
+    </div>
+  </div>
 
 <script>
-  fetch("header.html")
-    .then(res => res.text())
-    .then(html => {
-      document.getElementById("header-placeholder").innerHTML = html;
+/* ===== Mini Head JS (검색 제거, BR 고정) ===== */
+(function initMiniHead(){
+  const head = document.getElementById('miniHead');
+  const gridBtn = document.getElementById('gridToggleBtn');
+  const pageGrid = document.getElementById('pageGrid');
+  if(!head || !gridBtn || !pageGrid) return;
 
-      const style = document.createElement("link");
-      style.rel = "stylesheet";
-      style.href = "header.css";
-      document.head.appendChild(style);
+  function positionGrid(){
+    const r = gridBtn.getBoundingClientRect();
+    const menuW = pageGrid.offsetWidth || 220;
+    const menuH = pageGrid.offsetHeight || 240;
+    // 버튼 바로 위에, 오른쪽에 맞춰 표시
+    const left = Math.max(8, r.right - menuW);
+    const top  = Math.max(8, r.top - menuH - 8);
+    pageGrid.style.left = left + 'px';
+    pageGrid.style.top  = top  + 'px';
+  }
+  gridBtn.addEventListener('click', (e)=>{
+    e.stopPropagation();
+    const show = pageGrid.style.display !== 'flex';
+    pageGrid.style.display = show ? 'flex' : 'none';
+    if(show){ positionGrid(); }
+  });
+  document.addEventListener('click', (e)=>{
+    if(!head.contains(e.target) && !pageGrid.contains(e.target)){
+      pageGrid.style.display = 'none';
+    }
+  });
+  pageGrid.addEventListener('change', (e)=>{
+    if(e.target.name === 'page'){
+      const url = e.target.dataset.url;
+      if(url){ location.href = url; }
+    }
+  });
+  window.addEventListener('resize', ()=>{ if(pageGrid.style.display==='flex') positionGrid(); });
 
-      const script = document.createElement("script");
-      script.src = "header.js";
-      script.onload = () => {
-        // header.js가 로드된 뒤 initHeader 실행
-        initHeader();
-      };
-      document.body.appendChild(script);
-    })
-    .catch(err => console.error("헤더 로딩 실패:", err));
+  // 현재 문서 제목과 동일한 라벨에 체크 (선택 강조)
+  const title = document.title.trim();
+  pageGrid.querySelectorAll('input[name="page"]').forEach(input=>{
+    const label = pageGrid.querySelector(`label[for="${input.id}"]`);
+    if(label && label.textContent.trim() === title){
+      input.checked = true;
+    }
+  });
+})();
 </script>
 
+<script>
+/* ===== Gallery / Overlay (이전과 동일, note.html?label=X 유지) ===== */
+(function(){
+  const DISCOVERY = { startIndex: 1, maxIndex: 1000, missStop: 8, pollInterval: 10000, pollBurst: 5 };
+  const NUM_CARDS = 12, WIDTH_RANGE = [140, 340], GAP_RANGE = [60, 260], SPEED_BASE = 38, SPEED_VARIATION = 22, EDGE = 36;
 
+  const stage = document.getElementById('stage');
+  const hudCount = document.getElementById('hudCount');
+  const btnRefresh = document.getElementById('btnRefresh');
 
+  const overlay = document.getElementById('overlay');
+  const ovTitle  = document.getElementById('ovTitle');
+  const ovDesc   = document.getElementById('ovDesc');
+  const ovByline = document.getElementById('ovByline');
+  const ovOpen   = document.getElementById('ovOpen');
+  const ovLabel  = document.getElementById('ovLabel');
+  const ovClose  = document.getElementById('ovClose');
+  const ovPreview= document.getElementById('ovPreview');
 
+  let vw = window.innerWidth, vh = window.innerHeight;
+  const cards = []; let items = []; const seen = new Set(); let maxFound = 0;
+  let pause = false, boost = 0, userVel = 0;
 
+  function getIndexFromHref(href){ const m=(href||'').match(/post\/post(\d+)\.html/i); return m?parseInt(m[1],10):null; }
 
+  async function discoverInitial(){ let miss=0; for(let i=DISCOVERY.startIndex;i<=DISCOVERY.maxIndex;i++){ const ok=await tryFetchPost(i); if(ok){miss=0; maxFound=Math.max(maxFound,i);} else {miss++; if(miss>=DISCOVERY.missStop) break;} } updateHud(); }
+  async function discoverIncremental(){ let start=maxFound?maxFound+1:DISCOVERY.startIndex, miss=0; for(let i=start;i<start+DISCOVERY.pollBurst;i++){ const ok=await tryFetchPost(i); if(ok){miss=0; maxFound=Math.max(maxFound,i);} else {miss++; if(miss>=DISCOVERY.missStop) break;} } updateHud(); }
+  async function tryFetchPost(i){
+    const href = `post/post${i}.html`; if(seen.has(href)) return true;
+    try{ const res=await fetch(href,{cache:'no-store'}); if(!res.ok) return false;
+      const html=await res.text(); const data=parsePost(html, href); if(!data.thumb) return false;
+      items.push(data); seen.add(href); return true; }catch{ return false;}
+  }
+  function parsePost(html, href){
+    const dom=new DOMParser().parseFromString(html,'text/html');
+    const thumbEl = dom.querySelector('img.card-thumbnail') || dom.querySelectorAll('img')[0];
+    const backEl  = dom.querySelector('img.background-image') || dom.querySelectorAll('img')[1] || thumbEl;
+    const img1 = thumbEl ? thumbEl.getAttribute('src') : '';
+    const img2 = backEl  ? backEl.getAttribute('src')  : img1;
+    const title=(dom.querySelector('h3')?.textContent||'').trim();
+    const desc =(dom.querySelector('p')?.textContent||'').trim();
+    let dateStr= dom.querySelector('time')?.getAttribute('datetime')
+              || dom.querySelector('.post-date')?.textContent
+              || dom.querySelector('.date')?.textContent
+              || dom.querySelector('date')?.textContent
+              || dom.querySelector('meta[name="date"]')?.getAttribute('content') || '';
+    const author=(dom.querySelector('.post-author')?.textContent
+               || dom.querySelector('meta[name="author"]')?.getAttribute('content')
+               || dom.querySelector('.author')?.textContent
+               || dom.querySelector('[data-author]')?.getAttribute('data-author')
+               || 'Dogeon Kim').trim();
+    const base=new URL(href, location.href); const abs=(u)=> u ? (new URL(u, base)).href : '';
+    const index=getIndexFromHref(href);
+    return { href, index, thumb:abs(img1), backdrop:abs(img2), title, desc, date:dateStr, author };
+  }
+  function updateHud(){ hudCount.textContent=`Journal: ${items.length}`; }
 
-  <section class="hero">
-    <div class="hero-left" id="hero-left">
-      <h2>Personal Journal</h2>
-      <h1 id="hero-title">Week. Record. Daily.</h1>
-      <p id="hero-desc">Simple records. Quiet reflections.</p>
-      <button id="discoverBtn"><span class="combo_text">view Journal</span></button>
-    </div>
+  function createCard(data, xStart){
+    const w = randBetween(WIDTH_RANGE[0], WIDTH_RANGE[1]);
+    const h = w * 0.66 + 72;
+    const y = randBetween(EDGE, Math.max(EDGE, vh - EDGE - h));
+    const el = document.createElement('figure');
+    el.className='card'; el.style.width=w+'px';
+    renderCard(el, data);
+    el.addEventListener('click', ()=> openOverlay(data));
+    stage.appendChild(el);
+    return { el, w, h, x:xStart, y, speed:SPEED_BASE + randBetween(-SPEED_VARIATION, SPEED_VARIATION), data };
+  }
+  function renderCard(el, data){
+    const authorRaw=(data.author||'Dogeon Kim'); const author=authorRaw.replace(/^\s*by\s+/i,'').trim();
+    const rel=relativeTime(data.date);
+    const bylineHtml= rel ? `By <span class="author-name">${escapeHtml(author)}</span> · ${escapeHtml(rel)}`
+                          : `By <span class="author-name">${escapeHtml(author)}</span>`;
+    el.innerHTML=`
+      <div class="card-inner">
+        <img class="thumb" src="${data.thumb}" alt="" loading="lazy" decoding="async"/>
+        <figcaption class="meta">
+          <h3 class="title" title="${escapeHtml(data.title)}">${escapeHtml(data.title)}</h3>
+          <div class="subtitle" title="${escapeHtml(data.desc)}">${escapeHtml(data.desc)}</div>
+          <div class="byline-compact">${bylineHtml}</div>
+        </figcaption>
+      </div>`;
+  }
 
-    <div class="hero-right">
-      <div class="swiper mySwiper">
-        <div class="swiper-wrapper" id="cardContainer"></div>
-      </div>
-      <div class="swiper-post-number" id="postNumber">01</div>
-      <div class="swiper-controls">
-        <div class="arrow-buttons">
-          <div class="swiper-button-prev">◀</div>
-          <div class="swiper-button-next">▶</div>
-        </div>
-      </div>
-    </div>
-  </section>
+  function openOverlay(data){
+    pause = true;
+    ovTitle.textContent = data.title || '';
+    ovDesc.textContent  = data.desc  || '';
+    const idx = data.index ?? getIndexFromHref(data.href);
+    ovOpen.href = idx != null ? `note.html?label=${idx}` : `note.html`;
+    const rel=relativeTime(data.date); const name=data.author || 'Dogeon Kim';
+    ovByline.textContent = rel ? `By ${name} · ${rel}` : `By ${name}`;
+    const bg = data.backdrop || data.thumb || '';
+    ovPreview.style.backgroundImage = bg ? `url('${bg}')` : 'none';
+    overlay.classList.add('open'); overlay.setAttribute('aria-hidden','false');
+  }
+  function closeOverlay(){ overlay.classList.remove('open'); overlay.setAttribute('aria-hidden','true'); pause=false; }
+  ovClose.addEventListener('click', closeOverlay);
+  overlay.addEventListener('click', (e)=>{ if(!e.target.closest('.panel')) closeOverlay(); });
+  window.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeOverlay(); });
 
+  stage.addEventListener('wheel',(e)=>{ e.preventDefault(); const d=(e.deltaY+(e.deltaX||0)); if(d>0){ boost=Math.min(1.6, boost + Math.max(0.02, Math.min(0.5, d/1200))); } if(d<0){ boost=Math.min(1.6, boost + Math.max(-0.4, Math.min(-0.02, d/2000))); } }, {passive:false});
+  let dragging=false,lastX=0,lastT=0;
+  stage.addEventListener('pointerdown',(e)=>{ dragging=true; lastX=e.clientX; lastT=performance.now(); });
+  stage.addEventListener('pointermove',(e)=>{ if(!dragging) return; const now=performance.now(); const dt=Math.max(1,now-lastT)/1000; const dx=e.clientX-lastX; const target=Math.max(-900, Math.min(1200, (-dx)/dt)); userVel=userVel*0.6+target*0.4; lastX=e.clientX; lastT=now; });
+  const endDrag=()=>{ dragging=false; }; stage.addEventListener('pointerup',endDrag); stage.addEventListener('pointercancel',endDrag); stage.addEventListener('pointerleave',()=>dragging=false);
 
+  let last = performance.now();
+  function loop(now){
+    const dt=(now-last)/1000; last=now;
+    if(!pause){
+      boost*=0.965; if(!dragging) userVel += (0 - userVel) * 0.06;
+      let rightEdge=-Infinity; for(const c of cards){ rightEdge=Math.max(rightEdge, c.x + c.w); }
+      for(const c of cards){
+        const v=(c.speed*(1+boost))+userVel; c.x -= v*dt;
+        if(c.x + c.w < -80){
+          const gap=randBetween(GAP_RANGE[0], GAP_RANGE[1]); c.x = rightEdge + gap; c.y = randBetween(EDGE, Math.max(EDGE, vh - EDGE - c.h)); rightEdge = c.x + c.w;
+          if(items.length){ const data=items[Math.floor(Math.random()*items.length)]; c.data=data; renderCard(c.el, data); }
+        }
+        c.el.style.transform=`translate3d(${c.x}px, ${c.y}px, 0)`;
+      }
+    }
+    requestAnimationFrame(loop);
+  }
 
+  (async function start(){
+    await discoverInitial();
+    if(items.length===0){
+      items = Array.from({length:6}).map((_,i)=>({
+        href:`post/post${i+1}.html`, index:i+1,
+        thumb:`https://picsum.photos/seed/fallback${i}/480/360`,
+        backdrop:`https://picsum.photos/seed/fallbackb${i}/1200/900`,
+        title:`샘플 제목 ${i+1}`, desc:`샘플 설명 텍스트입니다.`,
+        date:new Date().toISOString(), author:'Dogeon Kim'
+      }));
+    }
+    initCards(); requestAnimationFrame(loop); setInterval(discoverIncremental, DISCOVERY.pollInterval);
+  })();
 
-  
-  <hr class="section-divider">
+  function initCards(){
+    stage.innerHTML=''; cards.length=0; vw=window.innerWidth; vh=window.innerHeight;
+    let cursor = Math.random()* (vw*0.6);
+    for(let i=0;i<NUM_CARDS;i++){
+      const data=items[i % items.length]; const gap=randBetween(GAP_RANGE[0], GAP_RANGE[1]);
+      const c=createCard(data, cursor); cards.push(c); cursor += c.w + gap;
+    }
+    for(const c of cards){ c.el.style.transform=`translate3d(${c.x}px, ${c.y}px, 0)`; }
+  }
+  btnRefresh.addEventListener('click', ()=>{ initCards(); });
 
-  <section class="post-grid-wrapper">
-    <div class="grid-title-bar">
-      <h2 class="grid-title">all Personal Journal</h2>
-      <select id="sortSelect">
-        <option value="latest">Latest</option>
-        <option value="oldest">Oldest</option>
-      </select>
-    </div>
+  function randBetween(min,max){ return Math.random()*(max-min)+min }
+  function escapeHtml(t){ return (t||'').replace(/[&<>"']/g, m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[m])) }
+  function relativeTime(dateStr){
+    if(!dateStr) return ''; const d=new Date(dateStr); if(isNaN(d)) return '';
+    const now=new Date(); const diff=(now-d)/1000; const rtf=new Intl.RelativeTimeFormat('en',{numeric:'auto'});
+    const units=[['year',31536000],['month',2592000],['week',604800],['day',86400],['hour',3600],['minute',60]];
+    for(const [unit,sec] of units){ const v=Math.floor(diff/sec); if(Math.abs(v)>=1){ return rtf.format(-v, unit); } }
+    return 'just now';
+  }
+  let r; window.addEventListener('resize', ()=>{ clearTimeout(r); r=setTimeout(initCards,150); }, {passive:true});
+})();
+</script>
 
-    <div id="postGridContainer"><!-- JS로 .post-grid 카드 삽입 --></div>
-
-    <div class="load-more-container">
-      <button id="loadMoreBtn">more Journal</button>
-    </div>
-  </section>
-
-
-
-
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-  <script src="back.js"></script>
-  <script src="eng.js"></script>
+<!-- Particle background script -->
+<script src="back.js" defer></script>
 </body>
 </html>

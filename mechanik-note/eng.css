@@ -510,44 +510,12 @@ body {
 
 
 
-#postGridContainer {
-  display: grid;
-  gap: 50px;
-  padding: 40px 60px;
-  margin: 0 auto;
-  justify-content: center; /* ➕ 가운데 정렬 */
-  background-color: #e8e8e8;
-
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* 350 → 280 */
-
-
-  width: 100%;
-  max-width: 100vw;     /* ✅ viewport를 넘지 않게 */
-  overflow-x: hidden;   /* ✅ 스크롤 방지 */
-  box-sizing: border-box;
-}
 
 @media screen and (max-width: 600px) {
-  #postGridContainer {
-    display: grid;
-    grid-template-columns: 1fr;
-    padding: 20px;
-    overflow: visible !important;     /* ✅ */
-    width: 100%;
-    max-width: 100vw;
-  }
 
-  .post-grid {
-    overflow: visible !important;     /* ✅ */
-    width: 100%;
-    max-width: 100vw;
-    box-sizing: border-box;
-    transform: scale(0.7);
-  }
 
-  .folder-card,
-  .folder-front,
-  .folder-back {
+
+  .folder-card {
     max-width: 100%;
     overflow: hidden;
     box-sizing: border-box;
@@ -611,40 +579,8 @@ body {
 }
 
 
-.folder-tab-title {
-  width: 65%;
-  font-size: 1.2em;
-
-  flex: 1; /* 제목이 더 넓게 차지 */
-  height: 60px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: bold;
-  color: #000;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-}
-
-.post-grid {
-  height: 385px; /* 60 + 370 */
 
 
-  display: flex;
-  flex-direction: column;
-  aspect-ratio: 1 / 1; /* 정사각형 느낌 유지 */
-  width: 100%;
-  position: relative;
-  z-index: 1;
-  transform: none;
-
-  max-width: 100%;
-  box-sizing: border-box;
-  margin: 0 auto;
-
-  transform: scale(0.85);
-}
 
 .folder-card {
   position: absolute;
@@ -683,50 +619,7 @@ body {
   overflow-y: auto;
 }
 
-.folder-front {
-  z-index: 2;
-  transform-origin: bottom right;
-  border: 2px solid;
-  border-top-left-radius: 16px;
-}
 
-.folder-back {
-  position: relative;
-  background-color: #9e9e9e;
-  transform-origin: right center;
-  box-shadow: 4px 4px 0 #000;
-
-  border-left: 2px solid;  border-right: 2px solid;
-
-  border-bottom: 2px solid;
-
-  border-top-right-radius: 16px;
-}
-
-.folder-back::before {
-  content: "";
-  position: absolute;
-  left: auto;
-  right: 0;
-  top: 0;
-  width: 50%;                /* ← 길이의 절반 */
-  height: 0;
-  border-top: 2px solid #000;  /* 원하는 선 스타일 */
-}
-
-.post-grid:hover .folder-front {
-  transform: scale(1.02) skewX(8deg) scaleY(0.93) translateX(8px);
-  box-shadow: none;
-}
-
-.post-grid:hover .folder-back {
-  box-shadow: 2px 2px 0 #000;
-}
-
-.post-grid:hover .folder-tab-title {
-  color: #fe6033;
-  font-size: 22px;
-}
 
 
 
@@ -771,7 +664,7 @@ body {
   display: inline-block;
 }
 
-.post-grid:hover .folder-author {
+.folder-author {
   color: #fe6033;
   transform: scale(1.05);
 }
@@ -779,25 +672,6 @@ body {
 
 
 
-.folder-buttons {
-  position: absolute;
-  top: -5px;
-  left: 40%;
-  transform: translateX(-50%) translateY(-10px);
-  display: flex;
-  gap: 16px;
-  z-index: 1000;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.4s ease, transform 0.4s ease;
-}
-
-.post-grid:hover .folder-buttons,
-.folder-buttons:hover {
-  opacity: 1;
-  pointer-events: auto;
-  transform: translateX(-50%) translateY(0);
-}
 
 .folder-btn {
   font-family: 'Comic Neue', cursive;
@@ -868,9 +742,6 @@ body {
 
 @media screen and (max-width: 768px) {
   
-  .folder-tab-title {
-    font-size: 1em;
-  }
 
   .folder-btn {
     font-size: 14px;
@@ -881,10 +752,6 @@ body {
     padding: 10px;
   }
 
-  .post-grid, .card {
-    max-height: 65vh;
-    overflow-y: auto;
-  }
 }
 
 
@@ -976,28 +843,220 @@ body {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ========== Post Grid Wrapper → 리스트형 ========== */
+.post-grid-wrapper {
+  max-width: 1080px;
+  margin: 24px auto 56px;
+  padding: 0 20px;
+}
+
+#postGridContainer {
+  display: grid;
+  gap: 18px;
+}
+
+/* 리스트 아이템 */
+.blog-item {
+  display: grid;
+  grid-template-columns: 1fr 240px;
+  gap: 16px;
+  align-items: center;
+  background: #fff;
+  border: 2px solid #000;
+  border-radius: 14px;
+  box-shadow: 5px 5px 0 #000;
+  padding: 18px;
+}
+
+.blog-main { min-width: 0; }
+.blog-title {
+  font-size: clamp(1.06rem, 2.2vw, 1.3rem);
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+.blog-title a { color: #0f172a; text-decoration: none; }
+.blog-title a:hover { color: #fe6033; }
+
+.blog-meta { font-size: .88rem; color: #6b7280; margin-bottom: 10px; }
+.blog-meta .folder-author { font-weight: 700; color: #111827; }
+
+.blog-excerpt {
+  font-size: .98rem;
+  color: #1f2937;
+  line-height: 1.6;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.blog-actions { margin-top: 12px; display: flex; gap: 10px; flex-wrap: wrap; }
+.folder-btn {
+  font-family: "Comic Neue", cursive;
+  font-weight: 700;
+  font-size: .95rem;
+  padding: 10px 16px;
+  border: 3px solid #000;
+  border-radius: 10px;
+  box-shadow: 3px 3px 0 #000;
+  background: #1f2937;
+  color: #fff;
+  text-decoration: none;
+  transition: transform .1s ease;
+}
+.folder-btn:hover { transform: translateY(-2px); }
+.folder-btn.note { background: #fe6033; }
+
+.blog-thumb img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border: 1.5px solid #000;
+  border-radius: 10px;
+}
+
+.load-more-wrap { display: flex; justify-content: center; margin-top: 22px; }
 #loadMoreBtn {
-  font-family: 'Comic Neue', cursive;
-  font-weight: bold;
-  font-size: 1rem;
-  padding: 12px 24px;
+  height: 44px;
+  padding: 0 18px;
   border: 3px solid #000;
   border-radius: 12px;
-  background-color: #fff;
-  color: #000;
-  cursor: pointer;
+  background: #ffcf65;
   box-shadow: 4px 4px 0 #000;
-  transition: all 0.2s ease;
-  z-index: 9999;
+  font: 700 15px "Comic Neue", cursive;
+}
+#loadMoreBtn:hover { transform: translateY(-1px); }
+
+@media (max-width: 860px) {
+  .blog-item { grid-template-columns: 1fr; padding: 14px; }
+  .blog-thumb img { height: 200px; }
 }
 
-#loadMoreBtn:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 6px 6px 0 #000;
-  background-color: #f97316; /* 연한 노랑 강조 */
+
+
+
+#totalCount { font-size:.9rem; color:#555; margin-left:8px; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 컨테이너(가운데 정렬) */
+.load-more-wrap{
+  display: flex;
+  justify-content: center;
+  margin-top: 22px;
 }
 
-#loadMoreBtn:active {
-  transform: translate(0, 0);
-  box-shadow: 2px 2px 0 #000;
+/* 기본 버튼 */
+#loadMoreBtn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  height: 44px;
+  padding: 0 18px;
+
+  border: 3px solid #000;
+  border-radius: 12px;
+  background: #ffcf65;            /* 노란 배경 */
+  color: #111;                     /* 텍스트 색 */
+  box-shadow: 4px 4px 0 #000;      /* 레트로 그림자 */
+
+  font-family: "Comic Neue", cursive;
+  font-weight: 700;
+  font-size: 15px;
+
+  cursor: pointer;
+  user-select: none;
+  transition: transform .1s ease, box-shadow .1s ease, filter .15s ease;
 }
+
+/* 상태 */
+#loadMoreBtn:hover{
+  transform: translateY(-1px);
+  filter: brightness(1.05);
+}
+
+#loadMoreBtn:active{
+  transform: translate(1px, 1px);
+  box-shadow: 3px 3px 0 #000;
+}
+
+#loadMoreBtn:focus-visible{
+  outline: none;
+  box-shadow: 0 0 0 3px #000, 6px 6px 0 #000; /* 굵은 포커스 표시 */
+}
+
+#loadMoreBtn[disabled],
+#loadMoreBtn[aria-busy="true"]{
+  opacity: .55;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: 4px 4px 0 #000;
+}
+
+/* 작은 화면에서 전체 너비 선택 시 */
+@media (max-width: 480px){
+  #loadMoreBtn{
+    width: 100%;
+  }
+}
+
+/* 모션 최소화 환경 */
+@media (prefers-reduced-motion: reduce){
+  #loadMoreBtn{
+    transition: none;
+  }
+}
+
+/* (선택) 버튼 내부에 로딩 스피너 아이콘을 둘 경우 */
+#loadMoreBtn .spinner{
+  width: 16px;
+  height: 16px;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: lm-spin .8s linear infinite;
+}
+
+@keyframes lm-spin{
+  to{ transform: rotate(360deg); }
+}
+
+
+
+
+
+.load-more-wrap{ display:flex !important; justify-content:center; margin-top:22px; }
+#loadMoreBtn{ display:inline-flex !important; }

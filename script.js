@@ -47,7 +47,7 @@ function createGrid() {
             face.classList.add("main-face");
             const imageOptions = ["img1.jpg", "img2.jpg", "img3.jpg"];
             const selectedImage = imageOptions[Math.floor(Math.random() * imageOptions.length)];
-            face.innerHTML = `<div>RabE</div><img src="logo.png" alt="main image" style="margin-top: 0.3rem; width: 50%;">`;
+            face.innerHTML = `<img src="logo_white.png" alt="main image" style="width: 95%;">`;
           } else if (labelMap[key]) {
             const label = labelMap[key];
             face.textContent = label;

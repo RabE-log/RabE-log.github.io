@@ -210,3 +210,30 @@ header {
   transform: scale(1.05);
 }
 
+
+
+
+
+
+
+
+/* === Grid 토글: 기본 닫힘 + 열릴 때만 flex === */
+#pageGrid, .page-grid {                      /* 두 이름 모두 대응 */
+  display: none !important;
+  position: absolute; z-index: 1000001;      /* 콘텐츠 위, 오버레이(1000002) 아래 */
+}
+#pageGrid.is-open, .page-grid.is-open {
+  display: flex !important;
+}
+
+/* 헤더가 접힌 상태면 무조건 닫힘 */
+header.collapsed #pageGrid,
+header.collapsed .page-grid {
+  display: none !important;
+}
+
+/* (선택) 버튼 활성 상태 시각 힌트 */
+#gridToggleBtn[aria-expanded="true"],
+.grid-toggle[aria-expanded="true"] {
+  opacity: .9;
+}

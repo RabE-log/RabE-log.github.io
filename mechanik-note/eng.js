@@ -250,6 +250,32 @@ document.getElementById("discoverBtn").addEventListener("click", () => {
 
 
 
+function filterGridCards(keyword) {
+  const kw = (keyword || "").toLowerCase();
+  isFiltering = kw.length > 0;           // ← 추가
+  gridContainer.innerHTML = "";
+
+  const filtered = postDataList.filter(d =>
+    d.title.toLowerCase().includes(kw) ||
+    d.desc.toLowerCase().includes(kw) ||
+    d.author.toLowerCase().includes(kw)
+  );
+
+  setTotalCount(filtered.length);
+
+  if (filtered.length === 0) {
+    const msg = document.createElement("div");
+    msg.textContent = "검색 결과 없음";
+    msg.style.textAlign = "center";
+    msg.style.color = "#999";
+    gridContainer.appendChild(msg);
+    resetLoadMoreVisibility();           // ← 교체 (이전의 display="none" 제거)
+    return;
+  }
+
+  filtered.forEach(d => gridContainer.appendChild(createBlogItem(d)));
+  resetLoadMoreVisibility();             // ← 교체 (이전의 display="none" 제거)
+}
 
 
 
@@ -283,82 +309,6 @@ window.addEventListener("DOMContentLoaded", handleResponsiveHero);
 
 
 
-
-
-
-
-function filterGridCards(keyword) {
-  const lowerKeyword = keyword.toLowerCase();
-  gridContainer.innerHTML = "";
-
-  const filteredPosts = postDataList.filter(data =>
-    data.title.toLowerCase().includes(lowerKeyword) ||
-    data.desc.toLowerCase().includes(lowerKeyword) ||
-    data.author.toLowerCase().includes(lowerKeyword)
-  );
-
-  if (filteredPosts.length === 0) {
-    const noResultMsg = document.createElement("div");
-    noResultMsg.textContent = "No result";
-    noResultMsg.style.fontSize = "1.5rem";
-    noResultMsg.style.fontWeight = "bold";
-    noResultMsg.style.color = "#999";
-    noResultMsg.style.textAlign = "center";
-    noResultMsg.style.margin = "40px auto";
-    noResultMsg.style.gridColumn = "1 / -1";
-    gridContainer.appendChild(noResultMsg);
-
-    const loadBtn = document.getElementById("loadMoreBtn");
-    if (loadBtn) loadBtn.style.display = "none";
-    return;
-  }
-
-  filteredPosts.forEach(data => {
-    const gridCard = document.createElement("div");
-    gridCard.className = "post-grid";
-
-    const titleDiv = document.createElement("div");
-    titleDiv.className = "folder-tab-with-title";
-    titleDiv.innerHTML = `
-      <div class="folder-tab"></div>
-      <div class="folder-tab-title">${data.title}</div>
-    `;
-
-    const backCard = document.createElement("div");
-    backCard.className = "folder-card folder-back";
-    backCard.innerHTML = `<div class="folder-body"></div>`;
-
-    const frontCard = document.createElement("div");
-    frontCard.className = "folder-card folder-front";
-    frontCard.innerHTML = `
-      <div class="folder-body">
-        <div class="folder-image"><img src="${data.imgThumb}" alt="썸네일 이미지" /></div>
-        <p class="folder-description">${data.desc}</p>
-        <hr class="folder-divider" />
-      </div>
-    `;
-
-    const metaDiv = document.createElement("div");
-    metaDiv.className = "folder-meta";
-    metaDiv.innerHTML = `By <span class="folder-author">${data.author}</span> · ${calculateDaysAgo(data.date)}`;
-    frontCard.querySelector(".folder-body").appendChild(metaDiv);
-
-    const buttonDiv = document.createElement("div");
-    buttonDiv.className = "folder-buttons";
-    buttonDiv.innerHTML = `
-      <a href="/mechanik-note/note.html?label=${data.labelIndex}" class="folder-btn">Note</a>
-
-      <a href="${data.githubLink}" target="_blank" class="folder-btn">GitHub</a>
-    `;
-
-
-    gridCard.append(titleDiv, backCard, frontCard, buttonDiv);
-    gridContainer.appendChild(gridCard);
-  });
-
-  const loadBtn = document.getElementById("loadMoreBtn");
-  if (loadBtn) loadBtn.style.display = "none";
-}
 
 
 
@@ -475,5 +425,244 @@ document.addEventListener("DOMContentLoaded", () => {
   const headerPlaceholder = document.getElementById("header-placeholder");
   if (headerPlaceholder) {
     observer.observe(headerPlaceholder, { childList: true, subtree: true });
+  }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function createBlogItem(data) {
+  const item = document.createElement("article");
+  item.className = "blog-item";
+
+  const main = document.createElement("div");
+  main.className = "blog-main";
+  main.innerHTML = `
+    <h3 class="blog-title"><a href="/mechanik-note/note.html?label=${data.labelIndex}">${data.title}</a></h3>
+    <div class="blog-meta">By <span class="folder-author">${data.author}</span> · ${calculateDaysAgo(data.date)}</div>
+    <p class="blog-excerpt">${data.desc}</p>
+    <div class="blog-actions">
+      <a class="folder-btn note" href="/mechanik-note/note.html?label=${data.labelIndex}">Note</a>
+      <a class="folder-btn" href="${data.githubLink}" target="_blank">GitHub</a>
+    </div>
+  `;
+
+  const thumb = document.createElement("div");
+  thumb.className = "blog-thumb";
+  thumb.innerHTML = `<a href="/mechanik-note/note.html?label=${data.labelIndex}">
+    <img src="${data.imgThumb}" alt="">
+  </a>`;
+
+  item.append(main, thumb);
+  return item;
+}
+
+function loadNextGridBatch() {
+  const nextBatch = postDataList.slice(loadedGridCount, loadedGridCount + gridLoadBatch);
+  nextBatch.forEach(data => gridContainer.appendChild(createBlogItem(data)));
+  loadedGridCount += nextBatch.length;
+
+  if (loadedGridCount >= postDataList.length) {
+    document.getElementById("loadMoreBtn").style.display = "none";
+  }
+}
+
+function filterGridCards(keyword) {
+  const lowerKeyword = keyword.toLowerCase();
+  gridContainer.innerHTML = "";
+
+  const filtered = postDataList.filter(d =>
+    d.title.toLowerCase().includes(lowerKeyword) ||
+    d.desc.toLowerCase().includes(lowerKeyword) ||
+    d.author.toLowerCase().includes(lowerKeyword)
+  );
+
+  setTotalCount(filtered.length);
+  if (filtered.length === 0) {
+    const msg = document.createElement("div");
+    msg.textContent = "검색 결과 없음";
+    msg.style.textAlign = "center";
+    msg.style.color = "#999";
+    gridContainer.appendChild(msg);
+    document.getElementById("loadMoreBtn").style.display = "none";
+    return;
+  }
+
+  filtered.forEach(d => gridContainer.appendChild(createBlogItem(d)));
+  document.getElementById("loadMoreBtn").style.display = "none";
+}
+
+
+function setTotalCount(n){
+  const el = document.getElementById("totalCount");
+  if (el) el.textContent = `${n} posts`;
+}
+
+
+
+
+
+
+
+
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const headerPlaceholder = document.getElementById("header-placeholder");
+  if (!headerPlaceholder) return;
+
+  const wireSearch = () => {
+    const input = document.querySelector(".search-input-wrapper input[type='text']") ||
+                  document.getElementById("postSearchInput"); // fallback
+    const btn = document.querySelector(".search-button");
+
+    if (!input) return false;
+
+    const run = () => {
+      const kw = input.value.trim();
+      filterGridCards(kw);
+      setTotalCount(
+        kw ? postDataList.filter(d =>
+          d.title.toLowerCase().includes(kw.toLowerCase()) ||
+          d.desc.toLowerCase().includes(kw.toLowerCase()) ||
+          d.author.toLowerCase().includes(kw.toLowerCase())
+        ).length : postDataList.length
+      );
+    };
+
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        run();
+      }
+    });
+    if (btn) btn.addEventListener("click", (e) => { e.preventDefault(); run(); });
+
+    // 입력하면서 바로 필터(선호 시)
+    input.addEventListener("input", () => run());
+
+    return true;
+  };
+
+  const observer = new MutationObserver(() => {
+    if (wireSearch()) observer.disconnect();
+  });
+  observer.observe(headerPlaceholder, { childList: true, subtree: true });
+});
+
+
+
+
+
+
+
+
+// 기존
+loadNextGridBatch();
+initSwiper();
+
+// ➕ 추가
+setTotalCount(postDataList.length);
+
+// 기존
+const loadBtn = document.getElementById("loadMoreBtn");
+if (loadBtn) {
+  loadBtn.addEventListener("click", loadNextGridBatch);
+}
+
+
+
+
+
+let isFiltering = false;
+
+function resetLoadMoreVisibility(){
+  const btn = document.getElementById("loadMoreBtn");
+  if(!btn) return;
+  // '필터 중 아님' && '아직 더 불러올 글이 남음' → 보여주기
+  const shouldShow = !isFiltering && (loadedGridCount < postDataList.length);
+  btn.style.display = shouldShow ? "inline-flex" : "none";
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  gridContainer = document.getElementById("postGridContainer");
+
+  // 초기 상태
+  isFiltering = false;
+  sortPosts("latest");                   // 값이 latest/oldest/title일 때
+  setTotalCount(postDataList.length);
+  loadedGridCount = 0;
+  loadNextGridBatch();                   // 내부에서 resetLoadMoreVisibility 호출됨
+
+  // 헤더 검색(또는 상단 인풋) 이벤트 예시
+  const searchInput = document.querySelector(".search-input-wrapper input[type='text']") ||
+                      document.getElementById("postSearchInput");
+  if (searchInput){
+    searchInput.addEventListener("input", () => {
+      const kw = searchInput.value.trim();
+      if (kw === "") {
+        // 검색 해제 → 초기 상태로
+        isFiltering = false;
+        gridContainer.innerHTML = "";
+        loadedGridCount = 0;
+        setTotalCount(postDataList.length);
+        loadNextGridBatch();
+      } else {
+        filterGridCards(kw);
+      }
+      resetLoadMoreVisibility();         // ← 추가
+    });
+  }
+
+  // 정렬
+  const sortSelect = document.getElementById("sortSelect");
+  if (sortSelect){
+    sortSelect.addEventListener("change", () => {
+      const v = sortSelect.value;        // "latest" | "oldest" | "title"
+      if (v === "latest")  sortPosts("latest");
+      if (v === "oldest")  sortPosts("oldest");
+      if (v === "title")   sortPosts("title");
+
+      const kw = searchInput?.value.trim() || "";
+      if (kw){
+        filterGridCards(kw);             // 필터 중이면 그대로 필터 렌더
+      }else{
+        isFiltering = false;
+        gridContainer.innerHTML = "";
+        loadedGridCount = 0;
+        loadNextGridBatch();
+      }
+      resetLoadMoreVisibility();         // ← 추가
+    });
   }
 });

@@ -1,7 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Kalam:wght@700&display=swap');
 
-
+:root{
+  --card-border: 3px;
+  --card-radius: 12px;
+  --card-shadow: 5px 5px 0 #000;   /* 카드들과 동일한 오프셋 쉐도우 */
+  --brand-accent: #fe6033;
+}
 
 body {
   font-family: 'Comic Neue', cursive;
@@ -10,145 +15,167 @@ body {
 }
 
 
+/* ☰ 토글 버튼 – 크게 + 완전 원형 + 헤더 위 중앙 배치 */
+button#headerToggleBtn.header-toggle-btn{
+  position: fixed !important;
+  z-index: 100000 !important;
+
+  /* 헤더가 top:16px; left:16px; width:129px; 라는 가정에 맞춘 좌표 */
+  /* 중앙상단에 오게: left = 16px + (129-72)/2, top은 헤더 시작 바로 위쪽 */
+  left: calc(16px + (129px - 72px) / 2) !important;
+  top: 8px !important; /* 너무 위면 조정하세요 (예: 4~12px) */
+
+  width: 72px !important;   /* ← 크게 */
+  height: 72px !important;  /* ← 정사각형(원형) */
+  border-radius: 50% !important;  /* ← 완전 동그라미 */
+
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  background: #fff !important;
+  color: #000 !important;
+  border: 3px solid #000 !important;
+  box-shadow: 4px 4px 0 #000 !important;
+
+  font-size: 28px !important;  /* 아이콘 크기 */
+  line-height: 1 !important;
+  cursor: pointer !important;
+
+  transition: transform .2s ease, box-shadow .2s ease, opacity .2s ease !important;
+}
+
+button#headerToggleBtn.header-toggle-btn:hover{
+  transform: translate(-2px, -2px) !important;
+  box-shadow: 6px 6px 0 #000 !important;
+}
+
+button#headerToggleBtn.header-toggle-btn:active{
+  transform: translate(-1px, -1px) scale(.98) !important;
+  box-shadow: 5px 5px 0 #000 !important;
+}
+
+button#headerToggleBtn.header-toggle-btn:focus-visible{
+  outline: none !important;
+  box-shadow: 0 0 0 3px #000, 6px 6px 0 #000 !important;
+}
 
 
-/* 헤더 */
+
+
+header.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ===== 좌측 세로 헤더 : 카드 스타일과 동일한 룩 ===== */
 header {
   position: fixed;
-  top: 5%;
-  left: 50%;
-  margin: 0 auto;
-  transform: translateX(-50%);
-  width: 90%;
-  max-width: 1200px;
-  background-color: #fff;
-  border: 4px solid #000;
-  border-radius: 12px;
-  box-shadow: 6px 6px 0 #000;
+  top: 16px;
+  left: 16px;
+
+  /* 사용자 지정 폭 */
+  width: 129px;
+  height: auto;                 /* 내부 콘텐츠 + padding 만큼만 */
   padding: 16px;
+  box-sizing: border-box;
   z-index: 99999;
+
+  background: #fff;             /* 유리효과 제거 → 카드와 통일 */
+  border: var(--card-border) solid #000;
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);   /* 카드와 동일한 오프셋 느낌 */
+  overflow-x: hidden;
+
+  opacity: 0;
+
+  opacity: 1;
+  pointer-events: auto;
 }
 
+/* ===== 좌측 세로 헤더 : 카드 스타일과 동일한 룩 ===== */
+header {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+
+  /* 사용자 지정 폭 */
+  width: 129px;
+  height: auto;                 /* 내부 콘텐츠 + padding 만큼만 */
+  padding: 16px;
+  box-sizing: border-box;
+  z-index: 99999;
+
+  background: #fff;             /* 유리효과 제거 → 카드와 통일 */
+  border: var(--card-border) solid #000;
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);   /* 카드와 동일한 오프셋 느낌 */
+  overflow-x: hidden;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+/* 내부 스택은 중앙 정렬, 기본 간격은 작게 */
 .header-container {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  white-space: nowrap;
-  overflow-x: auto;
-}
-
-/* 로고 */
-.logo {
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;
-}
-
-
-
-.logo a {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  font-size: 2.25rem;
-  font-weight: bold;
-  color: #000;
-  height: 100%;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
-               Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
-               sans-serif;
-}
-
-.logo-img {
-  height: 100%;
-  max-height: 56px;
-  width: auto;
-  margin-left: 1px;
-  object-fit: contain;
-}
-
-/* 검색창 */
-.search-box {
-  flex-grow: 1;
-  display: flex;
-  justify-content: center;
-  margin: auto;
-}
-
-
-
-.search-input-wrapper {
-  position: relative;
-  width: 60%;
-  flex-shrink: 1;
-}
-
-
-.search-input-wrapper input[type="text"] {
+  gap: 8px;                     /* 로고-검색 간격은 그대로 작게 유지 */
   width: 100%;
-  padding: 10px 40px 10px 14px;
-  font-size: 1rem;
-  border: 3px solid #000;
-  border-radius: 999px;
-  background-color: #fff;
-  color: #000;
-  box-shadow: 3px 3px 0 #000;
-  font-weight: bold;
 }
 
+/* ===== 로고 : 비율 유지, 버튼 대비 2배(88px) 기준 */
+.logo { display: flex; align-items: center; justify-content: center; width: 100%; }
+.logo a { display: flex; align-items: center; text-decoration: none; }
+.logo-img { display: block; max-width: 88px; height: auto; }
 
-
-.search-button {
-  position: absolute;
-  top: 50%;
-  right: 14px;
-  padding: 0;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  font-size: 1.2rem;
-  cursor: pointer;
-  color: #000;
-}
-
-/* 컨트롤 영역 */
-.controls {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  flex-shrink: 0;
-}
-
-.page-select-wrapper {
-  position: relative;
-  flex-shrink: 0;
-}
-
-/* 페이지 선택 아이콘 버튼 */
+/* ===== 버튼(검색/그리드) : 정사각형 + 카드식 보더/쉐도우 */
+.search-toggle-btn,
 .grid-button {
-  background-color: #fff;
-  color: #fff;
-  border: 3px solid #000;
-  border-radius: 6px;
-  padding: 8px;
-  cursor: pointer;
-  box-shadow: 3px 3px 0 #000;
-  transition: transform 0.2s ease;
-}
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;                 /* 정사각형 */
+  height: 44px;                /* 정사각형 */
+  padding: 0;
+  line-height: 1;
+  font-size: 20px;
 
+  background: #fff;
+  color: #000;
+  border: var(--card-border) solid #000;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 3px 3px 0 #000;  /* 버튼은 카드보다 살짝 약하게 */
+  transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+}
+.search-toggle-btn:hover,
 .grid-button:hover {
   transform: translate(-2px, -2px);
   box-shadow: 6px 6px 0 #000;
 }
 
+/* ===== 검색박스 : 로고와 간격은 유지, 아래만 크게 띄움(요청) */
+.search-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 75px;          /* ✅ 검색버튼 ↔ 그리드버튼 간격만 크게 */
+}
+
+/* ===== 페이지 선택 버튼 래퍼(가운데 정렬) */
+.controls { display: flex; justify-content: center; width: 100%; }
+.page-select-wrapper { display: flex; justify-content: center; width: 100%; }
+
+/* 그리드 아이콘 */
 .grid-icon {
   display: grid;
   grid-template-columns: repeat(3, 6px);
   grid-template-rows: repeat(3, 6px);
   gap: 4px;
 }
-
 .grid-icon span {
   width: 6px;
   height: 6px;
@@ -157,56 +184,77 @@ header {
   border-radius: 2px;
 }
 
-/* 페이지 선택 라디오 메뉴 */
+/* ===== 검색 팝업 : header 밖(고정) + 카드 룩 통일 ===== */
+/* body 최상위에 있는 #searchWrapper 가정 */
+.search-input-wrapper{
+  position: fixed !important;   /* 헤더 레이아웃 영향 제거 */
+  top: 0; left: 0;
+  display: none;
+  align-items: center;
+  gap: 8px;
+
+  background: #fff;
+  border: var(--card-border) solid #000;
+  border-radius: 8px;
+  padding: 8px;
+  box-shadow: 4px 4px 0 #000;   /* 카드와 유사한 오프셋 */
+  z-index: 100000;
+}
+.search-input-wrapper.open{ display:flex; }
+.search-input-wrapper input[type="text"]{
+  width: 180px;
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 2px solid #000;
+  border-radius: 6px;
+  font-weight: 700;
+}
+.search-button{
+  background: var(--brand-accent);
+  color: #fff;
+  border: 2px solid #000;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* ===== 라디오 메뉴(페이지 선택) : 카드 룩 통일 ===== */
 .radio-container {
-  --main-color: #00205B;
-  --main-color-opacity: #f5426c1a;
-  --total-radio: 9;
-  display: flex;
-  flex-direction: column;
-  position: absolute;
+  position: fixed;
+  top: 80px;
+  left: calc(16px + 129px + 12px);  /* 헤더 오른쪽으로 살짝 */
   background-color: #fff;
   padding: 10px 12px;
+  border: var(--card-border) solid #000;
   border-radius: 8px;
-  border: 3px solid #000;
   box-shadow: 4px 4px 0 #000;
   z-index: 999999;
-  top: 100px;
-  gap: 5px;
-}
-
-.radio-labels {
-  display: flex;
+  display: none;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
 }
-
-.radio-container input {
-  cursor: pointer;
-  appearance: none;
-}
-
+.radio-labels { display: flex; flex-direction: column; gap: 6px; }
+.radio-container input { appearance: none; display: none; }
 .radio-container label {
   cursor: pointer;
-  margin-bottom: 4px;
   background: #fff;
   border: 2px solid #000;
   border-radius: 6px;
   color: #333;
-  font-weight: bold;
-  transition: all 0.2s ease;
-  box-shadow: 2px 2px 0 #000;
-
+  font-weight: 700;
   padding: 8px 16px;
+  box-shadow: 2px 2px 0 #000;
+  transition: transform .2s ease, filter .2s ease, background .2s ease;
 }
-
-.radio-labels input {
-  display: none;
-}
-
-.radio-container input:checked + label {
-  background-color: var(--main-color);
-  color: white;
+.radio-container input:checked + label{
+  background: #00205B;
+  color: #fff;
   transform: scale(1.05);
 }
 
+/* 작은 화면 대응(선택) */
+@media (max-width: 680px){
+  /* 필요 시 폭만 살짝 늘리고, 팝업 좌표도 보정 가능 */
+  /* header { width: 136px; } */
+}

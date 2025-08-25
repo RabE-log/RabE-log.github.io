@@ -94,7 +94,7 @@ html, body {
   transform: rotateX(90deg) translateY(50%) translateZ(calc(var(--tile-depth) /20));
   transform-origin: bottom center;
   bottom: 99%;
-  background-color: orange;
+  background-color: #afafaf;
 }
 
 .face.bottom {

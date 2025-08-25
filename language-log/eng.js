@@ -1,12 +1,18 @@
-const cardContainer = document.getElementById("cardContainer");
-const gridContainer = document.getElementById("postGridContainer");
+// ===== 기본 요소 참조 (Hero/Swiper 없어도 안전하도록 전부 가드) =====
+let cardContainer = document.getElementById("cardContainer"); // 없으면 null
+let gridContainer = document.getElementById("postGridContainer"); // 리스트 컨테이너
+
 const totalPosts = 30;
-let swiper;
+let swiper = null;
 let currentLabelIndex = null;
+
 let loadedGridCount = 0;
 const gridLoadBatch = 8;
+let isFiltering = false;
+
 const postDataList = [];
 
+// ===== 유틸 =====
 function calculateDaysAgo(dateString) {
   const postDate = new Date(dateString);
   const today = new Date();
@@ -15,24 +21,94 @@ function calculateDaysAgo(dateString) {
   return `${diffDays} days ago`;
 }
 
-function updateHero(title, desc, imgSrc, labelIndex = 1) {
-  const heroSection = document.querySelector(".hero");
-  const heroLeft = document.getElementById("hero-left");
-
-  document.getElementById("hero-title").textContent = title;
-  document.getElementById("hero-desc").textContent = desc;
-  heroSection.style.backgroundImage = `url(${imgSrc})`;
-  heroSection.style.backgroundSize = "cover";
-  heroSection.style.backgroundPosition = "center";
-  heroSection.style.backgroundRepeat = "no-repeat";
-  currentLabelIndex = labelIndex;
-
-  const oldLabel = document.querySelector(".label-content");
-  if (oldLabel) oldLabel.remove();
-
-  
+function setTotalCount(n){
+  // id, data-attr 모두 업데이트
+  const els = document.querySelectorAll("#totalCount, [data-total-count]");
+  els.forEach(el => { el.textContent = `${n} posts`; });
 }
 
+// ===== 리스트 렌더링 =====
+function createBlogItem(data) {
+  const item = document.createElement("article");
+  item.className = "blog-item no-thumb"; // ← 이미지 없는 카드 표시용 클래스
+
+  item.innerHTML = `
+    <div class="blog-main">
+      <h3 class="blog-title">
+        <a href="/language-log/note.html?label=${data.labelIndex}">${data.title}</a>
+      </h3>
+      <div class="blog-meta">By <span class="folder-author">${data.author}</span> · ${calculateDaysAgo(data.date)}</div>
+      <p class="blog-excerpt">${data.desc}</p>
+      <div class="blog-actions">
+        <a class="folder-btn note" href="/language-log/note.html?label=${data.labelIndex}">Note</a>
+        ${data.githubLink && data.githubLink !== "#" ? `<a class="folder-btn" href="${data.githubLink}" target="_blank" rel="noopener">GitHub</a>` : ""}
+      </div>
+    </div>
+  `;
+  return item;
+}
+
+function loadNextGridBatch() {
+  if (!gridContainer) return;
+
+  const nextBatch = postDataList.slice(loadedGridCount, loadedGridCount + gridLoadBatch);
+  nextBatch.forEach(data => gridContainer.appendChild(createBlogItem(data)));
+  loadedGridCount += nextBatch.length;
+
+  resetLoadMoreVisibility();
+}
+
+// ===== 필터 & 정렬 =====
+function filterGridCards(keyword) {
+  if (!gridContainer) return;
+
+  const kw = (keyword || "").toLowerCase();
+  isFiltering = kw.length > 0;
+  gridContainer.innerHTML = "";
+
+  const filtered = postDataList.filter(d =>
+    d.title.toLowerCase().includes(kw) ||
+    d.desc.toLowerCase().includes(kw) ||
+    d.author.toLowerCase().includes(kw)
+  );
+
+  setTotalCount(filtered.length);
+
+  if (filtered.length === 0) {
+    const msg = document.createElement("div");
+    msg.textContent = "검색 결과 없음";
+    msg.style.textAlign = "center";
+    msg.style.color = "#999";
+    gridContainer.appendChild(msg);
+    resetLoadMoreVisibility();
+    return;
+  }
+
+  // 필터링된 결과는 페이지네이션 없이 전부 표시
+  filtered.forEach(d => gridContainer.appendChild(createBlogItem(d)));
+  resetLoadMoreVisibility();
+}
+
+function sortPosts(mode) {
+  if (mode === "title") {
+    postDataList.sort((a, b) => a.title.localeCompare(b.title, undefined, { sensitivity: "base" }));
+  } else if (mode === "oldest") {
+    postDataList.sort((a, b) => new Date(a.date) - new Date(b.date));
+  } else {
+    // latest (기본)
+    postDataList.sort((a, b) => new Date(b.date) - new Date(a.date));
+  }
+}
+
+// ===== Load More 표시 제어 =====
+function resetLoadMoreVisibility(){
+  const btn = document.getElementById("loadMoreBtn");
+  if(!btn) return;
+  const shouldShow = !isFiltering && (loadedGridCount < postDataList.length);
+  btn.style.display = shouldShow ? "inline-flex" : "none";
+}
+
+// ===== Swiper (Hero가 없으니, 있어도 안전하게) =====
 function updatePostNumber() {
   if (!swiper || typeof swiper.realIndex === "undefined") return;
   const leftMostIndex = swiper.realIndex % totalPosts;
@@ -49,19 +125,16 @@ function highlightLeftmostSlide() {
 }
 
 function initSwiper() {
+  const container = document.querySelector(".mySwiper");
+  if (!container) return; // Swiper 컨테이너가 없으면 종료
+
   swiper = new Swiper(".mySwiper", {
     slidesPerView: 3,
     spaceBetween: 30,
     loop: true,
-    autoplay: {
-      delay: 3000,
-      disableOnInteraction: false
-    },
+    autoplay: { delay: 3000, disableOnInteraction: false },
     speed: 800,
-    navigation: {
-      nextEl: ".swiper-button-next",
-      prevEl: ".swiper-button-prev"
-    },
+    navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
     breakpoints: {
       0: { slidesPerView: 1 },
       768: { slidesPerView: 2 },
@@ -70,70 +143,12 @@ function initSwiper() {
     init: false
   });
 
-  swiper.on("init", () => {
-    updatePostNumber();
-    highlightLeftmostSlide();
-  });
-
-  swiper.on("slideChangeTransitionStart", () => {
-    updatePostNumber();
-    highlightLeftmostSlide();
-  });
-
+  swiper.on("init", () => { updatePostNumber(); highlightLeftmostSlide(); });
+  swiper.on("slideChangeTransitionStart", () => { updatePostNumber(); highlightLeftmostSlide(); });
   swiper.init();
 }
 
-function loadNextGridBatch() {
-  const nextBatch = postDataList.slice(loadedGridCount, loadedGridCount + gridLoadBatch);
-  nextBatch.forEach(data => {
-    const gridCard = document.createElement("div");
-    gridCard.className = "post-grid";
-
-    const titleDiv = document.createElement("div");
-    titleDiv.className = "folder-tab-with-title";
-    titleDiv.innerHTML = `
-      <div class="folder-tab"></div>
-      <div class="folder-tab-title">${data.title}</div>
-    `;
-
-    const backCard = document.createElement("div");
-    backCard.className = "folder-card folder-back";
-    backCard.innerHTML = `<div class="folder-body"></div>`;
-
-    const frontCard = document.createElement("div");
-    frontCard.className = "folder-card folder-front";
-    frontCard.innerHTML = `
-      <div class="folder-body">
-        <div class="folder-image"><img src="${data.imgThumb}" alt="썸네일 이미지" /></div>
-        <p class="folder-description">${data.desc}</p>
-        <hr class="folder-divider" />
-      </div>
-    `;
-
-    const metaDiv = document.createElement("div");
-    metaDiv.className = "folder-meta";
-    metaDiv.innerHTML = `By <span class="folder-author">${data.author}</span> · ${calculateDaysAgo(data.date)}`;
-    frontCard.querySelector(".folder-body").appendChild(metaDiv);
-
-    const buttonDiv = document.createElement("div");
-    buttonDiv.className = "folder-buttons";
-    buttonDiv.innerHTML = `
-      <a href="/language-log/note.html?label=${data.labelIndex}" class="folder-btn">Log</a>
-
-
-      <a href="${data.githubLink}" target="_blank" class="folder-btn">GitHub</a>
-    `;
-
-
-    gridCard.append(titleDiv, backCard, frontCard, buttonDiv);
-    gridContainer.appendChild(gridCard);
-  });
-
-  loadedGridCount += nextBatch.length;
-  const loadBtn = document.getElementById("loadMoreBtn");
-  if (loadedGridCount >= postDataList.length && loadBtn) loadBtn.style.display = "none";
-}
-
+// ===== 데이터 로드 =====
 async function loadCards() {
   for (let i = 1; i <= totalPosts; i++) {
     try {
@@ -144,336 +159,116 @@ async function loadCards() {
       const tempDiv = document.createElement("div");
       tempDiv.innerHTML = html;
 
-      
-      
-
-      const title = tempDiv.querySelector("h3")?.textContent || "";
-      const desc = tempDiv.querySelector("p")?.textContent || "";
+      const title = tempDiv.querySelector("h3")?.textContent?.trim() || `Post ${i}`;
+      const desc = tempDiv.querySelector("p")?.textContent?.trim() || "";
       const imgThumb = tempDiv.querySelector("img.card-thumbnail")?.getAttribute("src") || "";
       const imgBg = tempDiv.querySelector("img.background-image")?.getAttribute("src") || "";
-
-
-      const date = tempDiv.querySelector(".post-date")?.textContent || "";
-      const author = tempDiv.querySelector(".post-author")?.textContent || "";
-      
-      tempDiv.querySelector(".post-date")?.remove();
-      tempDiv.querySelector(".post-author")?.remove();
-
+      const date = tempDiv.querySelector(".post-date")?.textContent?.trim() || "1970-01-01";
+      const author = tempDiv.querySelector(".post-author")?.textContent?.trim() || "Unknown";
       const githubLink = tempDiv.querySelector(".post-github")?.getAttribute("href") || "#";
 
-      
-
-      // <h3> 아래에 <hr> 삽입
-      const h3 = tempDiv.querySelector("h3");
-      if (h3) {
-        const hr = document.createElement("hr");
-        hr.className = "card-divider";
-        h3.insertAdjacentElement("afterend", hr);
-      }
-
-      const metaText = `By <span class="folder-author">${author}</span> · ${calculateDaysAgo(date)}`;
-
-      const slide = document.createElement("div");
-      slide.classList.add("swiper-slide");
-
-      const swiperCard = document.createElement("div");
-      swiperCard.classList.add("card");
-      swiperCard.innerHTML = `
-        ${tempDiv.innerHTML}
-        <div class="card-meta">${metaText}</div>
-      `;
-
-      // ✅ 이미지에만 애니메이션 적용
-      swiperCard.addEventListener("mouseenter", () => {
-        const img = swiperCard.querySelector("img.card-thumbnail") || swiperCard.querySelector(".folder-image img");
-        if (img) {
-          img.classList.remove("card-image-animated");
-          void img.offsetWidth; // 리플로우
-          img.classList.add("card-image-animated");
-        }
-      });
-
-      swiperCard.addEventListener("click", () => {
-        updateHero(title, desc, imgBg, i);
-      });
-
-      slide.appendChild(swiperCard);
-      cardContainer.appendChild(slide);
-
       postDataList.push({
-        html,
-        title,
-        desc,
-        imgThumb,
-        imgBg,
-        date,
-        author,
-        githubLink,
-        labelIndex: i
+        html, title, desc, imgThumb, imgBg, date, author, githubLink, labelIndex: i
       });
     } catch (err) {
       console.warn(`post${i}.html 불러오기 실패`, err);
     }
   }
 
-  loadNextGridBatch();
-  initSwiper();
+  // 정렬 기본값: 최신순
+  sortPosts("latest");
+  setTotalCount(postDataList.length);
 
+  // 초기 렌더
+  loadedGridCount = 0;
+  loadNextGridBatch();
+
+  // 이벤트들 연결
+  wireSearchAndSort();
+  initSwiper(); // (없으면 가드로 무시)
+  initDiscoverBtn();
+  initLoadMoreBtn();
+}
+
+// ===== 이벤트 바인딩 =====
+function wireSearchAndSort(){
+  // 헤더가 동적으로 로드되므로 MutationObserver로 감지
+  const headerPlaceholder = document.getElementById("header-placeholder");
+  if (!headerPlaceholder) return;
+
+  const wire = () => {
+    const searchInput = document.querySelector(".search-input-wrapper input[type='text']") ||
+                        document.getElementById("postSearchInput");
+    const searchButton = document.querySelector(".search-button");
+    const sortSelect = document.getElementById("sortSelect");
+
+    // 검색
+    if (searchInput) {
+      const runSearch = () => filterGridCards(searchInput.value.trim());
+      searchInput.addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); runSearch(); } });
+      if (searchButton) searchButton.addEventListener("click", (e) => { e.preventDefault(); runSearch(); });
+      // 타이핑 즉시 반영
+      searchInput.addEventListener("input", runSearch);
+    }
+
+    // 정렬
+    if (sortSelect) {
+      sortSelect.addEventListener("change", () => {
+        const v = sortSelect.value; // latest|oldest|title
+        sortPosts(v);
+
+        const kw = (document.querySelector(".search-input-wrapper input[type='text']")?.value ||
+                    document.getElementById("postSearchInput")?.value || "").trim();
+        if (kw) {
+          // 필터 중이면 필터 상태 유지
+          filterGridCards(kw);
+        } else {
+          // 초기 리스트 다시 렌더
+          isFiltering = false;
+          if (gridContainer) gridContainer.innerHTML = "";
+          loadedGridCount = 0;
+          setTotalCount(postDataList.length);
+          loadNextGridBatch();
+        }
+      });
+    }
+
+    return !!searchInput || !!sortSelect;
+  };
+
+  // 헤더 로드 감지
+  const observer = new MutationObserver(() => {
+    if (wire()) observer.disconnect();
+  });
+  observer.observe(headerPlaceholder, { childList: true, subtree: true });
+
+  // 혹시 이미 로드되어 있으면 즉시 시도
+  wire();
+}
+
+function initLoadMoreBtn(){
   const loadBtn = document.getElementById("loadMoreBtn");
   if (loadBtn) {
     loadBtn.addEventListener("click", loadNextGridBatch);
+    resetLoadMoreVisibility();
   }
 }
 
-document.addEventListener("DOMContentLoaded", loadCards);
+function initDiscoverBtn(){
+  const discoverBtn = document.getElementById("discoverBtn");
+  if (!discoverBtn) return; // Hero 삭제한 경우
 
-document.getElementById("discoverBtn").addEventListener("click", () => {
-  let labelIndexToUse;
-
-  if (currentLabelIndex !== null) {
-    // 사용자가 카드를 클릭해서 currentLabelIndex가 설정된 경우
-    labelIndexToUse = currentLabelIndex;
-  } else {
-    // 아무 카드도 클릭하지 않은 경우: 마지막 포스트로 이동
-    labelIndexToUse = postDataList.length;
-  }
-
-  // ✅ 여기 이 위치에 이 코드 삽입!
-  window.location.href = `/language-log/note.html?label=${labelIndexToUse}`;
-
-
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function handleResponsiveHero() {
-  const heroRight = document.querySelector(".hero-right");
-  const heroSection = document.querySelector(".hero");
-
-  if (window.innerWidth <= 768) {
-    if (heroRight) heroRight.style.display = "none";
-    if (heroSection) heroSection.style.flexDirection = "column";
-  } else {
-    if (heroRight) heroRight.style.display = "flex";
-    if (heroSection) heroSection.style.flexDirection = "row";
-  }
-}
-
-window.addEventListener("resize", handleResponsiveHero);
-window.addEventListener("DOMContentLoaded", handleResponsiveHero);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function filterGridCards(keyword) {
-  const lowerKeyword = keyword.toLowerCase();
-  gridContainer.innerHTML = "";
-
-  const filteredPosts = postDataList.filter(data =>
-    data.title.toLowerCase().includes(lowerKeyword) ||
-    data.desc.toLowerCase().includes(lowerKeyword) ||
-    data.author.toLowerCase().includes(lowerKeyword)
-  );
-
-  if (filteredPosts.length === 0) {
-    const noResultMsg = document.createElement("div");
-    noResultMsg.textContent = "No result";
-    noResultMsg.style.fontSize = "1.5rem";
-    noResultMsg.style.fontWeight = "bold";
-    noResultMsg.style.color = "#999";
-    noResultMsg.style.textAlign = "center";
-    noResultMsg.style.margin = "40px auto";
-    noResultMsg.style.gridColumn = "1 / -1";
-    gridContainer.appendChild(noResultMsg);
-
-    const loadBtn = document.getElementById("loadMoreBtn");
-    if (loadBtn) loadBtn.style.display = "none";
-    return;
-  }
-
-  filteredPosts.forEach(data => {
-    const gridCard = document.createElement("div");
-    gridCard.className = "post-grid";
-
-    const titleDiv = document.createElement("div");
-    titleDiv.className = "folder-tab-with-title";
-    titleDiv.innerHTML = `
-      <div class="folder-tab"></div>
-      <div class="folder-tab-title">${data.title}</div>
-    `;
-
-    const backCard = document.createElement("div");
-    backCard.className = "folder-card folder-back";
-    backCard.innerHTML = `<div class="folder-body"></div>`;
-
-    const frontCard = document.createElement("div");
-    frontCard.className = "folder-card folder-front";
-    frontCard.innerHTML = `
-      <div class="folder-body">
-        <div class="folder-image"><img src="${data.imgThumb}" alt="썸네일 이미지" /></div>
-        <p class="folder-description">${data.desc}</p>
-        <hr class="folder-divider" />
-      </div>
-    `;
-
-    const metaDiv = document.createElement("div");
-    metaDiv.className = "folder-meta";
-    metaDiv.innerHTML = `By <span class="folder-author">${data.author}</span> · ${calculateDaysAgo(data.date)}`;
-    frontCard.querySelector(".folder-body").appendChild(metaDiv);
-
-    const buttonDiv = document.createElement("div");
-    buttonDiv.className = "folder-buttons";
-    buttonDiv.innerHTML = `
-      <a href="/language-log/note.html?label=${data.labelIndex}" class="folder-btn">Log</a>
-
-      <a href="${data.githubLink}" target="_blank" class="folder-btn">GitHub</a>
-    `;
-
-
-    gridCard.append(titleDiv, backCard, frontCard, buttonDiv);
-    gridContainer.appendChild(gridCard);
+  discoverBtn.addEventListener("click", () => {
+    const labelIndexToUse = (currentLabelIndex ?? postDataList.length) || 1;
+    window.location.href = `/language-log/note.html?label=${labelIndexToUse}`;
   });
-
-  const loadBtn = document.getElementById("loadMoreBtn");
-  if (loadBtn) loadBtn.style.display = "none";
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+// ===== 시작 =====
 document.addEventListener("DOMContentLoaded", () => {
+  // 컨테이너 재확인(만약 동적 삽입/변경을 대비)
+  cardContainer = document.getElementById("cardContainer") || null;
+  gridContainer = document.getElementById("postGridContainer") || null;
 
-  // ✅ 헤더가 동적으로 로드되는 것을 감지하여 검색 기능 연결
-  const observer = new MutationObserver(() => {
-    const searchInput = document.querySelector(".search-input-wrapper input[type='text']");
-    const searchButton = document.querySelector(".search-button");
-
-    if (searchInput) {
-      const runSearch = () => {
-        const keyword = searchInput.value.trim();
-        filterGridCards(keyword);
-      };
-
-      // 🔹 Enter 키로 검색
-      searchInput.addEventListener("keydown", (e) => {
-        if (e.key === "Enter") {
-          e.preventDefault();
-          runSearch();
-        }
-      });
-
-      // 🔹 검색 버튼 클릭으로 검색
-      if (searchButton) {
-        searchButton.addEventListener("click", (e) => {
-          e.preventDefault();
-          runSearch();
-        });
-      }
-
-      observer.disconnect(); // 감지 종료
-    }
-  });
-
-  const headerPlaceholder = document.getElementById("header-placeholder");
-  if (headerPlaceholder) {
-    observer.observe(headerPlaceholder, { childList: true, subtree: true });
-  }
-});
-
-
-
-
-
-
-
-
-
-
-
-document.addEventListener("DOMContentLoaded", () => {
-
-  // ✅ 정렬 셀렉트 연결
-  const sortSelect = document.getElementById("sortSelect");
-  if (sortSelect) {
-    sortSelect.addEventListener("change", () => {
-      const selected = sortSelect.value;
-
-      // 날짜 정렬
-      if (selected === "latest") {
-        postDataList.sort((a, b) => new Date(b.date) - new Date(a.date));
-      } else {
-        postDataList.sort((a, b) => new Date(a.date) - new Date(b.date));
-      }
-
-      // 현재 검색어 기준으로 다시 필터링
-      const keyword = document.querySelector(".search-input-wrapper input[type='text']")?.value || "";
-      filterGridCards(keyword);
-    });
-  }
-
-  // ✅ 검색창 로딩 감지 및 이벤트 연결 (기존 MutationObserver 유지)
-  const observer = new MutationObserver(() => {
-    const searchInput = document.querySelector(".search-input-wrapper input[type='text']");
-    const searchButton = document.querySelector(".search-button");
-
-    if (searchInput) {
-      const runSearch = () => {
-        const keyword = searchInput.value.trim();
-        filterGridCards(keyword);
-      };
-
-      searchInput.addEventListener("keydown", (e) => {
-        if (e.key === "Enter") {
-          e.preventDefault();
-          runSearch();
-        }
-      });
-
-      if (searchButton) {
-        searchButton.addEventListener("click", (e) => {
-          e.preventDefault();
-          runSearch();
-        });
-      }
-
-      observer.disconnect();
-    }
-  });
-
-  const headerPlaceholder = document.getElementById("header-placeholder");
-  if (headerPlaceholder) {
-    observer.observe(headerPlaceholder, { childList: true, subtree: true });
-  }
+  loadCards();
 });

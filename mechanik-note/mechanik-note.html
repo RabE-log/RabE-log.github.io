@@ -71,20 +71,36 @@
   <hr class="section-divider">
 
   <section class="post-grid-wrapper">
-    <div class="grid-title-bar">
-      <h2 class="grid-title">all Engineering Note</h2>
-      <select id="sortSelect">
-        <option value="latest">Latest</option>
-        <option value="oldest">Oldest</option>
-      </select>
+    <div class="toolbar">
+
+      <div class="left">
+        <span class="count"><strong id="totalCount">0</strong> posts</span>
+      </div>
+
+      <div class="grid-title-bar">
+        <h2 class="grid-title">
+          all Engineering Note
+          <span id="totalCount" style="font-size:.9rem; color:#555; margin-left:8px;">0 posts</span>
+        </h2>
+        <select id="sortSelect">
+          <option value="latest">Latest</option>
+          <option value="oldest">Oldest</option>
+          <option value="title">Title</option>
+        </select>
+      </div>
+
+
+
     </div>
 
-    <div id="postGridContainer"><!-- JS로 .post-grid 카드 삽입 --></div>
+    <div id="postGridContainer" class="post-grid-container" aria-live="polite"></div>
 
-    <div class="load-more-container">
-      <button id="loadMoreBtn">more Note</button>
+    <div class="load-more-wrap">
+      <button id="loadMoreBtn" type="button">More notes</button>
     </div>
+
   </section>
+
 
 
 
