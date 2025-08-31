@@ -887,6 +887,7 @@ body {
   border-radius: 14px;
   box-shadow: 5px 5px 0 #000;
   padding: 18px;
+  z-index: 9;
 }
 
 .blog-main { min-width: 0; }
@@ -989,7 +990,7 @@ body {
 
   border: 3px solid #000;
   border-radius: 12px;
-  background: #ffcf65;            /* 노란 배경 */
+  background: #ed7b5b;            /* 노란 배경 */
   color: #111;                     /* 텍스트 색 */
   box-shadow: 4px 4px 0 #000;      /* 레트로 그림자 */
 
@@ -1060,3 +1061,18 @@ body {
 
 .load-more-wrap{ display:flex !important; justify-content:center; margin-top:22px; }
 #loadMoreBtn{ display:inline-flex !important; }
+
+
+
+.total-count-badge{
+  font-weight: 800;
+  padding: 6px 10px;
+  border: 3px solid #000;
+  border-radius: 999px;
+  background: #ed7b5b;
+  box-shadow: 3px 3px 0 #000;
+
+  font-size:.9rem; 
+  color:#555; 
+  margin-left:8px;
+}

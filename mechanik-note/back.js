@@ -10,7 +10,7 @@ let height = window.innerHeight;
 const particleContainer = document.getElementById("particle-background");
 
 // 색상 팔레트
-const colorPalette = ['#fe6033', '#999999', '#666666', '#000000'];
+const colorPalette = ['#fe6033', '#ed7b5b', '#666666', '#000000'];
 
 function randomColor() {
   return colorPalette[Math.floor(Math.random() * colorPalette.length)];

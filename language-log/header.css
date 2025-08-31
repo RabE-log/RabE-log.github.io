@@ -5,7 +5,7 @@
   --card-border: 3px;
   --card-radius: 12px;
   --card-shadow: 5px 5px 0 #000;   /* 카드들과 동일한 오프셋 쉐도우 */
-  --brand-accent: #fe6033;
+  --brand-accent: #181e90ff;
 }
 
 body {
@@ -248,7 +248,7 @@ header {
   transition: transform .2s ease, filter .2s ease, background .2s ease;
 }
 .radio-container input:checked + label{
-  background: #00205B;
+  background: #181e90ff;
   color: #fff;
   transform: scale(1.05);
 }

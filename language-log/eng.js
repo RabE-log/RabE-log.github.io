@@ -24,7 +24,7 @@ function calculateDaysAgo(dateString) {
 function setTotalCount(n){
   // id, data-attr 모두 업데이트
   const els = document.querySelectorAll("#totalCount, [data-total-count]");
-  els.forEach(el => { el.textContent = `${n} posts`; });
+  els.forEach(el => { el.textContent = `${n} logs`; });
 }
 
 // ===== 리스트 렌더링 =====
@@ -40,8 +40,8 @@ function createBlogItem(data) {
       <div class="blog-meta">By <span class="folder-author">${data.author}</span> · ${calculateDaysAgo(data.date)}</div>
       <p class="blog-excerpt">${data.desc}</p>
       <div class="blog-actions">
-        <a class="folder-btn note" href="/language-log/note.html?label=${data.labelIndex}">Note</a>
-        ${data.githubLink && data.githubLink !== "#" ? `<a class="folder-btn" href="${data.githubLink}" target="_blank" rel="noopener">GitHub</a>` : ""}
+        <a class="folder-btn note" href="/language-log/note.html?label=${data.labelIndex}">Log</a>
+        ${data.githubLink && data.githubLink !== "#" ? `<a class="folder-btn" href="${data.githubLink}" target="_blank" rel="noopener">Notion</a>` : ""}
       </div>
     </div>
   `;
@@ -76,7 +76,7 @@ function filterGridCards(keyword) {
 
   if (filtered.length === 0) {
     const msg = document.createElement("div");
-    msg.textContent = "검색 결과 없음";
+    msg.textContent = "No results found";
     msg.style.textAlign = "center";
     msg.style.color = "#999";
     gridContainer.appendChild(msg);
@@ -272,3 +272,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
   loadCards();
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
