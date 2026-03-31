@@ -4,14 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Side Project</title>
-
-  <!-- Swiper CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   <link rel="stylesheet" href="eng.css" />
 </head>
 <body>
-  <div id="particle-background"></div>
+  <!-- 커스텀 커서 -->
+  <div class="cursor" id="cursorDot"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
 
+  <div id="particle-background"></div>
   <div id="header-placeholder"></div>
 
 <script>
@@ -28,26 +29,43 @@
       const script = document.createElement("script");
       script.src = "header.js";
       script.onload = () => {
-        // header.js가 로드된 뒤 initHeader 실행
         initHeader();
+
+        const searchInput = document.querySelector(".hd-search-input");
+        const searchBtn   = document.querySelector(".hd-search-btn");
+        const sortSel     = document.getElementById("sortSelect");
+
+        if (searchInput) {
+          searchInput.addEventListener("input", () => {
+            if (typeof filterGridCards === "function") filterGridCards(searchInput.value.trim());
+          });
+          searchInput.addEventListener("keydown", e => {
+            if (e.key === "Enter" && typeof filterGridCards === "function") filterGridCards(searchInput.value.trim());
+          });
+        }
+        if (searchBtn && searchInput) {
+          searchBtn.addEventListener("click", () => {
+            if (typeof filterGridCards === "function") filterGridCards(searchInput.value.trim());
+          });
+        }
+        if (sortSel) {
+          sortSel.addEventListener("change", () => {
+            if (typeof sortPosts === "function") sortPosts(sortSel.value);
+            if (typeof filterGridCards === "function") filterGridCards(searchInput ? searchInput.value.trim() : "");
+          });
+        }
       };
       document.body.appendChild(script);
     })
     .catch(err => console.error("헤더 로딩 실패:", err));
 </script>
 
-
-
-
-
-
-
   <section class="hero">
     <div class="hero-left" id="hero-left">
       <h2>Side Project</h2>
       <h1 id="hero-title">Plan. Craft. Test.</h1>
       <p id="hero-desc">Documenting my learning through small, focused side projects.</p>
-      <button id="discoverBtn"><span class="combo_text">open Document</span></button>
+      <button id="discoverBtn"><span class="combo_text">open Document →</span></button>
     </div>
 
     <div class="hero-right">
@@ -64,33 +82,60 @@
     </div>
   </section>
 
-
-
-
-  
   <hr class="section-divider">
 
   <section class="post-grid-wrapper">
-    <div class="grid-title-bar">
-      <h2 class="grid-title">all Side Project</h2>
-      <select id="sortSelect">
-        <option value="latest">Latest</option>
-        <option value="oldest">Oldest</option>
-      </select>
+    <div class="toolbar">
+      <div class="grid-title-bar">
+        <h2 class="grid-title">
+          all Side Project
+          <span class="total-count-badge" id="headerTotalCount" style="font-size:.9rem; color:#555; margin-left:8px;">0 posts</span>
+        </h2>
+        <select id="sortSelect">
+          <option value="latest">Latest</option>
+          <option value="oldest">Oldest</option>
+          <option value="title">Title</option>
+        </select>
+      </div>
     </div>
 
-    <div id="postGridContainer"><!-- JS로 .post-grid 카드 삽입 --></div>
+    <div id="postGridContainer" class="post-grid-container" aria-live="polite"></div>
 
-    <div class="load-more-container">
-      <button id="loadMoreBtn">more Document</button>
+    <div class="load-more-wrap">
+      <button id="loadMoreBtn" type="button">More projects</button>
     </div>
   </section>
 
-
-
-
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="bg-shapes.js"></script>
   <script src="back.js"></script>
   <script src="eng.js"></script>
+
+<script>
+/* ── 커스텀 커서 ── */
+(function(){
+  const dot  = document.getElementById('cursorDot');
+  const ring = document.getElementById('cursorRing');
+  if(!dot || !ring) return;
+
+  document.addEventListener('mousemove', e=>{
+    dot.style.left  = e.clientX + 'px';
+    dot.style.top   = e.clientY + 'px';
+    ring.style.left = e.clientX + 'px';
+    ring.style.top  = e.clientY + 'px';
+  });
+  document.addEventListener('mousedown', ()=>{ document.body.classList.add('cursor-click'); });
+  document.addEventListener('mouseup',   ()=>{ document.body.classList.remove('cursor-click'); });
+
+  const hoverTargets = '#postGridContainer > *, a, button, select, label, [role="button"]';
+  document.addEventListener('mouseover', e=>{
+    if(e.target.closest(hoverTargets)) document.body.classList.add('cursor-hover');
+  });
+  document.addEventListener('mouseout', e=>{
+    if(e.target.closest(hoverTargets)) document.body.classList.remove('cursor-hover');
+  });
+})();
+</script>
 </body>
 </html>

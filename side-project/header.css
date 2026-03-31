@@ -1,212 +1,215 @@
-@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Kalam:wght@700&display=swap');
-
-
-
-body {
-  font-family: 'Comic Neue', cursive;
-  margin: 0;
-  padding: 0;
+/* ════════════════════════
+   Language Log — header.css
+   ════════════════════════ */
+:root {
+  --bg:    #ECEBE6;
+  --bg2:   #E3E2DD;
+  --white: #F7F6F2;
+  --blue:  #A8C4DF;
+  --blue2: #7AAFD4;
+  --blue3: #CDE0F0;
+  --dark:  #222220;
+  --mid:   #6A6A65;
+  --light: #ADADAA;
+  --bdr:   rgba(34,34,32,0.13);
+  --hdr-h: 60px;
 }
 
+body { padding-top: var(--hdr-h); }
 
-
-
-/* 헤더 */
+/* ── HEADER ── */
 header {
   position: fixed;
-  top: 5%;
-  left: 50%;
-  margin: 0 auto;
-  transform: translateX(-50%);
-  width: 90%;
-  max-width: 1200px;
-  background-color: #fff;
-  border: 4px solid #000;
-  border-radius: 12px;
-  box-shadow: 6px 6px 0 #000;
-  padding: 16px;
-  z-index: 99999;
+  top: 0; left: 0; right: 0;
+  height: var(--hdr-h);
+  z-index: 200;
+  background: rgba(236,235,230,0.92);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1.5px solid var(--bdr);
+  overflow: visible;
 }
 
-.header-container {
+/* ── INNER: 단 하나의 flex row ── */
+.header-inner {
   display: flex;
+  flex-direction: row;
   align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  white-space: nowrap;
-  overflow-x: auto;
+  flex-wrap: nowrap;
+  height: var(--hdr-h);
+  padding: 0 24px;
+  gap: 12px;
+  box-sizing: border-box;
+  width: 100%;
 }
 
-/* 로고 */
-.logo {
-  display: flex;
-  align-items: center;
+/* ── 로고 ── */
+.hd-logo {
   flex-shrink: 0;
-}
-
-
-
-.logo a {
   display: flex;
   align-items: center;
   text-decoration: none;
-  font-size: 2.25rem;
-  font-weight: bold;
-  color: #000;
-  height: 100%;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
-               Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
-               sans-serif;
 }
-
-.logo-img {
-  height: 100%;
-  max-height: 56px;
+.hd-logo-img {
+  height: 30px;
   width: auto;
-  margin-left: 1px;
-  object-fit: contain;
+  display: block;
+  filter: saturate(0.7) brightness(0.8);
+  transition: filter 0.2s;
 }
+.hd-logo-img:hover { filter: saturate(1) brightness(1); }
 
-/* 검색창 */
-.search-box {
-  flex-grow: 1;
+/* ── 검색창 ── */
+.hd-search {
+  flex: 1 1 auto;
+  min-width: 80px;
+  max-width: 420px;
   display: flex;
-  justify-content: center;
-  margin: auto;
+  flex-direction: row;
+  align-items: stretch;
+  height: 36px;
+  background: var(--white);
+  border: 1.5px solid var(--bdr);
+  border-radius: 3px;
+  overflow: hidden;
+  transition: border-color 0.2s;
 }
-
-
-
-.search-input-wrapper {
-  position: relative;
-  width: 60%;
-  flex-shrink: 1;
+.hd-search:focus-within {
+  border-color: var(--blue2);
+  box-shadow: 0 0 0 2px rgba(122,175,212,0.15);
 }
-
-
-.search-input-wrapper input[type="text"] {
-  width: 100%;
-  padding: 10px 40px 10px 14px;
-  font-size: 1rem;
-  border: 3px solid #000;
-  border-radius: 999px;
-  background-color: #fff;
-  color: #000;
-  box-shadow: 3px 3px 0 #000;
-  font-weight: bold;
-}
-
-
-
-.search-button {
-  position: absolute;
-  top: 50%;
-  right: 14px;
-  padding: 0;
-  transform: translateY(-50%);
-  background: none;
+.hd-search-input {
+  flex: 1 1 auto;
+  min-width: 0;
   border: none;
-  font-size: 1.2rem;
-  cursor: pointer;
-  color: #000;
+  outline: none;
+  background: transparent;
+  font-family: 'Caveat', cursive;
+  font-size: 15px;
+  color: var(--dark);
+  padding: 0 12px;
+  cursor: text;
 }
-
-/* 컨트롤 영역 */
-.controls {
+.hd-search-input::placeholder {
+  color: var(--light);
+  font-style: italic;
+}
+.hd-search-btn {
+  flex-shrink: 0;
+  width: 36px;
+  border: none;
+  border-left: 1.5px solid var(--bdr);
+  background: transparent;
+  cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 16px;
-  flex-shrink: 0;
+  justify-content: center;
+  font-size: 14px;
+  color: var(--light);
+  transition: background 0.18s, color 0.18s;
 }
+.hd-search-btn:hover { background: var(--blue3); color: var(--blue2); }
 
-.page-select-wrapper {
-  position: relative;
+/* ── 그리드 버튼 ── */
+.hd-grid-btn {
   flex-shrink: 0;
-}
-
-/* 페이지 선택 아이콘 버튼 */
-.grid-button {
-  background-color: #fff;
-  color: #fff;
-  border: 3px solid #000;
-  border-radius: 6px;
-  padding: 8px;
+  margin-left: auto;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--white);
+  border: 1.5px solid var(--bdr);
+  border-radius: 4px;
   cursor: pointer;
-  box-shadow: 3px 3px 0 #000;
-  transition: transform 0.2s ease;
+  padding: 0;
+  transition: background 0.18s, border-color 0.18s, transform 0.18s;
 }
-
-.grid-button:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 6px 6px 0 #000;
+.hd-grid-btn:hover {
+  background: var(--blue3);
+  border-color: var(--blue2);
+  transform: rotate(15deg);
 }
-
-.grid-icon {
+.hd-grid-icon {
   display: grid;
-  grid-template-columns: repeat(3, 6px);
-  grid-template-rows: repeat(3, 6px);
-  gap: 4px;
+  grid-template-columns: repeat(3, 5px);
+  grid-template-rows: repeat(3, 5px);
+  gap: 3px;
+  pointer-events: none;
 }
-
-.grid-icon span {
-  width: 6px;
-  height: 6px;
-  background-color: #000;
+.hd-grid-icon span {
+  width: 5px; height: 5px;
+  background: var(--mid);
+  border-radius: 1px;
   display: block;
-  border-radius: 2px;
+  transition: background 0.18s;
 }
+.hd-grid-btn:hover .hd-grid-icon span { background: var(--blue2); }
 
-/* 페이지 선택 라디오 메뉴 */
-.radio-container {
-  --main-color: #8b2816;
-  --main-color-opacity: #f5426c1a;
-  --total-radio: 9;
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  background-color: #fff;
-  padding: 10px 12px;
-  border-radius: 8px;
-  border: 3px solid #000;
-  box-shadow: 4px 4px 0 #000;
-  z-index: 999999;
-  top: 100px;
-  gap: 5px;
-}
-
-.radio-labels {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.radio-container input {
-  cursor: pointer;
-  appearance: none;
-}
-
-.radio-container label {
-  cursor: pointer;
-  margin-bottom: 4px;
-  background: #fff;
-  border: 2px solid #000;
-  border-radius: 6px;
-  color: #333;
-  font-weight: bold;
-  transition: all 0.2s ease;
-  box-shadow: 2px 2px 0 #000;
-
-  padding: 8px 16px;
-}
-
-.radio-labels input {
+/* ── 드롭다운 ── */
+.hd-dropdown {
+  position: fixed;
+  z-index: 500;
   display: none;
+  flex-direction: column;
+  background: rgba(247,246,242,0.98);
+  backdrop-filter: blur(20px);
+  border: 1.5px solid var(--bdr);
+  border-radius: 5px;
+  padding: 14px 16px;
+  box-shadow: 3px 4px 0 rgba(34,34,32,0.10);
+  min-width: 190px;
+}
+.hd-dropdown.open { display: flex; }
+
+.hd-dropdown-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--blue2);
+  padding-bottom: 10px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid rgba(34,34,32,0.08);
 }
 
-.radio-container input:checked + label {
-  background-color: var(--main-color);
-  color: white;
-  transform: scale(1.05);
+.hd-dropdown-items {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
+.hd-dropdown-items input[type="radio"] {
+  position: absolute;
+  opacity: 0; width: 0; height: 0;
+  pointer-events: none;
+}
+.hd-dropdown-items label {
+  font-family: 'Caveat', cursive;
+  font-size: 16px;
+  color: var(--mid);
+  padding: 7px 12px;
+  border-radius: 3px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  transition: background 0.15s, color 0.15s;
+}
+.hd-dropdown-items label::before {
+  content: '';
+  flex-shrink: 0;
+  width: 5px; height: 5px;
+  background: var(--blue3);
+  border: 1.5px solid var(--blue);
+  border-radius: 50%;
+}
+.hd-dropdown-items label:hover { background: var(--blue3); color: var(--dark); }
+.hd-dropdown-items label:hover::before { background: var(--blue2); border-color: var(--blue2); }
+.hd-dropdown-items input:checked + label { background: var(--blue3); color: var(--dark); font-weight: 700; }
+.hd-dropdown-items input:checked + label::before { background: var(--blue2); border-color: var(--blue2); }
 
+@media (max-width: 600px) {
+  .header-inner { padding: 0 14px; }
+  .hd-search { max-width: 200px; }
+}

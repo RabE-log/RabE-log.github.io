@@ -10,6 +10,10 @@
   <link rel="stylesheet" href="eng.css" />
 </head>
 <body>
+  <!-- 커스텀 커서 -->
+  <div class="cursor" id="cursorDot"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
   <div id="particle-background"></div>
 
   <div id="header-placeholder"></div>
@@ -28,17 +32,55 @@
       const script = document.createElement("script");
       script.src = "header.js";
       script.onload = () => {
-        // header.js가 로드된 뒤 initHeader 실행
+        // header.js 로드 후 initHeader 실행
         initHeader();
+
+        // ★ 헤더가 DOM에 삽입된 뒤 검색·필터 이벤트 재연결
+        // eng.js 실행 시점엔 헤더가 없어서 querySelector가 null을 반환했음
+        const searchInput = document.querySelector(".search-input-wrapper input[type='text']");
+        const searchBtn   = document.querySelector(".search-button");
+        const sortSel     = document.getElementById("sortSelect");
+
+        if (searchInput) {
+          // 실시간 필터
+          searchInput.addEventListener("input", () => {
+            if (typeof filterGridCards === "function") {
+              filterGridCards(searchInput.value.trim());
+            }
+          });
+          // Enter 키
+          searchInput.addEventListener("keydown", e => {
+            if (e.key === "Enter" && typeof filterGridCards === "function") {
+              filterGridCards(searchInput.value.trim());
+            }
+          });
+        }
+
+        if (searchBtn && searchInput) {
+          searchBtn.addEventListener("click", () => {
+            if (typeof filterGridCards === "function") {
+              filterGridCards(searchInput.value.trim());
+            }
+          });
+        }
+
+        if (sortSel) {
+          sortSel.addEventListener("change", () => {
+            if (typeof sortPosts === "function") {
+              sortPosts(sortSel.value);
+            }
+            // 정렬 후 현재 검색어로 다시 필터
+            if (typeof filterGridCards === "function") {
+              const q = searchInput ? searchInput.value.trim() : "";
+              filterGridCards(q);
+            }
+          });
+        }
       };
       document.body.appendChild(script);
     })
     .catch(err => console.error("헤더 로딩 실패:", err));
 </script>
-
-
-
-
 
 
 
@@ -66,14 +108,10 @@
 
 
 
-
-  
   <hr class="section-divider">
 
   <section class="post-grid-wrapper">
     <div class="toolbar">
-
-
       <div class="grid-title-bar">
         <h2 class="grid-title">
           all Mechanik Note
@@ -85,9 +123,6 @@
           <option value="title">Title</option>
         </select>
       </div>
-
-
-
     </div>
 
     <div id="postGridContainer" class="post-grid-container" aria-live="polite"></div>
@@ -95,15 +130,50 @@
     <div class="load-more-wrap">
       <button id="loadMoreBtn" type="button">More notes</button>
     </div>
-
   </section>
 
 
 
-
-
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+  <script src="bg-shapes.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script src="back.js"></script>
   <script src="eng.js"></script>
+
+<script>
+/* ── 커스텀 커서 ── */
+(function(){
+  const dot  = document.getElementById('cursorDot');
+  const ring = document.getElementById('cursorRing');
+  if(!dot || !ring) return;
+
+  document.addEventListener('mousemove', e=>{
+    dot.style.left  = e.clientX + 'px';
+    dot.style.top   = e.clientY + 'px';
+    ring.style.left = e.clientX + 'px';
+    ring.style.top  = e.clientY + 'px';
+  });
+
+  document.addEventListener('mousedown', ()=>{
+    document.body.classList.add('cursor-click');
+  });
+  document.addEventListener('mouseup', ()=>{
+    document.body.classList.remove('cursor-click');
+  });
+
+  // 카드, 링크, 버튼 호버 시 커서 확대
+  const hoverTargets = '.swiper-slide, #postGridContainer > *, a, button, select, label, [role="button"]';
+  document.addEventListener('mouseover', e=>{
+    if(e.target.closest(hoverTargets)){
+      document.body.classList.add('cursor-hover');
+    }
+  });
+  document.addEventListener('mouseout', e=>{
+    if(e.target.closest(hoverTargets)){
+      document.body.classList.remove('cursor-hover');
+    }
+  });
+})();
+</script>
 </body>
 </html>

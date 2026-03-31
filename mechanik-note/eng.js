@@ -39,7 +39,6 @@
     if (h) h.textContent = n;
   }
 
-  // 정렬이 호출만 되고 정의가 없던 문제 해결
   function sortPosts(mode){
     if (!postDataList.length) return;
     if (mode === "latest")  postDataList.sort((a,b)=> new Date(b.date) - new Date(a.date));
@@ -53,7 +52,6 @@
     const slide = document.createElement("div");
     slide.className = "swiper-slide";
 
-    // 원본 HTML에서 메타 흔적 제거(중복/NaN 방지)
     const clean = document.createElement("div");
     clean.innerHTML = data.html;
     clean.querySelectorAll(".post-date, time, .post-author, .blog-meta, .card-meta, .meta").forEach(n=>n.remove());
@@ -115,7 +113,7 @@
     });
   }
 
-  // ---------- 아래 블로그 리스트 ----------
+  // ---------- 블로그 리스트 ----------
   function createBlogItem(data){
     const item = document.createElement("article");
     item.className = "blog-item";
@@ -154,7 +152,7 @@
   function loadNextGridBatch(){
     const nextBatch = postDataList.slice(loadedGridCount, loadedGridCount + GRID_LOAD_BATCH);
     nextBatch.forEach(d => {
-      gridContainer.appendChild(createBlogItem(d));   // ★ 아래는 항상 블로그 리스트로 렌더
+      gridContainer.appendChild(createBlogItem(d));
     });
     loadedGridCount += nextBatch.length;
     resetLoadMoreVisibility();
@@ -176,8 +174,7 @@
     if (!filtered.length){
       const msg = document.createElement("div");
       msg.textContent = "검색 결과 없음";
-      msg.style.textAlign = "center";
-      msg.style.color = "#999";
+      msg.style.cssText = "text-align:center;color:#ADADAA;font-family:'Caveat',cursive;font-size:16px;padding:32px 0;";
       gridContainer.appendChild(msg);
       resetLoadMoreVisibility();
       return;
@@ -185,6 +182,69 @@
 
     filtered.forEach(d => gridContainer.appendChild(createBlogItem(d)));
     resetLoadMoreVisibility();
+  }
+
+  // ---------- 검색·정렬 이벤트 바인딩 ----------
+  // ★ 핵심 수정: header.html이 비동기로 로드되므로
+  //   DOMContentLoaded 시점엔 searchInput이 아직 DOM에 없음.
+  //   MutationObserver로 header-placeholder에 자식이 생기면 그때 이벤트 연결.
+  function bindSearchAndSort(){
+    const searchInput = document.querySelector(".search-input-wrapper input[type='text']") ||
+                        document.getElementById("postSearchInput");
+    const searchBtn   = document.querySelector(".search-button");
+    const sortSelect  = document.getElementById("sortSelect");
+
+    const runFilter = () => {
+      const kw = (searchInput?.value || "").trim();
+      if (!kw){
+        isFiltering = false;
+        gridContainer.innerHTML = "";
+        loadedGridCount = 0;
+        setTotalCount(postDataList.length);
+        loadNextGridBatch();
+      } else {
+        filterGridCards(kw);
+      }
+      resetLoadMoreVisibility();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+
+    if (searchInput){
+      searchInput.addEventListener("input", runFilter);
+      searchInput.addEventListener("keydown", e=>{ if (e.key === "Enter") runFilter(); });
+    }
+    if (searchBtn) searchBtn.addEventListener("click", runFilter);
+
+    if (sortSelect){
+      sortSelect.addEventListener("change", ()=>{
+        const v = sortSelect.value;
+        sortPosts(v);
+        const kw = (searchInput?.value || "").trim();
+        gridContainer.innerHTML = "";
+        loadedGridCount = 0;
+        if (kw) filterGridCards(kw);
+        else { setTotalCount(postDataList.length); loadNextGridBatch(); }
+        resetLoadMoreVisibility();
+      });
+    }
+  }
+
+  function waitForHeaderAndBind(){
+    // 이미 header input이 DOM에 있으면 즉시 실행
+    if (document.querySelector(".search-input-wrapper input[type='text']")){
+      bindSearchAndSort();
+      return;
+    }
+
+    // 없으면 header-placeholder에 자식이 추가될 때까지 대기
+    const placeholder = document.getElementById("header-placeholder") || document.body;
+    const observer = new MutationObserver(()=>{
+      if (document.querySelector(".search-input-wrapper input[type='text']")){
+        observer.disconnect();
+        bindSearchAndSort();
+      }
+    });
+    observer.observe(placeholder, { childList: true, subtree: true });
   }
 
   // ---------- 데이터 로드 ----------
@@ -210,7 +270,6 @@
         const date   = (dateEl?.getAttribute?.("datetime") || dateEl?.textContent || "").trim();
         const author = (temp.querySelector(".post-author")?.textContent || "").trim();
 
-        // Hero에서 쓸 원본 HTML 정리(중복 메타 제거)
         const clean = document.createElement("div");
         clean.innerHTML = temp.innerHTML;
         clean.querySelectorAll(".post-date, time, .post-author, .blog-meta, .card-meta, .meta").forEach(n=>n.remove());
@@ -224,10 +283,7 @@
           labelIndex: i
         };
 
-        // 상단 히어로 슬라이드
         createHeroSlide(data);
-
-        // 리스트 렌더용 데이터 축적
         postDataList.push(data);
 
       } catch(e){
@@ -235,10 +291,10 @@
       }
     }
 
-    setTotalCount(postDataList.length);   // 총 개수 갱신
+    setTotalCount(postDataList.length);
     loadedGridCount = 0;
-    loadNextGridBatch();                  // 아래 리스트 초기 렌더
-    initSwiper();                         // 히어로 스와이퍼 시작
+    loadNextGridBatch();
+    initSwiper();
 
     const loadBtn = document.getElementById("loadMoreBtn");
     if (loadBtn) loadBtn.addEventListener("click", loadNextGridBatch);
@@ -249,51 +305,11 @@
     swiperWrapper = document.querySelector(".mySwiper .swiper-wrapper") || document.getElementById("cardContainer");
     gridContainer = document.getElementById("postGridContainer");
 
-    // 기존 코드에서 호출되던 정렬 호출 보존(없어 에러 나던 문제 해결됨)
     sortPosts("latest");
-
     loadCards();
 
-    // 검색(헤더/상단)
-    const searchInput = document.querySelector(".search-input-wrapper input[type='text']") ||
-                        document.getElementById("postSearchInput");
-    const searchBtn   = document.querySelector(".search-button");
-
-    const runFilter = ()=>{
-      const kw = (searchInput?.value || "").trim();
-      if (!kw){
-        isFiltering = false;
-        gridContainer.innerHTML = "";
-        loadedGridCount = 0;
-        setTotalCount(postDataList.length);
-        loadNextGridBatch();
-      } else {
-        filterGridCards(kw);
-      }
-      resetLoadMoreVisibility();
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    };
-
-    if (searchInput){
-      searchInput.addEventListener("input", runFilter);
-      searchInput.addEventListener("keydown", e=>{ if (e.key === "Enter") runFilter(); });
-    }
-    if (searchBtn) searchBtn.addEventListener("click", runFilter);
-
-    // 정렬(있을 때만)
-    const sortSelect = document.getElementById("sortSelect");
-    if (sortSelect){
-      sortSelect.addEventListener("change", ()=>{
-        const v = sortSelect.value;
-        sortPosts(v);
-        const kw = (searchInput?.value || "").trim();
-        gridContainer.innerHTML = "";
-        loadedGridCount = 0;
-        if (kw) filterGridCards(kw);
-        else { setTotalCount(postDataList.length); loadNextGridBatch(); }
-        resetLoadMoreVisibility();
-      });
-    }
+    // ★ 검색·정렬 이벤트는 header 로드 완료 후에 연결
+    waitForHeaderAndBind();
 
     // Discover 버튼
     const discoverBtn = document.getElementById("discoverBtn");

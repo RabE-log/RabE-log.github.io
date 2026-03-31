@@ -1,56 +1,42 @@
-<button id="headerToggleBtn" class="header-toggle-btn" aria-label="메뉴 열기">☰</button>
-
-
 <header>
-  <div class="header-container">
+  <div class="header-inner">
+
     <!-- 로고 -->
-    <div class="logo">
-      <a href="/index.html" aria-label="Home">
-        <img src="logo_blue.png" alt="LOGO" class="logo-img" />
-      </a>
+    <a class="hd-logo" href="/index.html">
+      <img src="logo_blue.png" alt="logo" class="hd-logo-img"/>
+    </a>
+
+    <!-- 검색창 -->
+    <div class="hd-search">
+      <input class="hd-search-input" type="text" placeholder="search Log..."/>
+      <button class="hd-search-btn" type="button">🔍</button>
     </div>
 
-    <!-- 검색: 버튼 클릭 시 펼침 -->
-    <div class="search-box">
-      <button class="search-toggle-btn" aria-expanded="false" aria-controls="searchWrapper" aria-label="검색 열기">🔍</button>
-    </div>
-
-    <!-- 페이지 선택 버튼 -->
-    <div class="controls">
-      <div class="page-select-wrapper">
-        <button class="grid-button" id="gridToggleBtn" aria-label="페이지 선택">
-          <div class="grid-icon">
-            <span></span><span></span><span></span>
-            <span></span><span></span><span></span>
-            <span></span><span></span><span></span>
-          </div>
-        </button>
+    <!-- 페이지 그리드 버튼 -->
+    <button class="hd-grid-btn" id="gridToggleBtn" aria-label="페이지 선택">
+      <div class="hd-grid-icon">
+        <span></span><span></span><span></span>
+        <span></span><span></span><span></span>
+        <span></span><span></span><span></span>
       </div>
-    </div>
+    </button>
+
   </div>
 </header>
 
-<!-- 페이지 선택 라디오 메뉴 (헤더 외부) -->
-<div class="radio-container" id="pageGrid" role="menu" aria-hidden="true">
-  <div class="radio-labels">
-    <input type="radio" name="page" id="page-1" data-url="https://RabE-log.github.io" checked />
+<!-- 페이지 선택 드롭다운 -->
+<div class="hd-dropdown" id="pageGrid">
+  <div class="hd-dropdown-label">✦ Navigate</div>
+  <div class="hd-dropdown-items">
+    <input type="radio" name="page" id="page-1" data-url="https://RabE-log.github.io"/>
     <label for="page-1">RabE</label>
-
-    <input type="radio" name="page" id="page-2" data-url="/personal-journal/personal-journal.html" />
+    <input type="radio" name="page" id="page-2" data-url="/personal-journal/personal-journal.html"/>
     <label for="page-2">Personal Journal</label>
-
-    <input type="radio" name="page" id="page-3" data-url="/mechanik-note/mechanik-note.html" />
+    <input type="radio" name="page" id="page-3" data-url="/mechanik-note/mechanik-note.html"/>
     <label for="page-3">Mechanik Note</label>
-
-    <input type="radio" name="page" id="page-4" data-url="/language-log/language-log.html" />
+    <input type="radio" name="page" id="page-4" data-url="/language-log/language-log.html"/>
     <label for="page-4">Language Log</label>
-
-    <input type="radio" name="page" id="page-5" data-url="/side-project/side-project.html" />
+    <input type="radio" name="page" id="page-5" data-url="/side-project/side-project.html"/>
     <label for="page-5">Side Project</label>
   </div>
-</div>
-
-<div class="search-input-wrapper" id="searchWrapper">
-  <input type="text" placeholder="search Note..." />
-  <button type="button" class="search-button">Go</button>
 </div>
